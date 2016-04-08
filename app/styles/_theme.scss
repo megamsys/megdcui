@@ -1,0 +1,41 @@
+//colors
+$color_earls_green_approx: #b9b739;
+$color_sunset_orange_approx: #f94c4c;
+$color_gossamer_approx: #119c7e;
+$color_fuchsia_pink_approx: #b739b9;
+$white: #fff;
+
+.bk-clr-one {
+	background-color: $color_earls_green_approx;
+}
+.bk-clr-two {
+	background-color: $color_sunset_orange_approx;
+}
+.bk-clr-three {
+	background-color: $color_gossamer_approx;
+}
+.bk-clr-four {
+	background-color: $color_fuchsia_pink_approx;
+}
+.dashboard-div-icon {
+	height: 75px;
+	width: 75px;
+	border: 2px solid $white;
+	padding: 20px;
+	//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+	border-radius: 50%;
+	font-size: 30px;
+	margin-bottom: 20px;
+	color: $white;
+}
+.dashboard-div-wrapper {
+	//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+	border-radius: 5px;
+	text-align: center;
+	padding: 15px;
+	color: $white;
+	margin-bottom: 50px;
+	.progress {
+		height: 2px;
+	}
+}

@@ -1,0 +1,27 @@
+import AbstractIndexRoute from 'megd/routes/abstract-index-route';
+import UserSession from 'megd/mixins/user-session';
+import { translationMacro as t } from 'ember-i18n';
+export default AbstractIndexRoute.extend(UserSession, {
+  modelName: 'inventory',
+  newButtonAction: function() {
+    if (this.currentUserCan('add_inventory_item')) {
+      return 'newItem';
+    } else {
+      return null;
+    }
+  }.property(),
+  newButtonText: t('buttons.new_item'),
+  pageTitle: t('inventory.labels.items'),
+
+  _modelQueryParams: function() {
+    return {
+      mapReduce: 'inventory_by_name'
+    };
+  },
+
+  _getStartKeyFromItem: function(item) {
+    var inventoryId = this._getPouchIdFromItem(item);
+    return [item.get('name'), inventoryId];
+  }
+
+});
