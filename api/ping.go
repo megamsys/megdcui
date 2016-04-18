@@ -3,9 +3,8 @@ package api
 import (
 	"encoding/json"
 	"net/http"
-
 	"github.com/megamsys/libgo/hc"
-	_ "github.com/megamsys/megdcui/hc"
+	 _ "github.com/megamsys/megdcui/hc"
 )
 
 func ping(w http.ResponseWriter, r *http.Request) error {
