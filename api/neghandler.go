@@ -34,7 +34,11 @@ func NewNegHandler() *negroni.Negroni {
 	//for _, handler := range megdHandlerList {
 		//m.Add(handler.method, handler.path, handler.h)
 	//}
+	m.Add("Get", "/hostinfos", Handler(hostinfos))
   m.Add("Get", "/migrate", Handler(migrate))
+	m.Add("Post", "/onehosts", Handler(onehosts))
+	m.Add("Post", "/onestorages", Handler(onestorages))
+	m.Add("Post", "/configurations", Handler(configurations))
 	  //m.Add("Get", "/", home.HomeHandler)
 	//m.Add("Get", "/logs", Handler(logs))
 //	m.Add("Get", "/ping", Handler(ping))
