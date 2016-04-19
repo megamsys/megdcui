@@ -14,7 +14,6 @@ const(
 
 var register migration.DataCenter
 func migrate(w http.ResponseWriter, r *http.Request) error {
-	fmt.Println("************api/migrate**********************")
   masterip := "103.56.92.58"
 	id := "eurssfsjhiosdnfms"
 	key := "sdgsdgawrsdgsw23"

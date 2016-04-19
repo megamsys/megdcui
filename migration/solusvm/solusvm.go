@@ -1,7 +1,6 @@
 package solusvm
 
 import (
-	
 	log "github.com/Sirupsen/logrus"
 	"github.com/megamsys/megdcui/migration"
 	"github.com/megamsys/libgo/action"
@@ -13,7 +12,6 @@ func init() {
 }
 
 type solusvmManager struct{}
-
 
 type VirtualServer struct {
 	Vserverid   	*string `json:"vserverid"`
@@ -45,6 +43,7 @@ func (b *VirtualServer) String() string {
 }
 
 func (m solusvmManager) MigratablePrepare(ip, id, key string) error {
+
 	actions := []*action.Action{
 		&VertifyMigratableCredentials,
 		//&VerfiyMigrationComplete,

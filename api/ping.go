@@ -2,13 +2,12 @@ package api
 
 import (
 	"encoding/json"
-	"fmt"
+	
 	"net/http"
 	"github.com/megamsys/libgo/hc"
 )
 
 func ping(w http.ResponseWriter, r *http.Request) error {
-	fmt.Println("**************api/ping******************")
 	data, _ := json.MarshalIndent(fullHealthcheck(w, r), "", "  ")
 	err := pingTemplate.Execute(w, map[string]interface{}{
 		"data": string(data),

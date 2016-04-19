@@ -31,11 +31,13 @@ func NewNegHandler() *negroni.Negroni {
 	})
 
 	m := &delayedRouter{}
+
 	for _, handler := range megdHandlerList {
 		m.Add(handler.method, handler.path, handler.h)
 	}
 	m.Add("GET", "/hostinfos", Handler(hostinfos))
   m.Add("GET", "/migrate", Handler(migrate))
+
 	m.Add("Post", "/onehosts", Handler(onehosts))
 	m.Add("Post", "/onestorages", Handler(onestorages))
 	m.Add("Post", "/configurations", Handler(configurations))

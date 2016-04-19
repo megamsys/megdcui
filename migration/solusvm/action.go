@@ -24,7 +24,7 @@ var VertifyMigratableCredentials = action.Action{
 	Name: "VertifyMigratableCredentials",
 	Forward: func(ctx action.FWContext) (action.Result, error) {
 		args := ctx.Params[0].(runActionsArgs)
-		fmt.Println("********VertifyMigratableCredentials***************")
+
 		log.Debugf("Solusvm Master  %s ", args.masterip)
 		var m api.SolusClient
 		m.GetClients(args.masterip,args.id,args.key)
