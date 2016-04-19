@@ -20,10 +20,10 @@ func (r *delayedRouter) registerVars(req *http.Request, vars map[string]string) 
 	req.URL.RawQuery = url.Values(values).Encode() + "&" + req.URL.RawQuery
 }
 
-func (r *delayedRouter) Add(method string, path string, h func(http.ResponseWriter, *http.Request)) *mux.Route {
+func (r *delayedRouter) Add(method string, path string, h http.Handler) *mux.Route {
 	//r.Router.PathPrefix("./../public/").Handler(http.StripPrefix("./../public/", http.FileServer(http.Dir("./../public/"))))
 	//return r.Router.Handle(path, h).Methods(method)
-	return r.Router.HandleFunc(path, h).Methods(method)
+	return r.Router.Handle(path, h).Methods(method)
 }
 
 // AddAll binds a path to GET, POST, PUT and DELETE methods.

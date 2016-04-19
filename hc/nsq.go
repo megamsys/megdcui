@@ -5,7 +5,7 @@ import (
 
 	nsq "github.com/crackcomm/nsqueue/producer"
 	"github.com/megamsys/libgo/hc"
-	"github.com/megamsys/vertice/meta"
+	"github.com/megamsys/megdcui/meta"
 )
 
 func init() {

@@ -30,13 +30,14 @@ func NewNegHandler() *negroni.Negroni {
 		AllowedOrigins: []string{"*"},
 	})
 
-	//m := &delayedRouter{}
+	m := &delayedRouter{}
 	//for _, handler := range megdHandlerList {
 		//m.Add(handler.method, handler.path, handler.h)
 	//}
-    //m.Add("Get", "/", home.HomeHandler)
+  m.Add("Get", "/migrate", Handler(migrate))
+	  //m.Add("Get", "/", home.HomeHandler)
 	//m.Add("Get", "/logs", Handler(logs))
-	//m.Add("Get", "/ping", Handler(ping))
+//	m.Add("Get", "/ping", Handler(ping))
 	//we can use this as a single click Terminal launch for docker.
 	//m.Add("Get", "/apps/{appname}/shell", websocket.Handler(remoteShellHandler))
 	r := mux.NewRouter()

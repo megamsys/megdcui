@@ -17,9 +17,10 @@ const (
 
 	// DefaultScyllaKeyspace is the default Scyllakeyspace if one is not provided.
 	DefaultScyllaKeyspace = "megdc"
-	
-	MEGAM_HOME = "MEGAM_HOME"
 
+	MEGAM_HOME = "MEGAM_HOME"
+	// DefaultNSQ is the default nsqd if its not provided.
+	DefaultNSQd = "localhost:4161"
 )
 
 // Config represents the meta configuration.
@@ -27,6 +28,8 @@ type Config struct {
 	Dir            string   `toml:"dir"`
 	Scylla         []string `toml:"scylla"`
 	ScyllaKeyspace string   `toml:"scylla_keyspace"`
+	NSQd []string `toml:"nsqd"`
+	Api 		string `toml:"api"`
 }
 
 var MC *Config
@@ -58,12 +61,13 @@ func NewConfig() *Config {
 	}
 
 	defaultDir := filepath.Join(homeDir, "megdc/")
-	
+
 	// Config represents the configuration format for the vertice.
 	return &Config{
 		Dir:            defaultDir,
 		Scylla:         []string{DefaultScylla},
 		ScyllaKeyspace: DefaultScyllaKeyspace,
+		NSQd: []string{DefaultNSQd},
 	}
 }
 
