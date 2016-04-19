@@ -1,15 +1,14 @@
 package api
 
 import (
-	/*	"net/http"
-		"net/http/httptest"
-
-		"github.com/BurntSushi/toml"
-		"github.com/megamsys/vertice/meta"
-	*/
+	"net/http"
+  "fmt"
 	"gopkg.in/check.v1"
 )
 
-type HealthCheckSuite struct{}
+func (s *S) TestHealthCheck(c *check.C) {
+	request, err := http.NewRequest("GET", "/migrate", nil)
+  fmt.Printf("\n\nRequest :%#v ",request.URL)
+	c.Assert(err, check.IsNil)
 
-var _ = check.Suite(&HealthCheckSuite{})
+}

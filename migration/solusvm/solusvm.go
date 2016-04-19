@@ -1,10 +1,11 @@
 package solusvm
 
 import (
-	//"fmt"
+	
 	log "github.com/Sirupsen/logrus"
 	"github.com/megamsys/megdcui/migration"
 	"github.com/megamsys/libgo/action"
+	"gopkg.in/yaml.v2"
 )
 
 func init() {
@@ -13,8 +14,37 @@ func init() {
 
 type solusvmManager struct{}
 
-func (m solusvmManager) MigratablePrepare(ip, id, key string) error {
 
+type VirtualServer struct {
+	Vserverid   	*string `json:"vserverid"`
+	Ctid_xid    	*string `json:"ctid-xid"`
+	Clientid      *string `json:"clientid"`
+	Ipaddress     *string `json:"ipaddress"`
+	Hostname      *string `json:"hostname"`
+	Template      *string `json:"template"`
+	Hdd    				*string `json:"hdd"`
+	Memory     		*string `json:"memory"`
+	Swap_burst 		*string `json:"swap-burst"`
+	Type    			*string `json:"type"`
+	Mac      			*string `json:"mac"`
+}
+
+type VServers struct {
+	Status     *string `json:"status"`
+	Statusmsg  *string `json:"statusmsg"`
+	VirtualServers *[]VirtualServer `json:"virtualservers"`
+	Org_id     string
+}
+
+func (b *VirtualServer) String() string {
+	if d, err := yaml.Marshal(b); err != nil {
+		return err.Error()
+	} else {
+		return string(d)
+	}
+}
+
+func (m solusvmManager) MigratablePrepare(ip, id, key string) error {
 	actions := []*action.Action{
 		&VertifyMigratableCredentials,
 		//&VerfiyMigrationComplete,
