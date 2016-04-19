@@ -16,9 +16,51 @@
 package migration
 
 import (
-
+ "fmt"
 	"gopkg.in/yaml.v2"
 )
+
+const (
+
+)
+
+var managers map[string]MigrationHost
+
+type DataCenter interface {
+}
+
+// HostManager represents a manager of application Hosts.
+type MigrationHost interface {
+	MigratablePrepare(ip, id, key string) error
+	MigrateHost(hostip,user,password string) error
+}
+
+
+func Get(name string) (DataCenter, error) {
+	p, ok := managers[name]
+	if !ok {
+		return nil, fmt.Errorf("unknown Host server: %q", name)
+	}
+	return p, nil
+}
+
+// Manager returns the current configured manager, as defined in the
+// configuration file.
+func Manager(managerName string) MigrationHost {
+	if _, ok := managers[managerName]; !ok {
+		managerName = "nop"
+	}
+	return managers[managerName]
+}
+
+// Register registers a new repository manager, that can be later configured
+// and used.
+func Register(name string, manager MigrationHost) {
+	if managers == nil {
+		managers = make(map[string]MigrationHost)
+	}
+	managers[name] = manager
+}
 
 type Status string
 
