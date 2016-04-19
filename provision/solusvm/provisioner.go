@@ -19,7 +19,7 @@ package solusvm
 import (
 	"bytes"
 	"fmt"
-	"io"
+//	"io"
 	"strings"
 	"text/tabwriter"
 

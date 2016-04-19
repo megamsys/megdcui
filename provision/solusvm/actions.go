@@ -56,7 +56,7 @@ var updateStatusInSolus = action.Action{
     var mach machine.Machine
 
 
-		fmt.Fprintf(writer, "  update status for machine (%s, %s) OK\n", args.box.GetFullName(), args.machineStatus.String())
+		fmt.Fprintf(writer, "  update status for machine (%s, %s) OK\n", args.machineStatus.String())
 		return mach, nil
 	},
 	Backward: func(ctx action.BWContext) {

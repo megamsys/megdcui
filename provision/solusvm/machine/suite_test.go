@@ -1,5 +1,5 @@
 package machine
-
+/*
 import (
 	"testing"
 
@@ -33,7 +33,7 @@ func (s *S) SetUpSuite(c *check.C) {
 
 func (s *S) TestTearDownTest(c *check.C) {
 	s.server.Stop()
-}*/
+}
 
 func (s *S) newMachine(opts compute.VirtualMachine, p *fakeOneProvisioner) (*Machine, error) {
 	if p == nil {
@@ -56,3 +56,5 @@ func (s *S) newMachine(opts compute.VirtualMachine, p *fakeOneProvisioner) (*Mac
 	}
 	return &mach, nil
 }
+
+*/

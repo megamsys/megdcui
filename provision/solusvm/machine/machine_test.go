@@ -1,11 +1,12 @@
 package machine
 
+/*
 import (
 	/*	"bytes"
 
 		"github.com/megamsys/vertice/provision"
 		"github.com/megamsys/vertice/provision/provisiontest"
-		"github.com/megamsys/opennebula-go/compute" */
+		"github.com/megamsys/opennebula-go/compute" 
 	"gopkg.in/check.v1"
 )
 
