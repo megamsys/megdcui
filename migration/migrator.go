@@ -17,6 +17,7 @@ package migration
 
 import (
  "fmt"
+ "github.com/megamsys/megdcui/automation"
 	"gopkg.in/yaml.v2"
 )
 
@@ -31,8 +32,8 @@ type DataCenter interface {
 
 // HostManager represents a manager of application Hosts.
 type MigrationHost interface {
-	MigratablePrepare(ip, id, key string) error
-	MigrateHost(hostip,user,password string) error
+	MigratablePrepare(*automation.HostInfo) error
+	MigrateHost(*automation.HostInfo) error
 }
 
 

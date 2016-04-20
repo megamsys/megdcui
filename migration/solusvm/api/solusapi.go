@@ -11,7 +11,7 @@ type SolusClient struct {
   vs     *solusvm.VServers
 }
 
-func (s *SolusClient) GetClients(masterip, id, key string) error {
+func (s *SolusClient) GetClients(masterip,id,key string) error {
   IP := masterip
   s.client = solusvm.NewClient(nil,"https://"+ IP + ":5656/api/admin/command.php")
   servers, _, err := s.client.VirtualServers.ListAll(map[string]string{ "id":""+ "iy9rRvifGKajunciPcu5V13ANyAmVnvklN2HV8cv" +"","key":""+ "8mQloZ1rjkl6bevOCW2o0mykZpSLnV8l8OwmCnEN" +"", "action": "node-virtualservers", "rdtype": "json", "nodeid":"4"})

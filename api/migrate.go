@@ -5,6 +5,7 @@ import (
 	"fmt"
 	log "github.com/Sirupsen/logrus"
 
+  "github.com/megamsys/megdcui/automation"
 	"github.com/megamsys/megdcui/migration"
 )
 
@@ -14,9 +15,12 @@ const(
 
 var register migration.DataCenter
 func migrate(w http.ResponseWriter, r *http.Request) error {
-  masterip := "103.56.92.58"
-	id := "eurssfsjhiosdnfms"
-	key := "sdgsdgawrsdgsw23"
+	hostinfo := &automation.HostInfo{
+		SolusMaster:  "103.56.92.58",
+		Id: "eurssfsjhiosdnfms",
+		Key: "sdgsdgawrsdgsw23",
+	}
+
 
 	a, err := migration.Get(defaultServer)
 
@@ -29,12 +33,12 @@ func migrate(w http.ResponseWriter, r *http.Request) error {
 
 	if migrationHost, ok := register.(migration.MigrationHost); ok {
 
-		err = migrationHost.MigratablePrepare(masterip,id,key)
+		err = migrationHost.MigratablePrepare(hostinfo)
 		if err != nil {
-			log.Errorf("fatal error, couldn't Migrate %s solusvm master", masterip)
+			log.Errorf("fatal error, couldn't Migrate %s solusvm master", hostinfo.SolusMaster)
 			return err
 		} else {
-			log.Debugf("%s Can Migratable", masterip)
+			log.Debugf("%s Can Migratable", hostinfo.SolusMaster)
 			return nil
 		}
 

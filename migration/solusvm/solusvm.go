@@ -2,6 +2,7 @@ package solusvm
 
 import (
 	log "github.com/Sirupsen/logrus"
+	"github.com/megamsys/megdcui/automation"
 	"github.com/megamsys/megdcui/migration"
 	"github.com/megamsys/libgo/action"
 	"gopkg.in/yaml.v2"
@@ -42,7 +43,7 @@ func (b *VirtualServer) String() string {
 	}
 }
 
-func (m solusvmManager) MigratablePrepare(ip, id, key string) error {
+func (m solusvmManager) MigratablePrepare(h *automation.HostInfo) error {
 
 	actions := []*action.Action{
 		&VertifyMigratableCredentials,
@@ -51,20 +52,20 @@ func (m solusvmManager) MigratablePrepare(ip, id, key string) error {
 	pipeline := action.NewPipeline(actions...)
 
 	args := runActionsArgs{
-    id:         id,
-		key:        key,
-		masterip:   ip,
+    id:         h.Id,
+		key:        h.Key,
+		masterip:   h.SolusMaster,
 	}
 
 	err := pipeline.Execute(args)
 	if err != nil {
-		log.Errorf("error on execute status pipeline for github %s - %s", ip, err)
+		log.Errorf("error on execute status pipeline for github %s - %s", h.SolusMaster, err)
 		return err
 	}
 	return nil
 
 }
-func (m solusvmManager) MigrateHost(hostip, user, pass string) error {
+func (m solusvmManager) MigrateHost(h *automation.HostInfo) error {
 /*
 	actions := []*action.Action{
 

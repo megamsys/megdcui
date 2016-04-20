@@ -27,7 +27,7 @@ var VertifyMigratableCredentials = action.Action{
 
 		log.Debugf("Solusvm Master  %s ", args.masterip)
 		var m api.SolusClient
-		m.GetClients(args.masterip,args.id,args.key)
+		m.GetClients(args.masterip, args.id,args.key)
 		    fmt.Println()
     log.Debugf("Verified [%s] solusvm master ", args.masterip)
     return &args ,nil
