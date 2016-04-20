@@ -6,6 +6,7 @@ import (
 
 	log "github.com/Sirupsen/logrus"
 	"github.com/megamsys/libgo/action"
+	"github.com/megamsys/megdcui/migration/solusvm/api"
 //	"github.com/megamsys/libgo/exec"
 //	"strings"
 )
@@ -23,8 +24,11 @@ var VertifyMigratableCredentials = action.Action{
 	Name: "VertifyMigratableCredentials",
 	Forward: func(ctx action.FWContext) (action.Result, error) {
 		args := ctx.Params[0].(runActionsArgs)
+
 		log.Debugf("Solusvm Master  %s ", args.masterip)
-    fmt.Println()
+		var m api.SolusClient
+		m.GetClients(args.masterip,args.id,args.key)
+		    fmt.Println()
     log.Debugf("Verified [%s] solusvm master ", args.masterip)
     return &args ,nil
 
