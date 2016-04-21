@@ -15,6 +15,8 @@ func init() {
 
 type solusvmManager struct{}
 
+
+
 type VirtualServer struct {
 	Vserverid   	*string `json:"vserverid"`
 	Ctid_xid    	*string `json:"ctid-xid"`

@@ -48,8 +48,9 @@ func (s *SolusClient) GetNodes(h *automation.HostInfo) error {
 }
 
 func (s *SolusClient) GetVirtualMachines(h *automation.HostInfo) error {
+  nodeid := h.NodeId
   s.client = solusvm.NewClient(nil,"https://"+ h.SolusMaster + ":5656/api/admin/command.php")
-  servers, _, err := s.client.VirtualServers.ListAllVMs(map[string]string{ "id":""+ h.Id +"","key":""+ h.Key +"","rdtype": "json", "nodeid": ""+ "4" +""})
+  servers, _, err := s.client.VirtualServers.ListAllVMs(map[string]string{ "id":""+ h.Id +"","key":""+ h.Key +"","rdtype": "json", "nodeid": ""+ nodeid +""})
   if err != nil {
     return err
   }
@@ -64,12 +65,19 @@ func (s *SolusClient) GetClients(h *automation.HostInfo) error {
   if err != nil {
     return err
   }
-  
+
+  if CheckStatus(*clients.Status, *clients.Statusmsg) != nil {
+    return err
+  }
   fmt.Printf("%s",*clients.Status)
   fmt.Printf("\t %s",*clients.Statusmsg)
-  return CheckStatus(*clients.Status, *clients.Statusmsg)
-}
 
+  err = storeAccounts(clients)
+  if err != nil {
+    return err
+  }
+  return nil
+}
 
 func CheckStatus(status, statusmsg string) error {
   if status != Success {

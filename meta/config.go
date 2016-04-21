@@ -13,7 +13,7 @@ import (
 
 const (
 	// DefaultScylla is the default scylla if one is not provided.
-	DefaultScylla = "localhost"
+	DefaultScylla = "192.168.1.100"
 
 	// DefaultScyllaKeyspace is the default Scyllakeyspace if one is not provided.
 	DefaultScyllaKeyspace = "megdc"

@@ -7,6 +7,7 @@ import (
   _ "github.com/megamsys/megdcui/migration/solusvm"
   "github.com/megamsys/megdcui/automation"
 	"github.com/megamsys/megdcui/migration"
+	//	"github.com/megamsys/megdcui/meta"
 )
 
 const(
@@ -15,13 +16,13 @@ const(
 
 var register migration.DataCenter
 func migrate(w http.ResponseWriter, r *http.Request) error {
-
+//  meta.NewConfig().MkGlobal()
 	fmt.Println("**************api/migrate********************")
 
 	hostinfo := &automation.HostInfo{
 		SolusMaster:  "103.56.92.58",
-		Id: "LSYbwzuPTvnGq5O3t9VwHV3F6S9m1NXAvMCSbXxV",
-		Key: "jMqzG6rZ4dmAYf6UX57NIUe4wHMyuakFMA5iwm9p",
+		Id: "iy9rRvifGKajunciPcu5V13ANyAmVnvklN2HV8cv",
+		Key: "8mQloZ1rjkl6bevOCW2o0mykZpSLnV8l8OwmCnEN",
 		SolusNode: "158.69.240.220",
 	}
 

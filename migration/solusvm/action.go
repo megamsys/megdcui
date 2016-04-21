@@ -23,7 +23,7 @@ var VertifyMigratableCredentials = action.Action{
 
 		log.Debugf("Solusvm Master  %s ", args.h.SolusMaster)
 		var m api.SolusClient
-		err := m.GetVirtualMachines(args.h)
+		err := m.GetClients(args.h)
     if err != nil {
 			return nil , err
 		}

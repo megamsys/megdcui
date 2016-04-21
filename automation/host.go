@@ -54,7 +54,7 @@ type Ambly struct {
 	Components []string `json:"components" cql:"components"`
 }
 
-type Accounts struct {
+type Account struct {
 	Id         string   `json:"id" cql:"id"`
 	Email      string   `json:"email" cql:"email"`
 	Authority  string   `json:"authority" cql:"authority"`
@@ -67,4 +67,12 @@ type Accounts struct {
 	Phone      string  `json:"phone" cql:"phone"`
 	Status     string   `json:"status" cql:"status"`
 	CreatedAt  string   `json:"created_at" cql:"created_at"`
+}
+
+type Domains struct {
+	Id         string   `json:"id" cql:"id"`
+	OrgId      string   `json:"org_id" cql:"org_id"`
+	Name       string   `json:"name" cql:"name"`
+	JsonClaz   string   `json:"json_claz" cql:"json_claz"`
+  CreatedAt  string   `json:"created_at" cql:"created_at"`
 }
