@@ -1,0 +1,25 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+<<<<<<< HEAD
+    rake (11.1.2)
+    sass (3.4.22)
+    scss_lint (0.48.0)
+      rake (>= 0.9, < 12)
+=======
+    rake (10.5.0)
+    sass (3.4.22)
+    scss_lint (0.47.1)
+      rake (>= 0.9, < 11)
+>>>>>>> 6f2cd03e9598a959102fb9950b8c851049a49b91
+      sass (~> 3.4.15)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  sass
+  scss_lint
+
+BUNDLED WITH
+   1.11.2
