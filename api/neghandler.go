@@ -37,7 +37,8 @@ func NewNegHandler() *negroni.Negroni {
 	}
 	m.Add("GET", "/hostinfos", Handler(hostinfos))
   m.Add("GET", "/migrate", Handler(migrate))
-
+//  m.Add("GET", "/hostcheck", Handler(hostcheck))
+	m.Add("GET", "/bridge", Handler(bridge))
 	m.Add("Post", "/onehosts", Handler(onehosts))
 	m.Add("Post", "/onestorages", Handler(onestorages))
 	m.Add("Post", "/configurations", Handler(configurations))
@@ -54,7 +55,7 @@ func NewNegHandler() *negroni.Negroni {
 	n.Use(negroni.NewRecovery())
 	n.Use(c)
 	n.Use(newLoggerMiddleware())
-	//n.UseHandler(r1)
+	n.UseHandler(m)
 	n.Use(negroni.HandlerFunc(contextClearerMiddleware))
 	n.Use(negroni.HandlerFunc(flushingWriterMiddleware))
 	n.Use(negroni.HandlerFunc(errorHandlingMiddleware))

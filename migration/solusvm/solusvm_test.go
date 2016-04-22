@@ -1,7 +1,7 @@
 package solusvm
 
 import (
-    
+
     "testing"
     "errors"
 

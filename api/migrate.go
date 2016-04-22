@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"fmt"
 	log "github.com/Sirupsen/logrus"
-
+_ "github.com/megamsys/megdcui/migration/solusvm"
 	"github.com/megamsys/megdcui/migration"
 )
 
