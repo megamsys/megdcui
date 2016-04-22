@@ -1,8 +1,7 @@
 package solusvm
 
 import (
-	"fmt"
-//	"io"
+
 
 	log "github.com/Sirupsen/logrus"
 	"github.com/megamsys/libgo/action"
@@ -27,7 +26,6 @@ var VertifyMigratableCredentials = action.Action{
     if err != nil {
 			return nil , err
 		}
-		fmt.Println()
     log.Debugf("Verified [%s] solusvm master ", args.h.SolusMaster)
     return &args ,nil
 
@@ -48,7 +46,7 @@ var VerfiyMigrationComplete = action.Action{
     if err != nil {
 			return nil , err
 		}
-		fmt.Println()
+
     log.Debugf("Verified [%s] solusvm master ", args.h.SolusMaster)
     return &args ,nil
 

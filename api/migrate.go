@@ -2,7 +2,7 @@ package api
 
 import (
 	"net/http"
-	"fmt"
+
 	log "github.com/Sirupsen/logrus"
   _ "github.com/megamsys/megdcui/migration/solusvm"
   "github.com/megamsys/megdcui/automation"
@@ -17,12 +17,10 @@ const(
 var register migration.DataCenter
 func migrate(w http.ResponseWriter, r *http.Request) error {
 //  meta.NewConfig().MkGlobal()
-	fmt.Println("**************api/migrate********************")
-
 	hostinfo := &automation.HostInfo{
-		SolusMaster:  "103.56.92.58",
-		Id: "iy9rRvifGKajunciPcu5V13ANyAmVnvklN2HV8cv",
-		Key: "8mQloZ1rjkl6bevOCW2o0mykZpSLnV8l8OwmCnEN",
+		SolusMaster:  "192.168.1.100",
+		Id: "iy9rRvifGKajunciPcu5V13AN3ddfVnvklN2HV8cv",
+		Key: "8mQloZ1rjkl6bevOCW2o0mkkZpSLnV8l8OwmCnEN",
 		SolusNode: "158.69.240.220",
 	}
 
@@ -49,16 +47,5 @@ func migrate(w http.ResponseWriter, r *http.Request) error {
 
 	}
 
-	fmt.Println("*************************************")
-	fmt.Println()
-  /*b :=&provision.Box{
-    BaseUrl: "https://103.56.92.58:5656/api/admin/command.php",
-    Id: "sedfwesdvsdghfh",
-    Key: "fdfrg45dgvg24db",
-  }
-	err :=provision.Deploy(&provision.DeployOpts{B: b})
-	if err != nil {
-		return err
-	}*/
 	return nil
 }

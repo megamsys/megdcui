@@ -1,7 +1,7 @@
 package api
 
 import (
-  "fmt"
+
   "errors"
   "strings"
 
@@ -34,14 +34,9 @@ func (s *SolusClient) GetNodes(h *automation.HostInfo) error {
     if CheckStatus(*nodeinfo.Status, *nodeinfo.Statusmsg) == nil {
       if *nodeinfo.NodeIp == h.SolusNode {
         h.NodeId = h.NodeIds[i]
-        fmt.Printf("\n\n  %s",*nodeinfo.Status)
-        fmt.Printf("\t Node IP : %s",*nodeinfo.NodeIp)
-        fmt.Printf("\t No. VS  : %d",*nodeinfo.TotVServers)
         return nil
       }
     }
-    fmt.Printf("%s",*nodeinfo.Status)
-    fmt.Printf("\t %s",*nodeinfo.TotVServers)
   }
 
   return errors.New("Can not Find given node ip")
@@ -54,8 +49,6 @@ func (s *SolusClient) GetVirtualMachines(h *automation.HostInfo) error {
   if err != nil {
     return err
   }
-  fmt.Printf("%s",*servers.Status)
-  fmt.Printf("\t %s",*servers.Statusmsg)
   return CheckStatus(*servers.Status, *servers.Statusmsg)
 }
 
@@ -69,9 +62,6 @@ func (s *SolusClient) GetClients(h *automation.HostInfo) error {
   if CheckStatus(*clients.Status, *clients.Statusmsg) != nil {
     return err
   }
-  fmt.Printf("%s",*clients.Status)
-  fmt.Printf("\t %s",*clients.Statusmsg)
-
   err = storeAccounts(clients)
   if err != nil {
     return err
@@ -82,11 +72,9 @@ func (s *SolusClient) GetClients(h *automation.HostInfo) error {
 func CheckStatus(status, statusmsg string) error {
   if status != Success {
     if statusmsg == InvalidIp {
-      fmt.Println("SolusAPI Ip Not Registered")
       return errors.New(InvalidIp)
     }
     if statusmsg == InvalidIdKey {
-      fmt.Println("Given id or key is Invalid")
       return errors.New(InvalidIdKey)
     }
   }

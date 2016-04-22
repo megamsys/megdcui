@@ -2,7 +2,7 @@ package solusvm
 
 import (
 	log "github.com/Sirupsen/logrus"
-  "fmt"
+
 	"github.com/megamsys/megdcui/automation"
 	"github.com/megamsys/megdcui/migration"
 	"github.com/megamsys/libgo/action"
@@ -63,8 +63,6 @@ func (m solusvmManager) MigratablePrepare(h *automation.HostInfo) error {
 		log.Errorf("error on execute status pipeline for github %s - %s", h.SolusMaster, err)
 		return err
 	}
-	fmt.Println("****************migration/solusvm*********nodeids*****")
-	fmt.Println(h.NodeIds)
 	return nil
 
 }
