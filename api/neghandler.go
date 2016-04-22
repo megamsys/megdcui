@@ -2,7 +2,6 @@ package api
 
 import (
 	"net/http"
-    "github.com/gorilla/mux"
 	"github.com/codegangsta/negroni"
 	"github.com/rs/cors"
 )
@@ -36,25 +35,25 @@ func NewNegHandler() *negroni.Negroni {
 		m.Add(handler.method, handler.path, handler.h)
 	}
 	m.Add("GET", "/hostinfos", Handler(hostinfos))
-  m.Add("GET", "/migrate", Handler(migrate))
-
+        m.Add("GET", "/migrate", Handler(migrate))
 	m.Add("Post", "/onehosts", Handler(onehosts))
 	m.Add("Post", "/onestorages", Handler(onestorages))
 	m.Add("Post", "/configurations", Handler(configurations))
-	  //m.Add("Get", "/", home.HomeHandler)
+
+	//m.Add("Get", "/", home.HomeHandler)
 	//m.Add("Get", "/logs", Handler(logs))
- 	m.Add("GET", "/ping", Handler(ping))
+	m.Add("GET", "/ping", Handler(ping))
 	//we can use this as a single click Terminal launch for docker.
 	//m.Add("Get", "/apps/{appname}/shell", websocket.Handler(remoteShellHandler))
-	r := mux.NewRouter()
+	//r := mux.NewRouter()
 	n := negroni.Classic()
-	n.UseHandler(r)
-	http.Handle("/", http.FileServer(http.Dir("./../app/")))
+	//n.UseHandler(r)
+	http.Handle("/", http.FileServer(http.Dir("./../public/")))
 	//n := negroni.New()
 	n.Use(negroni.NewRecovery())
 	n.Use(c)
 	n.Use(newLoggerMiddleware())
-	//n.UseHandler(r1)
+	n.UseHandler(m)
 	n.Use(negroni.HandlerFunc(contextClearerMiddleware))
 	n.Use(negroni.HandlerFunc(flushingWriterMiddleware))
 	n.Use(negroni.HandlerFunc(errorHandlingMiddleware))

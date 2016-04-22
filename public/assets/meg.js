@@ -98,7 +98,7 @@ define('meg/controllers/signup', ['exports', 'ember', 'meg/mixins/validations'],
         console.log("+++++++++++++++++++++++++++");
         console.log(attrs);
         this.get('auth').signIn();
-        return this.get('ajax').get("/ping", "/");
+        return this.get('ajax').get("/ping");
       }
     }
 
@@ -4320,7 +4320,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("meg/app")["default"].create({"name":"meg","version":"0.0.0+ad42c955"});
+  require("meg/app")["default"].create({"name":"meg","version":"0.0.0+e2679950"});
 }
 
 /* jshint ignore:end */
