@@ -1,0 +1,59 @@
+.help
+  @extend %icon-line-question
+  @extend %icon
+  height: 19px
+  width: 16px
+  margin: -4px 0 0 3px
+  background:
+    position: 0 1px
+    color: transparent
+  cursor: pointer
+
+.popup
+  position: fixed
+  top: 50%
+  left: 50%
+  transform: translate(-50%, -50%)
+  height: auto
+  padding: 2em
+  color: $asphalt-grey
+  z-index: 99
+  background-color: white
+  border-radius: 2px
+  display: none
+  background-color: #fff
+  border: solid 10px $pebble-grey
+
+  &:before
+    content: ""
+  .close
+    position: absolute
+    display: block
+    right: 5px
+    top: 8px
+    width: 20px
+    height: 20px
+    text-indent: 999%
+    overflow: hidden
+    white-space: nowrap
+    @extend %icon-line-cross
+
+  .popup-title
+    margin-bottom: 0
+  .popup-text
+    margin-top: 0
+    text-align: center
+  .buttons
+    margin-top: 3rem
+    text-align: center
+
+.status-images
+  width: 100%
+  @media #{$medium-up}
+    width: 600px
+
+  select, textarea
+    margin-bottom: 1em
+
+  .small-title
+    margin: .3em 0 .8em

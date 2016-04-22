@@ -1,0 +1,58 @@
+.top .cta
+  border-bottom: 2px solid #E4E4E4
+  border-top: 2px solid #E4E4E4
+  line-height: 2.7em
+  font-size: 16px
+  color: #71AE76
+  text-align: right
+  padding-right: 1rem
+  background-color: #fff
+  display: none
+
+  p
+    position: relative
+    margin: auto
+    padding: 0
+
+  .arrow
+    display: block
+    position: absolute
+    top: -11px
+    right: 66px
+    background-image: inline-image('cta-arrow.svg')
+    background-repeat: no-repeat
+    width: 20px
+    height: 12px
+
+  @media #{$medium-up}
+    display: block
+
+#auth .top .cta,
+.landing-pro .cta
+  display: none !important
+
+.landing-pro .top
+  border-bottom: 1px solid #f1f1f1
+
+.top
+  background-color: #f1f1f1
+
+.topbar
+  height: $top-height
+  padding: 0 $column-gutter/2
+  clear: both
+  overflow: hidden
+  font-size: $font-size-m
+  color: $asphalt-grey
+  a
+    color: $asphalt-grey
+    &:hover
+      text-decoration: underline
+  &.has-autoheight
+    height: auto
+  @media #{$medium-up}
+    &,
+    &.has-autoheight
+      position: relative
+      height: $top-height
+      overflow: visible
