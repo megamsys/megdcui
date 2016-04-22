@@ -1,0 +1,218 @@
+$button-border-color: #d4d4d4
+
+.button,
+.btn
+  font-family: $font-family-sans-serif
+  position: relative
+  overflow: visible
+  display: inline-block
+  padding: 5px 10px
+  cursor: pointer
+  outline: none
+  text-decoration: none
+  text-align: center
+  color: white
+  white-space: nowrap
+  border-radius: 2px
+  background-color: $pebble-grey
+
+.button:hover,
+.button:focus,
+.button:active,
+.button.active
+  border-color: $button-border-color
+  background-color: $cement-grey
+  text-decoration: none
+  color: #fff
+
+.button:active,
+.button.active
+  border-color: #2a65a0
+  border-bottom-color: #2356c4
+  background-color: #40454f
+
+.button--signin,
+.button--signingin
+  display: inline-block
+  color: #fff
+  font-size: $font-size-s
+  line-height: 1
+  text-decoration: none
+  border-radius: 4px
+  border: none
+  vertical-align: middle
+  background:
+    color: $turf-green
+
+.button--signin
+  padding: 0.6em 2em 0.55em 0.6em
+  cursor: pointer
+  background:
+    image: inline-image('ui/github-signin.svg')
+    repeat: no-repeat
+    position: 95.5% 45%
+  &:hover
+    background-color: #73c78d
+    text-decoration: none
+
+.button--signingin
+  padding: 0.6em 0.6em 0.45em
+  span
+    display: inline-block
+    padding: 0 .2em
+    position: relative
+    top: -0.15em
+
+.button--green
+  border: none
+  font-size: $font-size-s
+  color: white
+  background-color: $turf-green
+  &:hover
+    background-color: #73c78d
+.button--fixedwidth
+  width: 8em
+
+.btn-activate,
+.btn-activated
+  font-size: $font-size-sm
+  border: none
+  &:hover
+    background-color: $cement-grey
+
+.btn-activated
+  background-color: #39a85b
+  color: white
+  &:hover
+    background-color: darken(#39a85b, 10)
+
+#auth #navigation .button--signin,
+#auth #navigation .button--signingin
+  display: none
+
+.button--grey
+  height: 22px
+  padding: 0 10px 0 10px
+  background-color: $asphalt-grey
+  color: $pebble-grey
+  font-size: $font-size-s
+  border: none
+  border-radius: 2px
+  &:hover,
+  &:active
+    border: none
+    background-color: lighten(#696867, 10)
+  &:focus
+    background-color: #696867
+
+.button--delete
+  @extend .button
+  border-radius: 2px
+  border: none
+  font-size: $font-size-s
+  color: white
+  background-color: $brick-red
+  font-weight: 300
+  padding: 4px 10px 2px
+  &:focus,
+  &:hover
+    background-color: $quartz-red
+
+%circle-button
+  display: block
+  text-indent: 999%
+  overflow: hidden
+  width: 28px
+  height: 28px
+  border: solid 1px rgba($cement-grey, 0.2)
+  border-radius: 50%
+  cursor: pointer
+  &:hover
+    border-color: $oxide-blue
+
+  float: left
+  margin-right: 1rem
+  @media #{$medium-up}
+    float: none
+    margin-right: 0
+    margin-bottom: .5em
+
+.button-circle-cancel
+  @extend %circle-button
+  @extend %icon-line-cross
+  background:
+    position: 6px 6px
+    repeat: no-repeat
+    size: 14px 14px
+  &:hover
+    @extend %icon-line-cross-teal
+
+.button-circle-trigger
+  @extend %circle-button
+  @extend %icon-line-trigger
+  background:
+    position: 6px 5px
+    repeat: no-repeat
+    size: 16px 16px
+  &:hover
+    @extend %icon-line-trigger-teal
+
+%log-button
+  display: inline-block
+  height: 28px
+  padding: 0 0.8em
+  border: 1px solid $pebble-grey
+  color: $pebble-grey
+  border-radius: 2px
+  text-align: center
+  line-height: 1.8
+  font-size: 14px
+  font-weight: 300
+  cursor: pointer
+  [class^="icon"]
+    margin-right: .3em
+
+// log buttons
+.remove-log-button
+  @extend %log-button
+  &:hover,
+  &:active
+    background-color: #d94341
+  display: none
+  @media #{$medium-up}
+    display: inline-block
+
+.download-log-button
+  @extend %log-button
+  &:hover,
+  &:active
+    background-color: #999a98
+
+// popup buttons
+@mixin buttons($bg-color)
+  display: inline-block
+  padding: .3em 1em
+  font-size: 20px
+  color: white
+  font-weight: $font-weight-light
+  border-radius: 2px
+  background-color: $bg-color
+  &:hover,
+  &:active
+    background-color: lighten($bg-color, 10)
+
+.button-delete
+  @include buttons($brick-red)
+
+.button-cancel
+  @include buttons(#A0A8A8)
+
+.showmore-button
+  padding-left: 2em
+  background:
+    repeat: no-repeat
+    size: auto 20px
+    position: 4px 1px
+  cursor: pointer
+  @extend .button--grey
+  @extend %icon-line-eye-white

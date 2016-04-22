@@ -1,0 +1,18 @@
+<div class="wrapper">
+  <header id="top" class="top">
+    <div class="centered">
+      {{render "top"}}
+    </div>
+  </header>
+
+  <div class="centered">
+    {{flash-display}}
+    <div id="main" class="main" role="main">
+      {{yield}}
+    </div>
+  </div>
+</div>
+
+<footer>
+  {{render "footer"}}
+</footer>
