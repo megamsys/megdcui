@@ -33,7 +33,7 @@ type DataCenter interface {
 // HostManager represents a manager of application Hosts.
 type MigrationHost interface {
 	MigratablePrepare(*automation.HostInfo) error
-	MigrateHost(*automation.HostInfo) error
+	MigrateHost(*automation.HostInfo) (*automation.Result, error)
 }
 
 

@@ -22,7 +22,7 @@ var VertifyMigratableCredentials = action.Action{
 
 		log.Debugf("Solusvm Master  %s ", args.h.SolusMaster)
 		var m api.SolusClient
-		err := m.GetClients(args.h)
+		err := m.GetNodes(args.h)
     if err != nil {
 			return nil , err
 		}
@@ -41,9 +41,82 @@ var VerfiyMigrationComplete = action.Action{
 		args := ctx.Params[0].(runActionsArgs)
 
 		log.Debugf("Solusvm Master  %s ", args.h.SolusMaster)
+
+
+    log.Debugf("Verified [%s] solusvm master ", args.h.SolusMaster)
+    return &args ,nil
+
+	},
+	Backward: func(ctx action.BWContext) {
+
+	},
+}
+
+var ListClientsInMigratable = action.Action{
+	Name: "ListClientsInMigratable",
+	Forward: func(ctx action.FWContext) (action.Result, error) {
+		args := ctx.Params[0].(runActionsArgs)
+
+		log.Debugf("Solusvm Master  %s ", args.h.SolusMaster)
 		var m api.SolusClient
 		err := m.GetClients(args.h)
-    if err != nil {
+		if err != nil {
+			return nil , err
+		}
+
+    log.Debugf("Verified [%s] solusvm master ", args.h.SolusMaster)
+    return &args ,nil
+
+	},
+	Backward: func(ctx action.BWContext) {
+
+	},
+}
+
+var OnboardInVertice = action.Action{
+	Name: "OnboardInVertice",
+	Forward: func(ctx action.FWContext) (action.Result, error) {
+		args := ctx.Params[0].(runActionsArgs)
+
+		log.Debugf("Solusvm Master  %s ", args.h.SolusMaster)
+
+
+    log.Debugf("Verified [%s] solusvm master ", args.h.SolusMaster)
+    return &args ,nil
+
+	},
+	Backward: func(ctx action.BWContext) {
+
+	},
+}
+
+
+var ListVMsinMigratable = action.Action{
+	Name: "ListVMsinMigratable",
+	Forward: func(ctx action.FWContext) (action.Result, error) {
+		args := ctx.Params[0].(runActionsArgs)
+
+		log.Debugf("Solusvm Master  %s ", args.h.SolusMaster)
+
+
+    log.Debugf("Verified [%s] solusvm master ", args.h.SolusMaster)
+    return &args ,nil
+
+	},
+	Backward: func(ctx action.BWContext) {
+
+	},
+}
+
+var TagMigratableInVertice = action.Action{
+	Name: "TagMigratableInVertice",
+	Forward: func(ctx action.FWContext) (action.Result, error) {
+		args := ctx.Params[0].(runActionsArgs)
+
+		log.Debugf("Solusvm Master  %s ", args.h.SolusMaster)
+		var m api.SolusClient
+		err := m.GenVirtualMachines(args.h)
+		if err != nil {
 			return nil , err
 		}
 

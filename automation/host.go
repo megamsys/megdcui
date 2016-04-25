@@ -23,7 +23,7 @@ type Result struct {
 
 type Assemblies struct {
 	Id          string   `json:"id" cql:"id"`
-	AccountsId  string   `json:"org_id" cql:"org_id"`
+	OrgId  string   `json:"org_id" cql:"org_id"`
 	JsonClaz    string   `json:"json_claz" cql:"json_claz"`
 	Name        string   `json:"name" cql:"name"`
 	AssemblysId []string `json:"assemblies" cql:"assemblies"`
@@ -42,7 +42,6 @@ type Organizations struct {
 type Ambly struct {
 	Id         string   `json:"id" cql:"id"`
 	OrgId      string   `json:"org_id" cql:"org_id"`
-	AccountId  string   `json:"account_id" cql:"account_id"`
 	Name       string   `json:"name" cql:"name"`
 	JsonClaz   string   `json:"json_claz" cql:"json_claz"`
 	Tosca      string   `json:"tosca_type" cql:"tosca_type"`

@@ -16,7 +16,7 @@ const (
 	DefaultScylla = "192.168.1.100"
 
 	// DefaultScyllaKeyspace is the default Scyllakeyspace if one is not provided.
-	DefaultScyllaKeyspace = "megdc"
+	DefaultScyllaKeyspace = "vertice"
 
 	MEGAM_HOME = "MEGAM_HOME"
 	// DefaultNSQ is the default nsqd if its not provided.

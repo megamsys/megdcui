@@ -46,7 +46,7 @@ func (b *VirtualServer) String() string {
 	}
 }
 
-func (m solusvmManager) MigratablePrepare(h *automation.HostInfo) error {
+func (m solusvmManager) MigratablePrepare(h *automation.HostInfo)  error {
 
 	actions := []*action.Action{
 		&VertifyMigratableCredentials,
@@ -63,14 +63,18 @@ func (m solusvmManager) MigratablePrepare(h *automation.HostInfo) error {
 		log.Errorf("error on execute status pipeline for github %s - %s", h.SolusMaster, err)
 		return err
 	}
-	return nil
+	r := &automation.Result{
+		Status: "",
+	 	Statusmsg: "",
+	 	VirtualServers: ""
+	}
+	return r, nil
 
 }
-func (m solusvmManager) MigrateHost(h *automation.HostInfo) error {
-/*
-	actions := []*action.Action{
+func (m solusvmManager) MigrateHost(h *automation.HostInfo) (*automation.Result, error) {
 
-	}
+	actions := []*action.Action{}
+	
 	pipeline := action.NewPipeline(actions...)
 
 	s := strings.Split(url, "/")[4]
@@ -85,7 +89,7 @@ func (m solusvmManager) MigrateHost(h *automation.HostInfo) error {
 	if err != nil {
 		log.Errorf("error on execute status pipeline for github %s - %s", hostip, err)
 		return err
-	}*/
+	}
 	return nil
 
 }

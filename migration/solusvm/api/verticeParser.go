@@ -2,6 +2,7 @@ package api
 
 import (
   "time"
+  "strings"
   b64 "encoding/base64"
   atmn "github.com/megamsys/megdcui/automation"
   "github.com/megamsys/solusvm_go/solusvm"
@@ -48,46 +49,45 @@ func parseDomains(orgid, domain string) (*atmn.Domains) {
  return dmns
 
 }
-/*
-func parseAssemblies() () {
-  Id          string   `json:"id" cql:"id"`
-	AccountsId  string   `json:"org_id" cql:"org_id"`
-	JsonClaz    string   `json:"json_claz" cql:"json_claz"`
-	Name        string   `json:"name" cql:"name"`
-	AssemblysId []string `json:"assemblies" cql:"assemblies"`
-	Inputs      []string `json:"inputs" cql:"inputs"`
-	CreatedAt   string   `json:"created_at" cql:"created_at"`
 
-   | ORG8018443203247765368
-   | AMS4939192166567098733
-   | ['ASM5627540267783389064']
-   | 2016-04-01 04:40:59 +0000
-   |   null
-   |  Megam::Assemblies
-   |
+func parseAssemblies(orgid, asmid string) (*atmn.Assemblies) {
+  ams := &atmn.Assemblies{
+  Id: "AMS" + RandNumberRunes(19),
+	OrgId: orgid,
+	JsonClaz: "Megam::Assemblies",
+	Name: "",
+	AssemblysId:  []string{""+ asmid +""},
+	//Inputs:  nil,
+	CreatedAt: time.Now().String(),
+  }
+  return ams
 }
 
-func parseAssembly() () {
-  Id         string   `json:"id" cql:"id"`
-	OrgId      string   `json:"org_id" cql:"org_id"`
-	AccountId  string   `json:"account_id" cql:"account_id"`
-	Name       string   `json:"name" cql:"name"`
-	JsonClaz   string   `json:"json_claz" cql:"json_claz"`
-	Tosca      string   `json:"tosca_type" cql:"tosca_type"`
-	Inputs     []string `json:"inputs" cql:"inputs"`
-	Outputs    []string `json:"outputs" cql:"outputs"`
-	Policies   []string `json:"policies" cql:"policies"`
-	Status     string   `json:"status" cql:"status"`
-	CreatedAt  string   `json:"created_at" cql:"created_at"`
-	Components []string `json:"components" cql:"components"`
-  -------
-
-   org_id  | id  | components | created_at  | inputs | json_claz
-   | name | outputs| policies | status   | tosca_type
-
- | ORG8543260529316515313 | ASM5555544443332210000 |       null
- | 2016-04-11 14:30:54 +0000 | ['{"key":"domain","value":"megambox.com"}', '{"key":"sshkey","value":"vs"}', '{"key":"provider","value":"one"}', '{"key":"cpu","value":"1 Core"}', '{"key":"ram","value":"1 GB"}', '{"key":"hdd","value":"24 GB SSD"}']
- | Megam::Assembly |       kvm108 | null |     null | migrated | tosca.torpedo.ubuntu
-
+func parseAssembly(orgid string,vm *solusvm.VirtualServer) (*atmn.Ambly) {
+  tosca := []string{"ubuntu", "centos","debian"}
+  tosca_type := checkToscaType(*vm.Template, tosca...)
+  asm := &atmn.Ambly{
+    Id: "ASM" + RandNumberRunes(19),
+    OrgId: orgid,
+    Name: *vm.Ctid_xid,
+    JsonClaz:  "Megam::Assembly",
+    Tosca: "tosca.torpedo." + tosca_type ,
+  //  Inputs:  []string{{"key":"domain","value":"megambox.com"}, {"key":"sshkey","value":"vs"}, {"key":"provider","value":"one"}, {"key":"cpu","value":"1 Core"}, {"key":"ram","value":"1 GB"}, {"key":"hdd","value":"24 GB SSD"}, {"key":"version","value":"14.04"}, {"key":"lastsuccessstatusupdate","value":"01 Apr 16 04:41 UTC"}, {"key":"status","value":"migrated"}},
+  //  Outputs:    []string,
+  //  Policies:   []string,
+    Status: "migrated",
+    CreatedAt: time.Now().String(),
+  //  Components []string,
+  }
+  return asm
 }
-*/
+
+func checkToscaType(tmp string, tos ...string) string {
+  for i := 0; i < len(tos); i++ {
+    template, to := strings.ToUpper(tmp), strings.ToUpper(tos[i])
+    if strings.Contains(template, to) {
+      return to
+    }
+	}
+  return "ubuntu"
+}
