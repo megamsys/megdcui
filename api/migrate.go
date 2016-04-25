@@ -2,12 +2,13 @@ package api
 
 import (
 	"net/http"
+  "encoding/json"
+  "fmt"
 
 	log "github.com/Sirupsen/logrus"
   _ "github.com/megamsys/megdcui/migration/solusvm"
   "github.com/megamsys/megdcui/automation"
 	"github.com/megamsys/megdcui/migration"
-	//	"github.com/megamsys/megdcui/meta"
 )
 
 const(
@@ -15,8 +16,8 @@ const(
 )
 
 var register migration.DataCenter
+
 func migrate(w http.ResponseWriter, r *http.Request) error {
-//  meta.NewConfig().MkGlobal()
 	hostinfo := &automation.HostInfo{
 		SolusMaster:  "192.168.1.100",
 		Id: "iy9rRvifGKajunciPcu5V13AN3ddfVnvklN2HV8cv",
@@ -44,7 +45,18 @@ func migrate(w http.ResponseWriter, r *http.Request) error {
 			log.Debugf("%s Can Migratable", hostinfo.SolusMaster)
 			return nil
 		}
+     res, er := migrationHost.MigrateHost(hostinfo)
+		 if er != nil {
+ 			log.Errorf("fatal error, couldn't Migrate %s solusvm node", hostinfo.SolusNode)
+ 			return er
+ 		}
+		b, eror := json.Marshal(res)
+    if eror != nil {
+        fmt.Printf("Error: %s", eror)
+        return eror;
+    }
 
+		fmt.Println("\n Result json for api call ",string(b))
 	}
 
 	return nil

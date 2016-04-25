@@ -13,10 +13,10 @@ import (
 
 const (
 	// DefaultScylla is the default scylla if one is not provided.
-	DefaultScylla = "192.168.1.100"
+	DefaultScylla = "localhost"
 
 	// DefaultScyllaKeyspace is the default Scyllakeyspace if one is not provided.
-	DefaultScyllaKeyspace = "vertice"
+	DefaultScyllaKeyspace = "megdc"
 
 	MEGAM_HOME = "MEGAM_HOME"
 	// DefaultNSQ is the default nsqd if its not provided.
@@ -46,6 +46,7 @@ func (c Config) String() string {
 	b.Write([]byte("---\n"))
 	fmt.Fprintln(w)
 	w.Flush()
+	fmt.Println(MC)
 	return strings.TrimSpace(b.String())
 }
 

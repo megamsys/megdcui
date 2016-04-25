@@ -31,8 +31,6 @@ var letterRunes = []rune("abcdefghijklmnopqrstuvwxyz0123456789")
 var numberRunes = []rune("0123456789")
 
 func SendClientToScylla(acts *atmn.Account) (err error) {
-  fmt.Println("*****************onboard********************")
-
 	started := time.Now()
 		ops := ldb.Options{
 			TableName:   ACCOUNTS,
@@ -43,7 +41,6 @@ func SendClientToScylla(acts *atmn.Account) (err error) {
 			PksClauses:  make(map[string]interface{}),
 			CcmsClauses: map[string]interface{}{"email": acts.Email},
 		}
-    fmt.Println("Password  :",acts.Password)
 		if err = ldb.Storedb(ops, acts); err != nil {
 			log.Debugf(err.Error())
       return err

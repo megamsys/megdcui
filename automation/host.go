@@ -16,9 +16,9 @@ type HostInfo struct {
 }
 
 type Result struct {
-	Status   string
-	Statusmsg string
-	VirtualServers string
+	Status   string   `json:"status"`
+	Statusmsg string  `json:"statusmsg"`
+	VirtualServers string  `json:"virtualservers"`
 }
 
 type Assemblies struct {

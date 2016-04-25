@@ -2,7 +2,6 @@ package solusvm
 
 import (
 
-
 	log "github.com/Sirupsen/logrus"
 	"github.com/megamsys/libgo/action"
 	"github.com/megamsys/megdcui/migration/solusvm/api"
@@ -13,6 +12,8 @@ import (
 
 type runActionsArgs struct {
   h *automation.HostInfo
+	//orgs *automation.Organizations
+//	acts *automation.Accounts
 }
 
 var VertifyMigratableCredentials = action.Action{
@@ -23,6 +24,7 @@ var VertifyMigratableCredentials = action.Action{
 		log.Debugf("Solusvm Master  %s ", args.h.SolusMaster)
 		var m api.SolusClient
 		err := m.GetNodes(args.h)
+
     if err != nil {
 			return nil , err
 		}
