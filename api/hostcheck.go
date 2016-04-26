@@ -1,32 +1,30 @@
 package api
-/*
+
 import (
 	"fmt"
 	"net/http"
 		log "github.com/Sirupsen/logrus"
 		"github.com/megamsys/megdcui/install"
-		_ "github.com/megamsys/megdcui/install"
+		_ "github.com/megamsys/megdcui/install/machine"
 )
-const(
-	defaultHost = "host"
-)
+
 func hostcheck(w http.ResponseWriter, r *http.Request) error {
 	fmt.Println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
 	var register install.Host
-host := "103.56.92.18"
-username := "megam"
-password := "megam"
+host := "localhost"
+username := ""
+password := ""
 a, err := install.Get(defaultHost)
 
 if err != nil {
-	log.Errorf("fatal error, couldn't locate the Host %s", defaultHost)
+	log.Errorf("fatal error, couldn't locate the Server %s", defaultHost)
 	return err
 }
 register = a
 
 if installHost, ok := register.(install.InstallHost); ok {
 
-	err = installHost.HostInfos(host,username,password)
+	err = installHost.HostCheck(host,username,password)
 	if err != nil {
 		log.Errorf("fatal error, couldn't connect with  %s host", host)
 		return err
@@ -37,4 +35,3 @@ if installHost, ok := register.(install.InstallHost); ok {
 }
 return nil
 }
-*/

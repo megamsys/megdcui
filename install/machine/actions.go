@@ -2,13 +2,9 @@ package machine
 
 import (
 	"fmt"
-//	"io"
-
 	log "github.com/Sirupsen/logrus"
 	"github.com/megamsys/libgo/action"
-	"github.com/megamsys/megdcui/install/hostinfo"
-	"github.com/megamsys/megdcui/install"
-//	"strings"
+	"github.com/megamsys/megdcui/install/host"
 )
 
 type runActionsArgs struct {
@@ -34,7 +30,7 @@ var CheckHostInfo = action.Action{
 		log.Debugf("Host  %s ", args.host)
 		fmt.Println("=====================actin==================")
 		fmt.Println(args.host)
-		var m hostinfo.HostInfo
+		var m host.HostInfo
 		m.GetHostInfo(args.host,args.username,args.password)
 		    fmt.Println()
     log.Debugf("Verified [%s] host ", args.host)
@@ -46,6 +42,26 @@ var CheckHostInfo = action.Action{
 	},
 }
 
+
+var HostCheck = action.Action{
+	Name: "CheckHostCheck",
+	Forward: func(ctx action.FWContext) (action.Result, error) {
+		args := ctx.Params[0].(runActionsArgs)
+
+		log.Debugf("Host  %s ", args.host)
+		fmt.Println("=====================actin==================")
+		fmt.Println(args.host)
+		var m host.HostCheck
+		m.GetHostCheck(args.host,args.username,args.password)
+		    fmt.Println()
+    log.Debugf("Verified [%s] host ", args.host)
+    return &args ,nil
+
+	},
+	Backward: func(ctx action.BWContext) {
+
+	},
+}
 var CreateBridgeAction = action.Action{
 	Name: "CreateBridge",
 	Forward: func(ctx action.FWContext) (action.Result, error) {
@@ -54,7 +70,7 @@ var CreateBridgeAction = action.Action{
 		log.Debugf("Host  %s ", args.host)
 		fmt.Println("=====================actin123==================")
 		fmt.Println(args.host)
-		var m install.CreateBridge
+		var m host.CreateBridge
 		m.Bridge(args.bridgename, args.phydev, args.network, args.netmask, args.gateway, args.dnsname1, args.dnsname2, args.host, args.username, args.password)
 		    fmt.Println()
     log.Debugf("Verified [%s] host ", args.host)

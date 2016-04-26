@@ -13,9 +13,9 @@ const(
 func hostinfos(w http.ResponseWriter, r *http.Request) error {
 	fmt.Println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
 	var register install.Host
-host := "103.56.92.18"
-username := "megam"
-password := "megam"
+host := "localhost"
+username := ""
+password := ""
 a, err := install.Get(defaultHost)
 
 if err != nil {

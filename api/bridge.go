@@ -11,9 +11,9 @@ import (
 func bridge(w http.ResponseWriter, r *http.Request) error {
 	fmt.Println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
 	var register install.Host
-host := "103.56.92.18"
-username := "megam"
-password := "megam"
+host := "localhost"
+username := ""
+password := ""
 bridgename := "one"
   phydev := "eth0"
 	network := "103.56.92.0"
