@@ -7,7 +7,7 @@ import (
   //"github.com/megamsys/libgo/cmd"
   //"os"
   //"github.com/megamsys/megdc"
-  //"github.com/megamsys/megdc/packages/bridge"
+  "github.com/megamsys/megdc/packages/bridge"
   //"github.com/megamsys/megdc/handler"
   //"launchpad.net/gnuflag"
 )
@@ -38,8 +38,9 @@ func (i *CreateBridge) Bridge(bridgename, phydev, network, netmask, gateway, dns
 
 fmt.Println("$$$$$$$$$$$$$$$$$$4")
 fmt.Println(i)
-a := CreateBridge{CreateBridge: true,  Bridgename: bridgename, PhyDev: phydev, Network: network, Netmask: netmask, Gateway: gateway, Dnsname1: dnsname1, Dnsname2: dnsname2, Host: host, Username: username, Password: password }
-
+a := bridge.CreateBridge{CreateBridge: true,  Bridgename: bridgename, PhyDev: phydev, Network: network, Netmask: netmask, Gateway: gateway, Dnsname1: dnsname1, Dnsname2: dnsname2, Host: host, Username: username, Password: password }
+a.Info()
+a.Flags()
    //manager := main.cmdRegistry("hostinfo")
 	//main.manager.Run(os.Args[hostinfo])
 

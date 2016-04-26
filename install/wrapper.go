@@ -84,7 +84,10 @@ fmt.Println("BO&&&&&&&&&&&&&&&&&&&&&&&&&&&")
 	w.Options = options
 	fmt.Println(w.Options)
 	w.Maps    = maps
+  fmt.Println("return-----------------------")
+  fmt.Println(w)
 	return &w
+
 }
 func (w *WrappedParms) len() int {
 	return len(w.Packages)
@@ -96,6 +99,7 @@ func (w *WrappedParms) Empty() bool {
 
 func (w *WrappedParms) IfNoneAddPackages(p []string) {
   fmt.Println("Package*********************")
+  fmt.Println(w)
 	if w.Empty() {
 		for i := range p {
 			w.addPackage(p[i])
@@ -104,7 +108,10 @@ func (w *WrappedParms) IfNoneAddPackages(p []string) {
 }
 
 func (w *WrappedParms) addPackage(k string) {
+  fmt.Println("addpack++++++++++++++++++")
+  fmt.Println(w)
 	w.Packages[k] = k
+  fmt.Println(k)
 }
 func (w *WrappedParms) GetHost() (string, bool) {
 	k, v := w.Options[HOST]

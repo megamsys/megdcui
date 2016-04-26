@@ -33,7 +33,7 @@ type Host interface {
 // HostManager represents a manager of application Hosts.
 type InstallHost interface {
 
-  HostInfos(host string,username string,password string) error
+  HostInfos(host,username,password string) error
   CreateBridge(bridgename, phydev, network, netmask, gateway, dnsname1, dnsname2,host,username,password string) error
 }
 

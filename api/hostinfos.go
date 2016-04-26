@@ -5,7 +5,7 @@ import (
 	"net/http"
 		log "github.com/Sirupsen/logrus"
 		"github.com/megamsys/megdcui/install"
-		_ "github.com/megamsys/megdcui/install"
+		_ "github.com/megamsys/megdcui/install/machine"
 )
 const(
 	defaultHost = "host"
@@ -19,7 +19,7 @@ password := "megam"
 a, err := install.Get(defaultHost)
 
 if err != nil {
-	log.Errorf("fatal error, couldn't locate the Server %s", defaultServer)
+	log.Errorf("fatal error, couldn't locate the Server %s", defaultHost)
 	return err
 }
 register = a

@@ -30,7 +30,12 @@ import (
 		_ "github.com/megamsys/libmegdc/templates/centos"
 	"github.com/tj/go-spin"
 )
-
+const (
+	HOST     = "Host"
+	USERNAME = "Username"
+	PASSWORD = "Password"
+	PLATFORM = "platform"
+)
 const Logo = `
 	███╗   ███╗███████╗ ██████╗ ██████╗  ██████╗
 	████╗ ████║██╔════╝██╔════╝ ██╔══██╗██╔════╝
@@ -85,7 +90,10 @@ func (h *Handler) SetTemplates(w *WrappedParms) {
 
 func (h *Handler) Run() error {
 	fmt.Println("RN****************************")
+	fmt.Println(h.templates)
 	return templates.RunInTemplates(h.templates, func(t *templates.Template, _ chan *templates.Template) error {
+		fmt.Println("Template=====================================")
+		fmt.Println(t)
 		err := t.Run()
 		if err != nil {
 			return err
