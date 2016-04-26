@@ -28,8 +28,6 @@ var CheckHostInfo = action.Action{
 		args := ctx.Params[0].(runActionsArgs)
 
 		log.Debugf("Host  %s ", args.host)
-		fmt.Println("=====================actin==================")
-		fmt.Println(args.host)
 		var m host.HostInfo
 		m.GetHostInfo(args.host,args.username,args.password)
 		    fmt.Println()
@@ -49,8 +47,6 @@ var HostCheck = action.Action{
 		args := ctx.Params[0].(runActionsArgs)
 
 		log.Debugf("Host  %s ", args.host)
-		fmt.Println("=====================actin==================")
-		fmt.Println(args.host)
 		var m host.HostCheck
 		m.GetHostCheck(args.host,args.username,args.password)
 		    fmt.Println()
@@ -68,8 +64,6 @@ var CreateBridgeAction = action.Action{
 		args := ctx.Params[0].(runActionsArgs)
 
 		log.Debugf("Host  %s ", args.host)
-		fmt.Println("=====================actin123==================")
-		fmt.Println(args.host)
 		var m host.CreateBridge
 		m.Bridge(args.bridgename, args.phydev, args.network, args.netmask, args.gateway, args.dnsname1, args.dnsname2, args.host, args.username, args.password)
 		    fmt.Println()

@@ -1,7 +1,6 @@
 package machine
 
 import (
-	"fmt"
 	log "github.com/Sirupsen/logrus"
 "github.com/megamsys/megdcui/install"
 	"github.com/megamsys/libgo/action"
@@ -16,7 +15,6 @@ type hostManager struct{}
 
 
 func (m hostManager) HostInfos(host , username, password string) error {
-	fmt.Println("*******************pipe****************")
 
 	actions := []*action.Action{
 		&CheckHostInfo,
@@ -39,7 +37,6 @@ func (m hostManager) HostInfos(host , username, password string) error {
 
 }
 func (m hostManager) HostCheck(host , username, password string) error {
-	fmt.Println("*******************pipe****************")
 
 	actions := []*action.Action{
 		&HostCheck,
@@ -62,7 +59,6 @@ func (m hostManager) HostCheck(host , username, password string) error {
 }
 
 func (m hostManager) CreateBridge(bridgename, phydev, network, netmask, gateway, dnsname1, dnsname2, host, username, password string) error {
-	fmt.Println("******************59*pipe****************")
 
 	actions := []*action.Action{
 		&CreateBridgeAction,

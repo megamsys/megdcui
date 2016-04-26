@@ -1,7 +1,6 @@
 package api
 
 import (
-	"fmt"
 	"net/http"
 		log "github.com/Sirupsen/logrus"
 		"github.com/megamsys/megdcui/install"
@@ -11,7 +10,7 @@ const(
 	defaultHost = "host"
 )
 func hostinfos(w http.ResponseWriter, r *http.Request) error {
-	fmt.Println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+
 	var register install.Host
 host := "localhost"
 username := ""

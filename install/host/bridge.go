@@ -1,8 +1,6 @@
 package host
 
 import (
-  "fmt"
-
   "github.com/megamsys/megdc/handler"
 )
 
@@ -25,16 +23,10 @@ type CreateBridge struct{
 }
 
 
-
-
-
 func (i *CreateBridge) Bridge(bridgename, phydev, network, netmask, gateway, dnsname1, dnsname2, host, username, password string) error {
 
-fmt.Println("$$$$$$$$$$$$$$$$$$4")
-fmt.Println(i)
 a := CreateBridge{CreateBridge: true,  Bridgename: bridgename, PhyDev: phydev, Network: network, Netmask: netmask, Gateway: gateway, Dnsname1: dnsname1, Dnsname2: dnsname2, Host: host, Username: username, Password: password }
   c := handler.NewWrap(&a)
-  fmt.Println(c)
 	c.IfNoneAddPackages(BRIDGE)
 	if h, err := handler.NewHandler(c); err != nil {
 		return err
