@@ -3,7 +3,7 @@ package solusvm
 import (
 	log "github.com/Sirupsen/logrus"
   "fmt"
-	
+
 	"github.com/megamsys/megdcui/automation"
 	"github.com/megamsys/megdcui/migration"
 	"github.com/megamsys/libgo/action"
@@ -70,7 +70,7 @@ func (m solusvmManager) MigrateHost(h *automation.HostInfo) (*automation.Result,
 
 	actions := []*action.Action{
   // &ListClientsInMigratable,
-	 &OnboardInVertice,
+	 &OnboardClientsInVertice,
 	// &ListVMsinMigratable,
 	 &TagMigratableInVertice,
 	}

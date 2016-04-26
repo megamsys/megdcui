@@ -60,11 +60,6 @@ var ListClientsInMigratable = action.Action{
 		args := ctx.Params[0].(runActionsArgs)
 
 		log.Debugf("Solusvm Master  %s ", args.h.SolusMaster)
-		var m api.SolusClient
-		err := m.GetClients(args.h)
-		if err != nil {
-			return nil , err
-		}
 
     log.Debugf("Verified [%s] solusvm master ", args.h.SolusMaster)
     return &args ,nil
@@ -75,14 +70,17 @@ var ListClientsInMigratable = action.Action{
 	},
 }
 
-var OnboardInVertice = action.Action{
-	Name: "OnboardInVertice",
+var OnboardClientsInVertice = action.Action{
+	Name: "OnboardClientsInVertice",
 	Forward: func(ctx action.FWContext) (action.Result, error) {
 		args := ctx.Params[0].(runActionsArgs)
 
 		log.Debugf("Solusvm Master  %s ", args.h.SolusMaster)
-
-
+		var m api.SolusClient
+		err := m.GetClients(args.h)
+		if err != nil {
+			return nil , err
+		}
     log.Debugf("Verified [%s] solusvm master ", args.h.SolusMaster)
     return &args ,nil
 

@@ -1,5 +1,5 @@
 package run
-
+/*
 import (
 	"fmt"
 	"strings"
@@ -19,7 +19,5 @@ func (s *S) TestConfig_Parse(c *check.C) {
 
 	c.Assert(cm, check.NotNil)
 	c.Assert(cm.Meta.Scylla, check.DeepEquals, []string{"192.168.1.247"})
-	//c.Assert(cm.Meta.NSQd, check.DeepEquals, []string{"103.56.92.7:4150"})
-	//c.Assert(cm.Deployd.OneUserid, check.Equals, "oneadmin")
-
 }
+*/

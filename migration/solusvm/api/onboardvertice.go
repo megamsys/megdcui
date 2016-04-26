@@ -52,12 +52,12 @@ func SendClientToScylla(acts *atmn.Account) (err error) {
 func SendOrgsToScylla(orgs *atmn.Organizations) (err error) {
 		ops := ldb.Options{
 			TableName:   ORGANIZATIONS,
-			Pks:         []string{"Id"},
-			Ccms:        []string{"Account_Id"},
+			Pks:         []string{"id"},
+			Ccms:        []string{"accounts_id"},
 			Hosts:       meta.MC.Scylla,
 			Keyspace:    meta.MC.ScyllaKeyspace,
-			PksClauses:  map[string]interface{}{"Id": orgs.Id},
-			CcmsClauses: map[string]interface{}{"Account_Id": orgs.AccountsId},
+			PksClauses:  map[string]interface{}{"id": orgs.Id},
+			CcmsClauses: map[string]interface{}{"accounts_id": orgs.AccountsId},
 		}
 
 		if err = ldb.Storedb(ops, orgs); err != nil {
@@ -71,12 +71,12 @@ func SendOrgsToScylla(orgs *atmn.Organizations) (err error) {
 func SendAsmToScylla(asm *atmn.Ambly) (err error) {
 		ops := ldb.Options{
 			TableName:   ASSEMBLY,
-			Pks:         []string{"Id"},
-			Ccms:        []string{"OrgId"},
+			Pks:         []string{"id"},
+			Ccms:        []string{"org_id"},
 			Hosts:       meta.MC.Scylla,
 			Keyspace:    meta.MC.ScyllaKeyspace,
-			PksClauses:  map[string]interface{}{"Id": asm.Id},
-			CcmsClauses: map[string]interface{}{"Org_Id": asm.OrgId},
+			PksClauses:  map[string]interface{}{"id": asm.Id},
+			CcmsClauses: map[string]interface{}{"org_id": asm.OrgId},
 		}
 
 		if err = ldb.Storedb(ops, asm); err != nil {
@@ -93,12 +93,12 @@ func SendAsmToScylla(asm *atmn.Ambly) (err error) {
 func SendAmsToScylla(ams *atmn.Assemblies) (err error) {
 		ops := ldb.Options{
 			TableName:   ASSEMBLIES,
-			Pks:         []string{"Id"},
-			Ccms:        []string{"OrgId"},
+			Pks:         []string{"id"},
+			Ccms:        []string{"org_id"},
 			Hosts:       meta.MC.Scylla,
 			Keyspace:    meta.MC.ScyllaKeyspace,
-			PksClauses:  map[string]interface{}{"Id": ams.Id},
-			CcmsClauses: map[string]interface{}{"Org_Id": ams.OrgId},
+			PksClauses:  map[string]interface{}{"id": ams.Id},
+			CcmsClauses: map[string]interface{}{"org_id": ams.OrgId},
 		}
 
 		if err = ldb.Storedb(ops, ams); err != nil {
@@ -118,7 +118,7 @@ func getOrgId(email string) (*atmn.Organizations, error) {
 		Hosts:       meta.MC.Scylla,
 		Keyspace:    meta.MC.ScyllaKeyspace,
 		PksClauses:  make(map[string]interface{}),
-		CcmsClauses: map[string]interface{}{"Account_Id": email},
+		CcmsClauses: map[string]interface{}{"accounts_id": email},
 	}
 	if err := ldb.Fetchdb(ops, a); err != nil {
 		return nil, err

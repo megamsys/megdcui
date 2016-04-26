@@ -46,7 +46,6 @@ func (c Config) String() string {
 	b.Write([]byte("---\n"))
 	fmt.Fprintln(w)
 	w.Flush()
-	fmt.Println(MC)
 	return strings.TrimSpace(b.String())
 }
 

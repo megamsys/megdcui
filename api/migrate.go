@@ -4,7 +4,7 @@ import (
 	"net/http"
   "encoding/json"
   "fmt"
-
+  "errors"
 	log "github.com/Sirupsen/logrus"
   _ "github.com/megamsys/megdcui/migration/solusvm"
   "github.com/megamsys/megdcui/automation"
@@ -19,9 +19,9 @@ var register migration.DataCenter
 
 func migrate(w http.ResponseWriter, r *http.Request) error {
 	hostinfo := &automation.HostInfo{
-		SolusMaster:  "192.168.1.100",
-		Id: "iy9rRvifGKajunciPcu5V13AN3ddfVnvklN2HV8cv",
-		Key: "8mQloZ1rjkl6bevOCW2o0mkkZpSLnV8l8OwmCnEN",
+		SolusMaster:  "103.56.92.58",
+		Id: "iy9rRvifGKajunciPcu5V13ANyAmVnvklN2HV8cv",
+		Key: "8mQloZ1rjkl6bevOCW2o0mykZpSLnV8l8OwmCnEN",
 		SolusNode: "158.69.240.220",
 	}
 
@@ -43,7 +43,6 @@ func migrate(w http.ResponseWriter, r *http.Request) error {
 			return err
 		} else {
 			log.Debugf("%s Can Migratable", hostinfo.SolusMaster)
-			return nil
 		}
      res, er := migrationHost.MigrateHost(hostinfo)
 		 if er != nil {
@@ -57,6 +56,7 @@ func migrate(w http.ResponseWriter, r *http.Request) error {
     }
 
 		fmt.Println("\n Result json for api call ",string(b))
+		return errors.New(string(b))
 	}
 
 	return nil
