@@ -37,6 +37,9 @@ func NewNegHandler() *negroni.Negroni {
 	}
 	m.Add("GET", "/hostinfos", Handler(hostinfos))
   m.Add("GET", "/migrate", Handler(migrate))
+ m.Add("GET", "/hostcheck", Handler(hostcheck))
+	m.Add("GET", "/bridge", Handler(bridge))
+	//m.Add("GET", "/network", Handler(network))
 	m.Add("Post", "/onehosts", Handler(onehosts))
 	m.Add("Post", "/onestorages", Handler(onestorages))
 	m.Add("Post", "/configurations", Handler(configurations))
