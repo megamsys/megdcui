@@ -64,7 +64,6 @@ func (m solusvmManager) MigratablePrepare(ip, id, key string) error {
 	return nil
 
 }
-
 func (m solusvmManager) MigrateHost(hostip, user, pass string) error {
 /*
 	actions := []*action.Action{

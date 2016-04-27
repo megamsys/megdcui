@@ -75,3 +75,20 @@ var CreateBridgeAction = action.Action{
 
 	},
 }
+var CreateNetworkAction = action.Action{
+	Name: "CreateNetwork",
+	Forward: func(ctx action.FWContext) (action.Result, error) {
+		args := ctx.Params[0].(runActionsArgs)
+
+		log.Debugf("Host  %s ", args.host)
+		var m host.CreateNetwork
+		m.CreateNetwork(args.bridge, args.iptype, args.ip, args.size, args.dns1, args.dns2, args.netmask, args.gateway, args.host, args.username,args.password) 
+		    fmt.Println()
+    log.Debugf("Verified [%s] host ", args.host)
+    return &args ,nil
+
+	},
+	Backward: func(ctx action.BWContext) {
+
+	},
+}
