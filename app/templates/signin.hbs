@@ -1,0 +1,15 @@
+{{#meg-layout layoutName="layouts/simple"}}
+{{#if redirected}}
+{{/if}}
+
+<div class="container">
+  {{#em-form model=model form_layout='horizontal' submit_button=false}}
+        {{em-input property="name" label="Full Name" placeholder="Enter a name..." type="text"}}
+        {{em-input label="Password" property="password" placeholder="And password..." type="password" disabled=nameHasValue}}
+        <div class="form-actions">
+            <input disabled={{isntValid}} type="submit" class="btn btn-success" value="Login">
+        </div>
+    {{/em-form}}
+</div> <!-- /container -->
+
+{{/meg-layout}}

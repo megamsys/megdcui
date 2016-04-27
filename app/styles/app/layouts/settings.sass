@@ -1,0 +1,170 @@
+.settings
+  padding-top: .8em
+
+.settings-section
+  padding: 0 0 1em
+  margin-bottom: 3em
+  border-bottom: 2px solid $pebble-grey
+  &:last-of-type
+    border-bottom: none
+  .small-title
+    margin-top: 0
+
+  .switch
+    div
+      display: inline-block
+
+%settings-list
+  padding: 0
+  margin: 0
+  list-style: none
+  li
+    margin-bottom: 1rem
+
+.settings-list--columns
+  @extend %settings-list
+  li
+    @media #{$medium-up}
+      display: inline-block
+      width: grid-calc(11, 24)
+
+.settings-list--envvars
+  @extend %settings-list
+
+.settings-input
+  display: inline-block
+  margin-right: 1.4rem
+  vertical-align: middle
+  & + .label
+    vertical-align: middle
+  input
+    width: 80px
+    font-size: $font-size-s
+    text-align: center
+
+.limit-concurrent-builds
+  input
+    display: inline-block
+    width: 3em
+    height: 30px
+    margin: 0 .5em
+    text-align: center
+    box-shadow: none
+
+%settings-row
+  border-radius: 2px
+  background-color: $pebble-grey
+
+.settings-envvar
+  @extend %settings-row
+  padding: .4em .5em
+
+.settings-sshkey
+  @extend %settings-row
+  padding: .6em .5em
+  display: block
+  margin-bottom: 1rem
+  overflow: hidden
+  span
+    vertical-align: middle
+  @media #{$medium-up}
+    overflow: visible
+
+%settings-name-section
+  display: inline-block
+  position: relative
+  vertical-align: middle
+  overflow: hidden
+  white-space: nowrap
+  color: $asphalt-grey
+  &:after
+    content: ""
+    @include fadeOut(right, -90deg, $pebble-grey)
+
+.ssh-key-name
+  @extend %settings-name-section
+  width: 100%
+  margin-bottom: 1em
+  @media #{$medium-up}
+    width: 32%
+    margin-bottom: 0
+
+.env-var-name
+  @extend %settings-name-section
+  width: 100%
+  margin-bottom: 1em
+  @media #{$medium-up}
+    width: grid-calc(6, 12)
+    margin-bottom: 0
+
+%settings-value-section
+  display: inline-block
+  vertical-align: middle
+  overflow: hidden
+  color: $asphalt-grey
+
+.ssh-key-value
+  @extend %settings-value-section
+  word-break: break-all
+  @media #{$medium-up}
+    width: grid-calc(6, 12)
+    word-break: normal
+    white-space: nowrap
+
+.env-var-value
+  @extend %settings-value-section
+  white-space: nowrap
+  width: 76%
+  @media #{$medium-up}
+    width: grid-calc(3, 12)
+  input
+    display: inline-block
+    width: 100%
+    padding: 0.6em 0.5em 0.7em 2.5em
+    border-radius: 2px
+    border: none
+    background-color: lighten($cement-grey, 20)
+    color: $asphalt-grey
+    @extend %icon-line-lock
+    background:
+      size: 16px
+      repeat: no-repeat
+      position: 0.5em 0.5em
+  .is-public &
+    input
+      background-image: none;
+      padding: 0.3em 0 0.4em 0.9em;
+      font-size: 14px;
+
+%settings-action-section
+  display: inline-block
+  position: relative
+  float: right
+  width: 24%
+  vertical-align: middle
+  text-align: center
+  &:hover
+    .icon-delete
+      @extend .icon-delete-hover
+  @media #{$medium-up}
+    width: grid-calc(4, 24)
+  @media #{$xlarge-up}
+    width: grid-calc(4, 36)
+
+.env-var-action
+  @extend %settings-action-section
+  a
+    padding: 1em
+
+.ssh-key-action
+  @extend %settings-action-section
+  margin-top: 1em
+  @media #{$medium-up}
+    margin-top: 0
+  .icon-delete
+    margin: .2em auto 0
+  .icon-delete-disabled
+    @extend .icon
+    @extend .icon-delete-disabled
+    display: block
+    margin: .2em auto 0

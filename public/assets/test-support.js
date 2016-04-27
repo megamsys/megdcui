@@ -12,7 +12,7 @@
  *            Portions Copyright 2008-2011 Apple Inc. All rights reserved.
  * @license   Licensed under MIT license
  *            See https://raw.github.com/emberjs/ember.js/master/LICENSE
- * @version   2.4.4
+ * @version   2.4.5
  */
 
 var enifed, requireModule, require, requirejs, Ember;
@@ -210,8 +210,10 @@ enifed('ember-debug/deprecate', ['exports', 'ember-metal/core', 'ember-metal/err
 
   /**
     Display a deprecation warning with the provided message and a stack trace
-    (Chrome and Firefox only). Ember build tools will remove any calls to
-    `Ember.deprecate()` when doing a production build.
+    (Chrome and Firefox only).
+  
+    * In a production build, this method is defined as an empty function (NOP).
+    Uses of this method in Ember itself are stripped from the ember.prod.js build.
   
     @method deprecate
     @param {String} message A description of the deprecation.
@@ -318,10 +320,10 @@ enifed('ember-debug/index', ['exports', 'ember-metal/core', 'ember-metal/debug',
   */
 
   /**
-    Define an assertion that will throw an exception if the condition is not
-    met. Ember build tools will remove any calls to `Ember.assert()` when
-    doing an Ember.js framework production build and will make the assertion a
-    no-op for an application production build. Example:
+    Define an assertion that will throw an exception if the condition is not met.
+  
+    * In a production build, this method is defined as an empty function (NOP).
+    Uses of this method in Ember itself are stripped from the ember.prod.js build.
   
     ```javascript
     // Test for truthiness
@@ -355,8 +357,10 @@ enifed('ember-debug/index', ['exports', 'ember-metal/core', 'ember-metal/debug',
   });
 
   /**
-    Display a debug notice. Ember build tools will remove any calls to
-    `Ember.debug()` when doing a production build.
+    Display a debug notice.
+  
+    * In a production build, this method is defined as an empty function (NOP).
+    Uses of this method in Ember itself are stripped from the ember.prod.js build.
   
     ```javascript
     Ember.debug('I\'m a debug notice!');
@@ -373,6 +377,9 @@ enifed('ember-debug/index', ['exports', 'ember-metal/core', 'ember-metal/debug',
   /**
     Display an info notice.
   
+    * In a production build, this method is defined as an empty function (NOP).
+    Uses of this method in Ember itself are stripped from the ember.prod.js build.
+  
     @method info
     @private
   */
@@ -386,8 +393,7 @@ enifed('ember-debug/index', ['exports', 'ember-metal/core', 'ember-metal/debug',
     Display a deprecation warning with the provided message and a stack trace
     (Chrome and Firefox only) when the assigned method is called.
   
-    Ember build tools will not remove calls to `Ember.deprecateFunc()`, though
-    no warnings will be shown in production.
+    * In a production build, this method is defined as an empty function (NOP).
   
     ```javascript
     Ember.oldMethod = Ember.deprecateFunc('Please use the new, updated method', Ember.newMethod);
@@ -438,8 +444,10 @@ enifed('ember-debug/index', ['exports', 'ember-metal/core', 'ember-metal/debug',
   });
 
   /**
-    Run a function meant for debugging. Ember build tools will remove any calls to
-    `Ember.runInDebug()` when doing a production build.
+    Run a function meant for debugging.
+  
+    * In a production build, this method is defined as an empty function (NOP).
+    Uses of this method in Ember itself are stripped from the ember.prod.js build.
   
     ```javascript
     Ember.runInDebug(() => {
@@ -479,14 +487,18 @@ enifed('ember-debug/index', ['exports', 'ember-metal/core', 'ember-metal/debug',
     @return {void}
   */
 
-  function _warnIfUsingStrippedFeatureFlags(FEATURES, featuresWereStripped) {
+  function _warnIfUsingStrippedFeatureFlags(FEATURES, knownFeatures, featuresWereStripped) {
     if (featuresWereStripped) {
       _emberMetalDebug.warn('Ember.ENV.ENABLE_OPTIONAL_FEATURES is only available in canary builds.', !_emberMetalCore.default.ENV.ENABLE_OPTIONAL_FEATURES, { id: 'ember-debug.feature-flag-with-features-stripped' });
 
-      for (var key in FEATURES) {
-        if (FEATURES.hasOwnProperty(key) && key !== 'isEnabled') {
-          _emberMetalDebug.warn('FEATURE["' + key + '"] is set as enabled, but FEATURE flags are only available in canary builds.', !FEATURES[key], { id: 'ember-debug.feature-flag-with-features-stripped' });
+      var keys = Object.keys(FEATURES || {});
+      for (var i = 0; i < keys.length; i++) {
+        var key = keys[i];
+        if (key === 'isEnabled' || !(key in knownFeatures)) {
+          continue;
         }
+
+        _emberMetalDebug.warn('FEATURE["' + key + '"] is set as enabled, but FEATURE flags are only available in canary builds.', !FEATURES[key], { id: 'ember-debug.feature-flag-with-features-stripped' });
       }
     }
   }
@@ -497,7 +509,7 @@ enifed('ember-debug/index', ['exports', 'ember-metal/core', 'ember-metal/debug',
     var featuresWereStripped = true;
 
     delete _emberMetalFeatures.FEATURES['features-stripped-test'];
-    _warnIfUsingStrippedFeatureFlags(_emberMetalCore.default.ENV.FEATURES, featuresWereStripped);
+    _warnIfUsingStrippedFeatureFlags(_emberMetalCore.default.ENV.FEATURES, _emberMetalFeatures.KNOWN_FEATURES, featuresWereStripped);
 
     // Inform the developer about the Ember Inspector if not installed.
     var isFirefox = _emberMetalEnvironment.default.isFirefox;
@@ -635,8 +647,10 @@ enifed('ember-debug/warn', ['exports', 'ember-metal/logger', 'ember-metal/debug'
   */
 
   /**
-    Display a warning with the provided message. Ember build tools will
-    remove any calls to `Ember.warn()` when doing a production build.
+    Display a warning with the provided message.
+  
+    * In a production build, this method is defined as an empty function (NOP).
+    Uses of this method in Ember itself are stripped from the ember.prod.js build.
   
     @method warn
     @param {String} message A warning to display.
@@ -1858,14 +1872,14 @@ requireModule("ember-testing");
 }());
 
 /*!
- * QUnit 1.23.0
+ * QUnit 1.23.1
  * https://qunitjs.com/
  *
  * Copyright jQuery Foundation and other contributors
  * Released under the MIT license
  * https://jquery.org/license
  *
- * Date: 2016-03-25T19:37Z
+ * Date: 2016-04-12T17:29Z
  */
 
 ( function( global ) {
@@ -2243,7 +2257,7 @@ function verifyLoggingCallbacks() {
 QUnit.isLocal = !( defined.document && window.location.protocol !== "file:" );
 
 // Expose the current QUnit version
-QUnit.version = "1.23.0";
+QUnit.version = "1.23.1";
 
 extend( QUnit, {
 
@@ -2253,7 +2267,7 @@ extend( QUnit, {
 		var currentModule = config.currentModule;
 
 		if ( arguments.length === 2 ) {
-			if ( testEnvironment instanceof Function ) {
+			if ( objectType( testEnvironment ) === "function" ) {
 				executeNow = testEnvironment;
 				testEnvironment = undefined;
 			}
@@ -2277,7 +2291,7 @@ extend( QUnit, {
 			afterEach: setHook( module, "afterEach" )
 		};
 
-		if ( executeNow instanceof Function ) {
+		if ( objectType( executeNow ) === "function" ) {
 			config.moduleStack.push( module );
 			setCurrentModule( module );
 			executeNow.call( module.testEnvironment, moduleFns );
@@ -3483,7 +3497,7 @@ QUnit.assert = Assert.prototype = {
 // Known to us are: Closure Compiler, Narwhal
 ( function() {
 	/*jshint sub:true */
-	Assert.prototype.raises = Assert.prototype.throws;
+	Assert.prototype.raises = Assert.prototype [ "throws" ]; //jscs:ignore requireDotNotation
 }() );
 
 function errorString( error ) {
@@ -6386,27 +6400,6 @@ jQuery(document).ready(function() {
       QUnit.start();
     }
   }, 250);
-});
-
-/* globals self */
-if (self.QUnit) {
-  self.QUnit.config.urlConfig.push({ id: 'nojscs', label: 'Disable JSCS' });
-}
-
-/* globals jQuery, QUnit */
-
-jQuery(document).ready(function () {
-  var TestLoaderModule = require('ember-cli/test-loader');
-  var addModuleExcludeMatcher = TestLoaderModule['addModuleExcludeMatcher'];
-
-  function isJscsDisabled() { return typeof QUnit === 'undefined' ? false : QUnit.urlParams.nojscs; }
-  function isAJscsTest(moduleName) { return moduleName.match(/\.jscs-test$/); }
-  function jscsModuleMatcher(moduleName) { return isJscsDisabled() && isAJscsTest(moduleName); }
-
-  if (addModuleExcludeMatcher) {
-    addModuleExcludeMatcher(jscsModuleMatcher);
-  }
-
 });
 
 define('ember-qunit/module-for-component', ['exports', 'ember-qunit/qunit-module', 'ember-test-helpers'], function (exports, _emberQunitQunitModule, _emberTestHelpers) {

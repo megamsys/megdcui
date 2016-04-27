@@ -1,0 +1,104 @@
+.tile
+  height: auto
+  padding: 0.8em 0.5em 0.8em 1.5em
+  margin-bottom: .46rem
+  background-color: white
+  border-radius: 0
+  li:last-child &
+    margin-bottom: 0
+
+  @include colorRows($turf-green, 'passed', 8px)
+  @include colorRows($brick-red, 'failed', 8px)
+  @include colorRows($brick-red, 'errored', 8px)
+  @include colorRows($cement-grey, 'canceled', 8px)
+  @include colorRows($canary-yellow, 'started', 8px, true)
+  @include colorRows($canary-yellow, 'queued', 8px, true)
+  @include colorRows($canary-yellow, 'booting', 8px, true)
+  @include colorRows($canary-yellow, 'received', 8px, true)
+  @include colorRows($canary-yellow, 'created', 8px, true)
+
+  .status-icon .is-rotating
+    width: 17px;
+    height: 17px;
+    line-height: 1;
+
+  h2, p
+    margin: 0
+    font-size: 14px
+    font-weight: 400
+  h2
+    position: relative
+    display: inline-block
+    margin-bottom: .7em
+    @media #{$medium-up}
+      width: 75%
+      white-space: nowrap
+      overflow: hidden
+      &:after
+        @include fadeOut(right, -90deg, white)
+  p.tile-title
+    width: 10%
+    @media #{$medium-up}
+      width: 25%
+      white-space: nowrap
+      overflow: hidden
+    @media #{$xlarge-up}
+      width: 22%
+  a:hover
+    text-decoration: underline
+
+  .icon-clock,
+  .icon-calendar,
+  .icon-hash
+    width: 14px
+    height: 14px
+  .status-icon
+    width: 12px
+    height: 16px
+
+.tabnav--sidebar
+  font-size: 14px
+  border-bottom: solid 2px $pebble-grey
+  width: 90%
+  margin: auto
+
+  .active a:after,
+  a:hover:after
+    bottom: -1px
+
+  .icon--plus
+    &:after
+      transform: translateX(35%)
+      display: inline-block
+  #tab_new
+    a:hover
+      .icon--plus:after
+        color: $oxide-blue
+      &:after
+        bottom: -1px
+  li
+    margin-right: 0.8em
+  @media (min-width: #{lower-bound($large-range)})
+    ul
+      height: 2em
+      margin-bottom: -5px
+  @media (max-width: #{lower-bound($large-range)})
+    li
+      display: block !important
+      float: none
+    a
+      padding: 0 0 .35em
+      margin-bottom: .8em
+
+.sidebar-list
+  margin-top: 1.4rem
+  ul
+    @include resetul
+    border-bottom: .46rem solid $cream-light
+    background-color: $cream-light
+
+.sidebar-seperator
+  width: 90%
+  margin: 1rem auto
+  border: none
+  border-bottom: solid 2px #f2f2f2

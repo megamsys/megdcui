@@ -1,0 +1,24 @@
+import Em from 'ember';
+import InFormMixin from 'meg/mixins/in_form';
+
+/*
+Form Submit Button
+
+Syntax:
+{{em-form-submit text="Submit"}}
+ */
+export default Em.Component.extend(InFormMixin, {
+  classes: 'btn btn-default',
+  classNames: ['form-group'],
+  text: 'Submit',
+  type: 'submit',
+  attributeBindings: ['disabled'],
+  horiClass: 'col-sm-offset-2 col-sm-10',
+  disabled: Em.computed('model.isValid', function() {
+    if (!Em.isNone(this.get('model.isValid'))) {
+      return !this.get('model.isValid');
+    } else {
+      return false;
+    }
+  })
+});

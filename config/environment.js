@@ -2,31 +2,33 @@
 
 module.exports = function(environment) {
   var ENV = {
-    modulePrefix: 'megd',
+    modulePrefix: 'meg',
     environment: environment,
     baseURL: '/',
-    locationType: 'hash', // Auto incompatible with google login right now
+    locationType: 'auto',
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
         // e.g. 'with-controller': true
       }
-    },
-
+    },  
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
     }
   };
 
-  ENV.contentSecurityPolicy = {
-    'connect-src': "'self'",
-    'default-src': "'self'",
-    'frame-src': "'self'",
-    'img-src': "'self' filesystem: data:",
-    'script-src': "'self' 'unsafe-inline' 'unsafe-eval'",
-    'style-src': "'self' 'unsafe-inline'"
+  ENV.i18n = {
+  	defaultLocale: 'en'
   };
+
+  if (environment === 'development') {
+    // ENV.APP.LOG_RESOLVER = true;
+    // ENV.APP.LOG_ACTIVE_GENERATION = true;
+    // ENV.APP.LOG_TRANSITIONS = true;
+    // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
+    // ENV.APP.LOG_VIEW_LOOKUPS = true;
+  }
 
   if (environment === 'test') {
     // Testem prefers this...
@@ -40,27 +42,9 @@ module.exports = function(environment) {
     ENV.APP.rootElement = '#ember-testing';
   }
 
-  ENV.i18n = {
-    defaultLocale: 'en'
-  };
-
-  ENV.manifest = {
-    enabled: true,
-    appcacheFile: '/manifest.appcache',
-    excludePaths: ['index.html', 'tests/index.html', 'robots.txt', 'crossdomain.xml', 'testem.js'],
-    showCreateDate: true
-  };
-  
-  ENV.serviceWorker = {
-    enabled: true,
-    debug: true,
-    excludePaths: ['manifest.appcache']    
-  };
- 
   if (environment === 'production') {
-    ENV.serviceWorker.debug = false;
+
   }
 
   return ENV;
 };
-
