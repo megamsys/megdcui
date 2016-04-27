@@ -18,7 +18,7 @@ type HostCheck struct {
 
 func (i *HostCheck) GetHostCheck(host, username, password string) error {
 
-	z :=HostCheck{ All: false, HostCheck: false, Host: "91.194.84.109", Username: "root", Password: "S0shS1tPHvz9O4"}
+	z :=HostCheck{ All: false, HostCheck: false, Host: host, Username: username, Password: password}
 
   f := handler.NewWrap(&z)
   f.IfNoneAddPackages(INSTALL_PACKAGE)
