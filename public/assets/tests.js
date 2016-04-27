@@ -7,6 +7,168 @@ define('meg/tests/app.jshint', ['exports'], function (exports) {
     assert.ok(true, 'app.js should pass jshint.');
   });
 });
+define('meg/tests/components/em-checkbox.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - components/em-checkbox.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/em-checkbox.js should pass jshint.');
+  });
+});
+define('meg/tests/components/em-components/checkbox.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - components/em-components/checkbox.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/em-components/checkbox.js should pass jshint.');
+  });
+});
+define('meg/tests/components/em-components/control_help.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - components/em-components/control_help.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/em-components/control_help.js should pass jshint.');
+  });
+});
+define('meg/tests/components/em-components/form.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - components/em-components/form.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/em-components/form.js should pass jshint.');
+  });
+});
+define('meg/tests/components/em-components/group.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - components/em-components/group.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/em-components/group.js should pass jshint.');
+  });
+});
+define('meg/tests/components/em-components/input.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - components/em-components/input.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/em-components/input.js should pass jshint.');
+  });
+});
+define('meg/tests/components/em-components/label.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - components/em-components/label.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/em-components/label.js should pass jshint.');
+  });
+});
+define('meg/tests/components/em-components/select.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - components/em-components/select.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/em-components/select.js should pass jshint.');
+  });
+});
+define('meg/tests/components/em-components/submit_button.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - components/em-components/submit_button.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/em-components/submit_button.js should pass jshint.');
+  });
+});
+define('meg/tests/components/em-components/text.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - components/em-components/text.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/em-components/text.js should pass jshint.');
+  });
+});
+define('meg/tests/components/em-form-control-help.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - components/em-form-control-help.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/em-form-control-help.js should pass jshint.');
+  });
+});
+define('meg/tests/components/em-form-group.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - components/em-form-group.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/em-form-group.js should pass jshint.');
+  });
+});
+define('meg/tests/components/em-form-label.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - components/em-form-label.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/em-form-label.js should pass jshint.');
+  });
+});
+define('meg/tests/components/em-form-submit.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - components/em-form-submit.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/em-form-submit.js should pass jshint.');
+  });
+});
+define('meg/tests/components/em-form.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - components/em-form.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/em-form.js should pass jshint.');
+  });
+});
+define('meg/tests/components/em-input.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - components/em-input.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/em-input.js should pass jshint.');
+  });
+});
+define('meg/tests/components/em-select.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - components/em-select.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/em-select.js should pass jshint.');
+  });
+});
+define('meg/tests/components/em-text.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - components/em-text.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/em-text.js should pass jshint.');
+  });
+});
 define('meg/tests/components/meg-layout.jshint', ['exports'], function (exports) {
   'use strict';
 
@@ -14,6 +176,24 @@ define('meg/tests/components/meg-layout.jshint', ['exports'], function (exports)
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
     assert.ok(true, 'components/meg-layout.js should pass jshint.');
+  });
+});
+define('meg/tests/components/notification-container.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - components/notification-container.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/notification-container.js should pass jshint.');
+  });
+});
+define('meg/tests/components/notification-message.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - components/notification-message.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/notification-message.js should pass jshint.');
   });
 });
 define('meg/tests/components/popup-click-handler.jshint', ['exports'], function (exports) {
@@ -41,6 +221,15 @@ define('meg/tests/controllers/home.jshint', ['exports'], function (exports) {
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
     assert.ok(true, 'controllers/home.js should pass jshint.');
+  });
+});
+define('meg/tests/controllers/signin.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - controllers/signin.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'controllers/signin.js should pass jshint.');
   });
 });
 define('meg/tests/controllers/signup.jshint', ['exports'], function (exports) {
@@ -272,6 +461,15 @@ define('meg/tests/initializers/auth.jshint', ['exports'], function (exports) {
     assert.ok(true, 'initializers/auth.js should pass jshint.');
   });
 });
+define('meg/tests/initializers/notifications.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - initializers/notifications.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'initializers/notifications.js should pass jshint.');
+  });
+});
 define('meg/tests/locales/en/translations.jshint', ['exports'], function (exports) {
   'use strict';
 
@@ -281,13 +479,76 @@ define('meg/tests/locales/en/translations.jshint', ['exports'], function (export
     assert.ok(true, 'locales/en/translations.js should pass jshint.');
   });
 });
-define('meg/tests/mixins/validations.jshint', ['exports'], function (exports) {
+define('meg/tests/mixins/ajax-request.jshint', ['exports'], function (exports) {
   'use strict';
 
-  QUnit.module('JSHint - mixins/validations.js');
+  QUnit.module('JSHint - mixins/ajax-request.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'mixins/validations.js should pass jshint.');
+    assert.ok(true, 'mixins/ajax-request.js should pass jshint.');
+  });
+});
+define('meg/tests/mixins/control.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - mixins/control.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'mixins/control.js should pass jshint.');
+  });
+});
+define('meg/tests/mixins/errors.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - mixins/errors.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'mixins/errors.js should pass jshint.');
+  });
+});
+define('meg/tests/mixins/has_property.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - mixins/has_property.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'mixins/has_property.js should pass jshint.');
+  });
+});
+define('meg/tests/mixins/has_property_validation.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - mixins/has_property_validation.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'mixins/has_property_validation.js should pass jshint.');
+  });
+});
+define('meg/tests/mixins/in_form.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - mixins/in_form.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'mixins/in_form.js should pass jshint.');
+  });
+});
+define('meg/tests/models/model.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - models/model.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'models/model.js should pass jshint.');
+  });
+});
+define('meg/tests/models/user.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - models/user.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'models/user.js should pass jshint.');
   });
 });
 define('meg/tests/resolver.jshint', ['exports'], function (exports) {
@@ -344,6 +605,15 @@ define('meg/tests/routes/main.jshint', ['exports'], function (exports) {
     assert.ok(true, 'routes/main.js should pass jshint.');
   });
 });
+define('meg/tests/routes/signin.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - routes/signin.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'routes/signin.js should pass jshint.');
+  });
+});
 define('meg/tests/routes/signup.jshint', ['exports'], function (exports) {
   'use strict';
 
@@ -380,6 +650,15 @@ define('meg/tests/services/flashes.jshint', ['exports'], function (exports) {
     assert.ok(true, 'services/flashes.js should pass jshint.');
   });
 });
+define('meg/tests/services/notification-messages-service.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - services/notification-messages-service.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'services/notification-messages-service.js should pass jshint.');
+  });
+});
 define('meg/tests/test-helper', ['exports', 'meg/tests/helpers/resolver', 'ember-qunit'], function (exports, _megTestsHelpersResolver, _emberQunit) {
 
   (0, _emberQunit.setResolver)(_megTestsHelpersResolver['default']);
@@ -393,6 +672,15 @@ define('meg/tests/test-helper.jshint', ['exports'], function (exports) {
     assert.ok(true, 'test-helper.js should pass jshint.');
   });
 });
+define('meg/tests/utils/ajax.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - utils/ajax.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'utils/ajax.js should pass jshint.');
+  });
+});
 define('meg/tests/utils/computed-limit.jshint', ['exports'], function (exports) {
   'use strict';
 
@@ -402,6 +690,24 @@ define('meg/tests/utils/computed-limit.jshint', ['exports'], function (exports) 
     assert.ok(true, 'utils/computed-limit.js should pass jshint.');
   });
 });
+define('meg/tests/utils/email-validation.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - utils/email-validation.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'utils/email-validation.js should pass jshint.');
+  });
+});
+define('meg/tests/utils/is-fastboot.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - utils/is-fastboot.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'utils/is-fastboot.js should pass jshint.');
+  });
+});
 define('meg/tests/utils/limited-array.jshint', ['exports'], function (exports) {
   'use strict';
 
@@ -409,6 +715,33 @@ define('meg/tests/utils/limited-array.jshint', ['exports'], function (exports) {
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
     assert.ok(true, 'utils/limited-array.js should pass jshint.');
+  });
+});
+define('meg/tests/utils/parse-response-headers.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - utils/parse-response-headers.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'utils/parse-response-headers.js should pass jshint.');
+  });
+});
+define('meg/tests/utils/url-helpers.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - utils/url-helpers.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'utils/url-helpers.js should pass jshint.');
+  });
+});
+define('meg/tests/utils/utils.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - utils/utils.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'utils/utils.js should pass jshint.');
   });
 });
 /* jshint ignore:start */

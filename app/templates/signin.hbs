@@ -2,17 +2,14 @@
 {{#if redirected}}
 {{/if}}
 
-<span class="mascot"></span>
-<h3>Hey, we're so glad <br> you're here!</h3>
-<h2>In order to view your repositories, <br> please sign in.</h2>
+<div class="container">
+  {{#em-form model=model form_layout='horizontal' submit_button=false}}
+        {{em-input property="name" label="Full Name" placeholder="Enter a name..." type="text"}}
+        {{em-input label="Password" property="password" placeholder="And password..." type="password" disabled=nameHasValue}}
+        <div class="form-actions">
+            <input disabled={{isntValid}} type="submit" class="btn btn-success" value="Login">
+        </div>
+    {{/em-form}}
+</div> <!-- /container -->
 
-<p>
-  <a href="#" {{action "signIn" target="auth"}}>
-    {{#if auth.signingIn}}
-      Signing in...
-    {{else}}
-      Sign in with GitHub
-    {{/if}}
-  </a>
-</p>
 {{/meg-layout}}

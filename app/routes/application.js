@@ -3,6 +3,19 @@ import MegRoute from 'meg/routes/basic';
 
 export default MegRoute.extend({
 
-   
-    
+actions: {
+
+  signupPage() {
+    this.transitionTo('signup');
+        return true;
+  },
+
+  signinPage() {
+    this.transitionTo('signin');
+        return true;
+  },
+
+}
+
+
 });
