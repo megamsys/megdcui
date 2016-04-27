@@ -12,6 +12,7 @@ import (
 	"github.com/codegangsta/negroni"
 	"github.com/megamsys/megdcui/api"
 	"github.com/megamsys/megdcui/subd/httpd/shutdown"
+	 "github.com/megamsys/megdcui/meta"
 	"gopkg.in/tylerb/graceful.v1"
 )
 
@@ -28,15 +29,16 @@ type Service struct {
 }
 
 // NewService returns a new instance of Service.
-func NewService(c *Config) *Service {
+func NewService(c *meta.Config,h *Config) *Service {
 	s := &Service{
-		addr:     c.BindAddress,
-		tls:      c.UseTls,
-		certFile: c.CertFile,
-		keyFile:  c.KeyFile,
+		addr:     h.BindAddress,
+		tls:      h.UseTls,
+		certFile: h.CertFile,
+		keyFile:  h.KeyFile,
 		err:      make(chan error),
 		hlr:      api.NewNegHandler(),
 	}
+	c.MkGlobal()
 	return s
 }
 
@@ -106,6 +108,7 @@ func (s *Service) serve() {
 		err = s.ln.ListenAndServeTLS(s.certFile, s.keyFile)
 	} else {
 		log.Printf("  > httpd http://%s", s.addr)
+
 		err = s.ln.ListenAndServe()
 	}
 	if err != nil && !strings.Contains(err.Error(), "closed") {
