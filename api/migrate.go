@@ -2,9 +2,12 @@ package api
 
 import (
 	"net/http"
-	"fmt"
+  "encoding/json"
+  "fmt"
+  "errors"
 	log "github.com/Sirupsen/logrus"
-_ "github.com/megamsys/megdcui/migration/solusvm"
+  _ "github.com/megamsys/megdcui/migration/solusvm"
+  "github.com/megamsys/megdcui/automation"
 	"github.com/megamsys/megdcui/migration"
 )
 
@@ -13,10 +16,15 @@ const(
 )
 
 var register migration.DataCenter
+
 func migrate(w http.ResponseWriter, r *http.Request) error {
-  masterip := "103.56.92.58"
-	id := "eurssfsjhiosdnfms"
-	key := "sdgsdgawrsdgsw23"
+	hostinfo := &automation.HostInfo{
+		SolusMaster:  "103.56.92.58",
+		Id: "iy9rRvifGKajunciPcu5V13ANyAmVnvklN2HV8cv",
+		Key: "8mQloZ1rjkl6bevOCW2o0mykZpSLnV8l8OwmCnEN",
+		SolusNode: "158.69.240.220",
+	}
+
 
 	a, err := migration.Get(defaultServer)
 
@@ -29,27 +37,27 @@ func migrate(w http.ResponseWriter, r *http.Request) error {
 
 	if migrationHost, ok := register.(migration.MigrationHost); ok {
 
-		err = migrationHost.MigratablePrepare(masterip,id,key)
+		err = migrationHost.MigratablePrepare(hostinfo)
 		if err != nil {
-			log.Errorf("fatal error, couldn't Migrate %s solusvm master", masterip)
+			log.Errorf("fatal error, couldn't Migrate %s solusvm master", hostinfo.SolusMaster)
 			return err
 		} else {
-			log.Debugf("%s Can Migratable", masterip)
-			return nil
+			log.Debugf("%s Can Migratable", hostinfo.SolusMaster)
 		}
+     res, er := migrationHost.MigrateHost(hostinfo)
+		 if er != nil {
+ 			log.Errorf("fatal error, couldn't Migrate %s solusvm node", hostinfo.SolusNode)
+ 			return er
+ 		}
+		b, eror := json.Marshal(res)
+    if eror != nil {
+        fmt.Printf("Error: %s", eror)
+        return eror;
+    }
 
+		fmt.Println("\n Result json for api call ",string(b))
+		return errors.New(string(b))
 	}
 
-	fmt.Println("*************************************")
-	fmt.Println()
-  /*b :=&provision.Box{
-    BaseUrl: "https://103.56.92.58:5656/api/admin/command.php",
-    Id: "sedfwesdvsdghfh",
-    Key: "fdfrg45dgvg24db",
-  }
-	err :=provision.Deploy(&provision.DeployOpts{B: b})
-	if err != nil {
-		return err
-	}*/
 	return nil
 }

@@ -8,8 +8,8 @@ import (
 
 	log "github.com/Sirupsen/logrus"
 	pp "github.com/megamsys/libgo/cmd"
-	//"github.com/megamsys/vertice/meta"
 	"github.com/megamsys/megdcui/subd/httpd"
+	"github.com/megamsys/megdcui/meta"
 )
 
 // Server represents a container for the metadata and storage data and services.
@@ -35,18 +35,18 @@ func NewServer(c *Config, version string) (*Server, error) {
 		closing: make(chan struct{}),
 	}
 
-	s.appendHTTPDService(c.HTTPD)
-	
+	s.appendHTTPDService(c.Meta, c.HTTPD)
+
 	return s, nil
 }
 
-func (s *Server) appendHTTPDService(c *httpd.Config) {
-	e := *c
+func (s *Server) appendHTTPDService(c *meta.Config,h *httpd.Config) {
+	e := *h
 	if !e.Enabled {
 		log.Warn("skip httpd service.")
 		return
 	}
-	srv := httpd.NewService(c)
+	srv := httpd.NewService(c,h)
 	s.Services = append(s.Services, srv)
 }
 

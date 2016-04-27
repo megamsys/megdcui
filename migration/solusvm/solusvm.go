@@ -2,6 +2,9 @@ package solusvm
 
 import (
 	log "github.com/Sirupsen/logrus"
+  "fmt"
+
+	"github.com/megamsys/megdcui/automation"
 	"github.com/megamsys/megdcui/migration"
 	"github.com/megamsys/libgo/action"
 	"gopkg.in/yaml.v2"
@@ -42,7 +45,7 @@ func (b *VirtualServer) String() string {
 	}
 }
 
-func (m solusvmManager) MigratablePrepare(ip, id, key string) error {
+func (m solusvmManager) MigratablePrepare(h *automation.HostInfo)  error {
 
 	actions := []*action.Action{
 		&VertifyMigratableCredentials,
@@ -51,39 +54,48 @@ func (m solusvmManager) MigratablePrepare(ip, id, key string) error {
 	pipeline := action.NewPipeline(actions...)
 
 	args := runActionsArgs{
-    id:         id,
-		key:        key,
-		masterip:   ip,
+    h:        h,
 	}
 
 	err := pipeline.Execute(args)
 	if err != nil {
-		log.Errorf("error on execute status pipeline for github %s - %s", ip, err)
+		log.Errorf("error on execute status pipeline for github %s - %s", h.SolusMaster, err)
 		return err
 	}
+
 	return nil
 
 }
-func (m solusvmManager) MigrateHost(hostip, user, pass string) error {
-/*
-	actions := []*action.Action{
+func (m solusvmManager) MigrateHost(h *automation.HostInfo) (*automation.Result, error) {
 
+	actions := []*action.Action{
+  // &ListClientsInMigratable,
+	 &OnboardClientsInVertice,
+	// &ListVMsinMigratable,
+	 &TagMigratableInVertice,
 	}
+
 	pipeline := action.NewPipeline(actions...)
 
-	s := strings.Split(url, "/")[4]
-	s1 := strings.Split(tar_url, "/")[6]
 	args := runActionsArgs{
-		hostip:         hostip,
-		username:     user,
-		password:   pass,
+    h: h,
 	}
 
 	err := pipeline.Execute(args)
 	if err != nil {
-		log.Errorf("error on execute status pipeline for github %s - %s", hostip, err)
-		return err
-	}*/
-	return nil
+		log.Errorf("error on execute status pipeline for node %s - %s", h.SolusNode, err)
+		r := &automation.Result{
+			Status: "error",
+		 	Statusmsg: fmt.Sprintf("%s",err),
+		 	VirtualServers: "",
+		}
+		return r,err
+	}
+	r := &automation.Result{
+		Status: "success",
+	 	Statusmsg: "virtual machines migrated successfully",
+	 	VirtualServers: "",
+	}
+	return r, nil
 
 }
