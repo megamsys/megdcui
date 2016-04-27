@@ -25,7 +25,7 @@ type CreateBridge struct{
 
 func (i *CreateBridge) Bridge(bridgename, phydev, network, netmask, gateway, dnsname1, dnsname2, host, username, password string) error {
 
-a := CreateBridge{CreateBridge: true,  Bridgename: bridgename, PhyDev: phydev, Network: network, Netmask: netmask, Gateway: gateway, Dnsname1: dnsname1, Dnsname2: dnsname2, Host: host, Username: username, Password: password }
+a := CreateBridge{All: false,CreateBridge: true,  Bridgename: bridgename, PhyDev: phydev, Network: network, Netmask: netmask, Gateway: gateway, Dnsname1: dnsname1, Dnsname2: dnsname2, Host: host, Username: username, Password: password }
   c := handler.NewWrap(&a)
 	c.IfNoneAddPackages(BRIDGE)
 	if h, err := handler.NewHandler(c); err != nil {
