@@ -4,7 +4,6 @@ import (
 	"net/http"
   "io/ioutil"
   "encoding/json"
-  "fmt"
   acc "github.com/megamsys/megdcui/handlers/accounts"
 )
 
@@ -14,9 +13,7 @@ func Accounts(w http.ResponseWriter, r *http.Request) error {
       http.Error(w, err.Error(), 400)
       return err
     }
-  fmt.Println("------------------------------")
-  fmt.Println(string(body))
-
+    
   a, accerr := acc.NewAccount(body)
   if accerr != nil {
     http.Error(w, accerr.Error(), 500)
