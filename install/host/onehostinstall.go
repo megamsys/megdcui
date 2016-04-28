@@ -9,25 +9,23 @@ import (
   )
 
 
-var INSTALL_PACKAGE= []string{"HostCheck"}
+var OneHost = []string{"OneHostInstall"}
 
-type HostCheck struct {
-	All              bool
-	HostCheck    bool
+type Onehostinstall struct {
 	Host string
 	Username string
 	Password string
 }
 
-func (i *HostCheck) GetHostCheck(host, username, password string) error {
+func (i *Onehostinstall) InstallOneHost(host, username, password string) error {
   var outBuffer bytes.Buffer
-  writer := io.MultiWriter(&outBuffer, os.Stdout)
-  fmt.Printf("Before sent %#v:",outBuffer)
+ writer := io.MultiWriter(&outBuffer, os.Stdout)
+ fmt.Printf("Before sent %#v:",outBuffer)
 
-	z :=HostCheck{ All: false, HostCheck: false, Host: host, Username: username, Password: password}
+	z :=Onehostinstall{ Host: host, Username: username, Password: password}
 
   f := handler.NewWrap(&z)
-  f.IfNoneAddPackages(INSTALL_PACKAGE)
+  f.IfNoneAddPackages(INSTALL_PACKAGES)
 	if h, err := handler.NewHandler(f); err != nil {
 		return err
 	} else if err := h.Run(writer); err != nil {
