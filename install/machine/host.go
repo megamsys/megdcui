@@ -58,6 +58,28 @@ func (m hostManager) HostCheck(host , username, password string) error {
 
 }
 
+func (m hostManager) OneHosts(host , username, password string) error {
+
+	actions := []*action.Action{
+		&OneHostInstall,
+	}
+	pipeline := action.NewPipeline(actions...)
+
+	args := runActionsArgs{
+     host:         host,
+		username:      username,
+		password:   password,
+	}
+
+	err := pipeline.Execute(args)
+	if err != nil {
+		log.Errorf("error on execute status pipeline for host %s - %s", host, err)
+		return err
+	}
+	return nil
+
+}
+
 func (m hostManager) CreateBridge(bridgename, phydev, network, netmask, gateway, dnsname1, dnsname2, host, username, password string) error {
 
 	actions := []*action.Action{
