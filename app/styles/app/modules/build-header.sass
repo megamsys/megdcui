@@ -1,0 +1,91 @@
+.build-header
+  font-size: 16px
+  border: 1px solid $cream-dark
+  clear: both
+
+  @include colorRows($turf-green, 'passed', 10px)
+  @include colorRows($brick-red, 'failed', 10px)
+  @include colorRows($brick-red, 'errored', 10px)
+  @include colorRows($cement-grey, 'canceled', 10px)
+  @include colorRows($canary-yellow, 'started', 10px, true, $dozer-yellow)
+  @include colorRows($canary-yellow, 'queued', 10px, true, $dozer-yellow)
+  @include colorRows($canary-yellow, 'booting', 10px, true, $dozer-yellow)
+  @include colorRows($canary-yellow, 'received', 10px, true, $dozer-yellow)
+  @include colorRows($canary-yellow, 'created', 10px, true, $dozer-yellow)
+
+  @media #{$medium-up}
+    display: flex
+    flex-flow: row no-wrap
+    justify-content: space-between
+
+  a:hover,
+  a:active
+    text-decoration: underline
+
+.build-commit,
+.build-tools
+  padding-left: 2rem
+
+.build-commit
+  font-size: 16px
+  @media #{$medium-up}
+    flex: 1 1 65%
+    padding-left: 2.2rem
+
+.build-tools
+  padding: 1rem 0 1rem 3rem
+  overflow: auto
+  @media #{$medium-up}
+    flex: 0 0 40px
+    padding: 1rem 0 0
+
+.build-info
+  font-size: 15px
+  padding-left: 3rem
+  @media #{$medium-up}
+    flex: 1 1 35%
+
+.build-title,
+.build-status
+  margin: 1rem 0
+  padding-left: 1rem
+  font-weight: $font-weight-normal
+  font-size: 16px
+
+.build-title
+  .status-icon
+    margin-left: -1.9rem
+    margin-right: 0.7rem
+
+.commit-info
+  font-size: 15px
+  padding-left: 1rem
+
+.commit-branch
+  margin-right: .5em
+  font-weight: $font-weight-bold
+  font-size: 16px
+
+.build-status
+  padding-left: 0
+
+.commit-author
+  margin: 1rem 0 .7rem
+
+.commit-description
+  margin: 1rem 0
+  @media #{$medium-up}
+    max-height: 4.5em
+    position: relative
+    overflow: hidden
+    &:after
+      conent: ""
+      +fadeOut(bottom, 360deg, white, 5%)
+
+.list-icon
+  padding: 0
+  margin: 1rem 0
+  list-style: none
+  line-height: 1.7
+  .commit-clock
+    margin-bottom: 1rem

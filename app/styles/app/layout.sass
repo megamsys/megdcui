@@ -1,0 +1,94 @@
+.centered
+  .row
+    max-width: 1024px
+
+  .main
+    margin: auto
+    max-width: 1024px
+    padding-left: 0 !important
+    padding-right: 0 !important
+    padding-top: 30px !important
+    // overflow-y: auto
+  @media #{$medium-up}
+    .topbar
+      max-width: 1024px
+      margin: auto
+      padding: 0
+
+.main,
+.profile-view
+  position: relative
+  width: 100%
+  min-height: 100vh
+  background-color: white
+.inner
+  max-width: 1024px
+  margin: auto
+
+#auth, #not-found, #simple
+  #top
+    top: 0
+
+#left
+  padding: 0 0 110px 0
+  background-color: white
+  border-right: 2px solid #f2f2f2
+
+#main
+  position: relative
+  padding: 1.8em $column-gutter/2 5em
+
+.wrapper
+  overflow: hidden
+  & > .centered
+    background-color: white
+
+.wrapper.non-centered
+  #main,
+  #left
+    margin-bottom: -99999px
+    padding-bottom: 100034px
+
+
+@media #{$large-up}
+
+  #left, .wrapper-main
+    min-height: 100vh
+
+  #left
+    width: grid-calc(6, 24)
+    float: left
+    margin-left: -100%
+    max-width: 325px
+
+  .non-centered .wrapper-main
+    width: grid-calc(18, 24)
+    float: left
+    margin-left: grid-calc(6, 24)
+    overflow: visible
+
+  .centered .wrapper-main
+    max-width: 1024px
+    margin-left: auto
+    margin-right: auto
+
+@media #{$xlarge-up}
+  #left
+    width: grid-calc(7, 36)
+  .non-centered .wrapper-main
+    width: grid-calc(29, 36)
+    margin-left: grid-calc(7, 36)
+
+@media #{$xxlarge-up}
+  #left
+    width: grid-calc(6, 36)
+  .non-centered .wrapper-main
+    width: grid-calc(30, 36)
+    margin-left: grid-calc(6, 36)
+
+@media screen and (min-width: 2200px)
+  #left
+    width: grid-calc(5, 36)
+  .non-centered .wrapper-main
+    width: grid-calc(31, 36)
+    margin-left: grid-calc(5, 36)
