@@ -58,6 +58,24 @@ var HostCheck = action.Action{
 
 	},
 }
+
+var OneHostInstall = action.Action{
+	Name: "OneHostInstall",
+	Forward: func(ctx action.FWContext) (action.Result, error) {
+		args := ctx.Params[0].(runActionsArgs)
+
+		log.Debugf("Host  %s ", args.host)
+		var m host.Onehostinstall
+		m.InstallOneHost(args.host,args.username,args.password)
+		    fmt.Println()
+    log.Debugf("Verified [%s] host ", args.host)
+    return &args ,nil
+
+	},
+	Backward: func(ctx action.BWContext) {
+
+	},
+}
 var CreateBridgeAction = action.Action{
 	Name: "CreateBridge",
 	Forward: func(ctx action.FWContext) (action.Result, error) {

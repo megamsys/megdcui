@@ -37,6 +37,7 @@ type InstallHost interface {
   CreateBridge(bridgename, phydev, network, netmask, gateway, dnsname1, dnsname2,host,username,password string) error
   HostCheck(host,username,password string) error
   //CreateNetwork(bridge, iptype, ip, size, dns1, dns2, network, gateway, host,username,password string) error
+  OneHosts(host,username,password string)error
 }
 
 
