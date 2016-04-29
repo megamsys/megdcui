@@ -6,7 +6,8 @@ export default MegRoute.extend({
 actions: {
 
   signupPage() {
-    this.transitionTo('signup');
+    //this.transitionTo('signup');
+    this.transitionTo('main');
         return true;
   },
 

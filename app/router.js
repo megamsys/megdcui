@@ -6,12 +6,16 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
-	
+
 	this.route('home', { path: '/' });
 	this.route('main');
 	this.route('signup');
 	this.route('signin');
-	
+
+  this.resource('messages', function() {
+  this.route('tab', { path: '/:id' });
+});
+
 });
 
 export default Router;

@@ -61,6 +61,42 @@ define('meg/tests/components/em-components/input.jshint', ['exports'], function 
     assert.ok(true, 'components/em-components/input.js should pass jshint.');
   });
 });
+define('meg/tests/components/em-components/ivy-tab-list.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - components/em-components/ivy-tab-list.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/em-components/ivy-tab-list.js should pass jshint.');
+  });
+});
+define('meg/tests/components/em-components/ivy-tab-panel.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - components/em-components/ivy-tab-panel.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/em-components/ivy-tab-panel.js should pass jshint.');
+  });
+});
+define('meg/tests/components/em-components/ivy-tab.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - components/em-components/ivy-tab.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/em-components/ivy-tab.js should pass jshint.');
+  });
+});
+define('meg/tests/components/em-components/ivy-tabs.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - components/em-components/ivy-tabs.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/em-components/ivy-tabs.js should pass jshint.');
+  });
+});
 define('meg/tests/components/em-components/label.jshint', ['exports'], function (exports) {
   'use strict';
 
@@ -169,6 +205,42 @@ define('meg/tests/components/em-text.jshint', ['exports'], function (exports) {
     assert.ok(true, 'components/em-text.js should pass jshint.');
   });
 });
+define('meg/tests/components/ivy-tab-list.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - components/ivy-tab-list.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/ivy-tab-list.js should pass jshint.');
+  });
+});
+define('meg/tests/components/ivy-tab-panel.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - components/ivy-tab-panel.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/ivy-tab-panel.js should pass jshint.');
+  });
+});
+define('meg/tests/components/ivy-tab.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - components/ivy-tab.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/ivy-tab.js should pass jshint.');
+  });
+});
+define('meg/tests/components/ivy-tabs.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - components/ivy-tabs.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/ivy-tabs.js should pass jshint.');
+  });
+});
 define('meg/tests/components/meg-layout.jshint', ['exports'], function (exports) {
   'use strict';
 
@@ -221,6 +293,15 @@ define('meg/tests/controllers/home.jshint', ['exports'], function (exports) {
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
     assert.ok(true, 'controllers/home.js should pass jshint.');
+  });
+});
+define('meg/tests/controllers/main.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - controllers/main.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'controllers/main.js should pass jshint.');
   });
 });
 define('meg/tests/controllers/signin.jshint', ['exports'], function (exports) {

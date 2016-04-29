@@ -6,12 +6,12 @@ export default Ember.Controller.extend({
 	ajax: Ember.inject.service(),
 
 	actions: {
-		createAccount() {
-			this.get('auth').signIn();		
-      this.get('model').createAccount().then(function(result) {
-				console.log("===================================");
+		createAccount: function() {
+			this.get('auth').signIn();
+      return this.get('model').createAccount().then(function(result) {
+				console.log("==============result=====================");
 				console.log(result);
-
+        this.transitionToRoute('main');
 			});
     }
 
