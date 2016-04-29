@@ -19,6 +19,15 @@ type runActionsArgs struct {
 	gateway      string
 	dnsname1     string
 	dnsname2     string
+	iptype       string
+	ip           string
+	size         string
+	infodriver    string
+	vm            string
+	hostname      string
+	poolname      string
+	vgname         string
+
 }
 
 
@@ -84,6 +93,58 @@ var CreateBridgeAction = action.Action{
 		log.Debugf("Host  %s ", args.host)
 		var m host.CreateBridge
 		m.Bridge(args.bridgename, args.phydev, args.network, args.netmask, args.gateway, args.dnsname1, args.dnsname2, args.host, args.username, args.password)
+		    fmt.Println()
+    log.Debugf("Verified [%s] host ", args.host)
+    return &args ,nil
+
+	},
+	Backward: func(ctx action.BWContext) {
+
+	},
+}
+var CreateNetworkAction = action.Action{
+	Name: "CreateBridge",
+	Forward: func(ctx action.FWContext) (action.Result, error) {
+		args := ctx.Params[0].(runActionsArgs)
+
+		log.Debugf("Host  %s ", args.host)
+		var m host.CreateNetworkOpennebula
+		m.CreateNetwork(args.bridgename, args.iptype, args.ip, args.size, args.netmask, args.gateway, args.dnsname1, args.dnsname2, args.host, args.username, args.password)
+		    fmt.Println()
+    log.Debugf("Verified [%s] host ", args.host)
+    return &args ,nil
+
+	},
+	Backward: func(ctx action.BWContext) {
+
+	},
+}
+var AttachOneHostAction = action.Action{
+	Name: "AttachOneHostAction",
+	Forward: func(ctx action.FWContext) (action.Result, error) {
+		args := ctx.Params[0].(runActionsArgs)
+
+		log.Debugf("Host  %s ", args.host)
+		var m host.AttachOneHost
+		m.SetAttachOneHost(args.infodriver, args.vm, args.hostname, args.network, args.host, args.username, args.password)
+		    fmt.Println()
+    log.Debugf("Verified [%s] host ", args.host)
+    return &args ,nil
+
+	},
+	Backward: func(ctx action.BWContext) {
+
+	},
+}
+
+var CreateDatastoreAction = action.Action{
+	Name: "CreateDatastoreAction",
+	Forward: func(ctx action.FWContext) (action.Result, error) {
+		args := ctx.Params[0].(runActionsArgs)
+
+		log.Debugf("Host  %s ", args.host)
+		var m host.CreateDatastoreLvm
+		m.CreateDatastore(args.poolname, args.vgname, args.hostname, args.host, args.username, args.password)
 		    fmt.Println()
     log.Debugf("Verified [%s] host ", args.host)
     return &args ,nil
