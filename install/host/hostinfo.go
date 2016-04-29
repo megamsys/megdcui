@@ -34,10 +34,8 @@ func (i *HostInfo) GetHostInfo(host, username, password string) error {
 	} else if err := h.Run(writer); err != nil {
 		return err
 	}
-  w, _ := os.Create("/home/alrin/dat2")
-  n2, _ := w.Write(outBuffer.Bytes())
-  //fmt.Print(writer.String())
-  fmt.Printf("%#v",writer)
-  fmt.Println(n2)
+
+  s := outBuffer.String()
+  fmt.Println(s)
 	return nil
 }
