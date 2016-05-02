@@ -1,0 +1,141 @@
+@mixin fadeOut($position, $angle, $color, $width: 0%)
+  content: ""
+  display: block
+  position: absolute
+
+  @if $position == bottom
+    bottom: 0
+    width: 100%
+    height: 2em
+  @else if $position == right
+    top: 0
+    right: 0
+    width: 2em
+    height: 100%
+
+  background: linear-gradient($angle, rgba($color, 1) $width, rgba($color, 0) 100%)
+
+@mixin clearfix
+  &:before,
+  &:after
+    content: ""
+    display: table
+  &:after
+    clear: both
+
+@mixin resetul
+  margin: 0
+  padding: 0
+  list-style: none
+
+%absolute-center
+  position: absolute
+  top: 0
+  right: 0
+  left: 0
+  bottom: 0
+  margin: auto
+
+=linkStyle
+  a
+    text-decoration: none
+    border-bottom: 1px solid $cement-grey
+    padding-bottom: 0.1rem
+    transition: color 200ms ease, border 200ms ease
+    &:hover,
+    &:active
+      color: $cement-grey
+      text-decoration: none
+      border-color: transparent
+
+%helptext
+  font-size: $font-size-m
+  color: $cement-grey
+  +linkStyle
+
+.helptext
+  @extend %helptext
+
+// @todo simplyfiy coloring mixins
+=colorStatusIcons($color, $status)
+  .status-icon.#{$status},
+  .request-icon.#{$status}
+    svg *
+      stroke: $color
+
+=rowBorder
+  border: 1px solid lighten($cement-grey, 20)
+  border-radius: 2px
+
+=rowColor($status, $color, $color-bg: $color)
+  &.#{$status}
+    .color
+      color: $color
+      a
+        color: $color
+        text-decoration: none
+        &:hover,
+        &:active
+          border-bottom: 1px solid $color
+    .status-icon g > *,
+    .request-icon g > *
+      stroke: $color-bg
+    .background
+      background-color: $color-bg
+
+=rowBg($width, $status, $color)
+  &.#{$status}
+    background: linear-gradient(to right, $color 0%, $color $width, white $width, white 100%) no-repeat
+
+=statusColors($color, $status, $width, $color2: $color, $building:false)
+  &.#{$status}
+    background: linear-gradient(to right, $color2 0%, $color2 $width, white $width, white 100%) no-repeat
+    .row-name,
+    .row-request a,
+    .row-color a
+      color: $color
+      &:hover
+        border-color: $color
+    .status-icon g > *,
+    .request-icon g > *
+      stroke: $color
+
+    .build a,
+    .repo-title a
+      color: $color
+      &:hover
+        border-color: $color
+    .build-status
+      color: $color
+    @include colorStatusIcons($color, $status)
+    @include colorLinks($color, $status, $building)
+
+=colorBg($color, $status, $width, $color2: white)
+  &.#{$status}
+    background: linear-gradient(to right, $color 0%, $color $width, $color2 $width, $color2 100%) no-repeat
+
+=colorLinks($color, $status, $building: false)
+  @if $building
+    .#{$status},
+    .#{$status} a,
+      color: $dozer-yellow
+  @else
+    .#{$status},
+    .#{$status} a,
+      color: $color
+
+=colorRows($color, $status, $width, $is-building: false, $color-icon: $color)
+  @include colorBg($color, $status, $width)
+  @include colorLinks($color, $status, $is-building)
+  @include colorStatusIcons($color-icon, $status)
+
+=colorJobs($color, $status, $width, $hover, $is-building: false, $bg-start: $color)
+  &.#{$status}
+    @include colorLinks($color, $status, $is-building)
+    @include colorStatusIcons($color, $status)
+    &:hover,
+    &:active
+      background-color: $hover
+      border-left: $width solid $color
+      a
+        margin-left: - $width + 1px

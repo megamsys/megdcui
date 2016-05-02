@@ -1,0 +1,126 @@
+.broadcast
+  display: inline-block
+  height: $top-height
+  width: 40px
+  margin-left: 1em
+  line-height: 2.5
+  cursor: pointer
+  vertical-align: middle
+  @media #{$medium-up}
+    float: left
+
+.broadcasts
+  position: relative
+  background-color: white
+  list-style: none
+  padding: 0 1em
+  margin: 0 auto .7em
+  border-radius: 2px
+  height: 0
+  transform-origin: center center
+  opacity: 0
+  z-index: -1
+  will-change: opacity
+  transition: opacity 150ms ease
+
+  &:after
+    content: ""
+    position: absolute
+    display: block
+    width: 14px
+    height: 14px
+    background: white
+    top: -0.5em
+    left: 136px
+    transform: rotate(45deg)
+    border-top: solid 2px $cream-dark
+    border-left: solid 2px $cream-dark
+  li
+    border-bottom: solid 2px $cream-dark
+    &:last-of-type
+      border-bottom: none
+  p
+    position: relative
+    margin: .5em 0
+    padding-left: 1.5rem
+    font-size: .9em
+    word-wrap: break-word
+  a:not(.icon-close)
+   
+    line-height: 1.45
+    text-decoration: underline
+
+  &.is-open
+    z-index: 80
+    border: solid 2px $cream-dark
+    opacity: 1
+    height: auto
+
+  .icon-close
+    @extend %icon-line-cross
+    position: absolute
+    bottom: 0
+    right: 0
+    display: inline-block
+    width: 1em
+    height: 1em
+    background-repeat: no-repeat
+    cursor: pointer
+
+  @media #{$medium-up}
+    position: absolute
+    top: 3.3em
+    left: 145px
+    width: 27em
+    height: auto
+    margin-left: -0.4em
+    .centered &
+      left: 133px
+    &:after
+      left: 1rem
+
+.broadcast-status
+  display: inline-block
+  width: 10px
+  height: 10px
+  margin-right: .5rem
+  margin-left: -1.5rem
+  border-radius: 50%
+  background-color: $cement-grey
+
+  &.warning
+    background-color: $brick-red
+
+  &.announcement
+    background-color: $turf-green
+
+.icon-broadcast
+  display: inline-block
+  width: 16px
+  height: 16px
+  vertical-align: middle
+  svg
+    overflow: visible
+    .path
+      stroke: $cement-grey
+      fill: none
+  &:hover,
+  &.is-open
+    .path
+      stroke: $asphalt-grey
+
+  &.warning
+    .path
+      stroke: $brick-red
+    &:hover,
+    &.is-open
+      .path
+        stroke: $brick-red
+
+  &.announcement
+    .path
+      stroke: $turf-green
+    &:hover,
+    &.is-open
+      .path
+        stroke: $turf-green

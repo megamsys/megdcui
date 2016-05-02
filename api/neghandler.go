@@ -2,8 +2,8 @@ package api
 
 import (
 	"net/http"
-  //  "github.com/gorilla/mux"
 	"github.com/codegangsta/negroni"
+	"github.com/megamsys/megdcui/handlers"
 	"github.com/rs/cors"
 )
 
@@ -36,19 +36,26 @@ func NewNegHandler() *negroni.Negroni {
 		m.Add(handler.method, handler.path, handler.h)
 	}
 	m.Add("GET", "/hostinfos", Handler(hostinfos))
+	m.Add("GET", "/hostcheck", Handler(hostcheck))
+	m.Add("GET", "/bridge", Handler(bridge))
+	m.Add("GET", "/network", Handler(network))
   m.Add("GET", "/migrate", Handler(migrate))
+	m.Add("GET", "/attachonehost", Handler(attachonehost))
+	m.Add("GET", "/datastore", Handler(datastore))
 	m.Add("Post", "/onehosts", Handler(onehosts))
 	m.Add("Post", "/onestorages", Handler(onestorages))
 	m.Add("Post", "/configurations", Handler(configurations))
-	  //m.Add("Get", "/", home.HomeHandler)
- 	m.Add("GET", "/ping", Handler(ping))
+  m.Add("Post", "/accounts/content", Handler(handlers.Accounts))
+	//m.Add("Get", "/", home.HomeHandler)
+	//m.Add("Get", "/logs", Handler(logs))
+	m.Add("POST", "/ping", Handler(ping))
 	//we can use this as a single click Terminal launch for docker.
 	//m.Add("Get", "/apps/{appname}/shell", websocket.Handler(remoteShellHandler))
 	//r := mux.NewRouter()
-//	n := negroni.Classic()
+	n := negroni.Classic()
 	//n.UseHandler(r)
-	//http.Handle("/", http.FileServer(http.Dir("./../app/")))
-	n := negroni.New()
+	http.Handle("/", http.FileServer(http.Dir("./../public/")))
+	//n := negroni.New()
 	n.Use(negroni.NewRecovery())
 	n.Use(c)
 	n.Use(newLoggerMiddleware())

@@ -1,69 +1,21 @@
-import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mixin';
-import Ember from 'ember';
+import MegRoute from 'meg/routes/basic';
+//import config from 'meg/config/environment';
 
-const { inject, Route } = Ember;
+export default MegRoute.extend({
 
-var ApplicationRoute = Route.extend(ApplicationRouteMixin, {
-  database: inject.service(),
-  config: inject.service(),
-  session: inject.service(),
+actions: {
 
-  actions: {
-    closeModal: function() {
-      this.disconnectOutlet({
-        parentView: 'application',
-        outlet: 'modal'
-      });
-    },
-    /**
-     * Render a modal using the specifed path and optionally set a model.
-     * @param modalPath the path to use for the controller and template.
-     * @param model (optional) the model to set on the controller for the modal.
-     */
-    openModal: function(modalPath, model) {
-      if (model) {
-        this.controllerFor(modalPath).set('model', model);
-      }
-      this.renderModal(modalPath);
-    },
-
-    /**
-     * Update an open modal using the specifed model.
-     * @param modalPath the path to use for the controller and template.
-     * @param model (optional) the model to set on the controller for the modal.
-     */
-    updateModal: function(modalPath, model) {
-      this.controllerFor(modalPath).set('model', model);
-    }
+  signupPage() {
+    this.transitionTo('signup');
+        return true;
   },
 
-  model: function(params, transition) {
-    const session = this.get('session');
-    const isAuthenticated = session && session.get('isAuthenticated');
-    return this.get('config').setup().then(function(configs) {
-      if (transition.targetName !== 'finishgauth' && transition.targetName !== 'login') {
-        if (isAuthenticated) {
-          return this.get('database').setup(configs)
-            .catch(() => {
-              // Error thrown indicates missing auth, so invalidate session.
-              session.invalidate();
-            });
-        }
-      }
-    }.bind(this));
+  signinPage() {
+    this.transitionTo('signin');
+        return true;
   },
 
-  afterModel: function() {
-    this.controllerFor('navigation').set('allowSearch', false);
-    $('#apploading').remove();
-  },
+}
 
-  renderModal: function(template) {
-    this.render(template, {
-      into: 'application',
-      outlet: 'modal'
-    });
-  }
 
 });
-export default ApplicationRoute;

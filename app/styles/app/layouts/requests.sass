@@ -1,0 +1,58 @@
+=requestFadeOut($status, $color)
+  @media #{$medium-up}
+    &.#{$status}:hover
+      .status-icon.api
+        svg
+          background-color: $color
+      .fade-out
+        &:after
+          @include fadeOut(right, -90deg, $color)
+
+.requests
+  padding: 0
+  margin: 0
+  list-style: none
+
+.request-item
+  position: relative
+  border: 1px solid $cream-dark
+  margin-bottom: 5px
+  font-size: 15px
+  padding-left: 1em
+  @include colorJobs($turf-green, 'accepted', 6px, rgba($turf-green, .1))
+  @include colorJobs($brick-red, 'rejected', 6px, rgba($brick-red, .1))
+
+  @include requestFadeOut('accepted',#ECF6EF)
+  @include requestFadeOut('rejected', #FBECEB)
+
+  strong
+    font-weight: $font-weight-bold
+    margin-right: .5em
+
+  a:hover,
+  a:active
+    text-decoration: underline
+
+  @media #{$medium-up}
+    display: flex
+    justify-content: space-between
+    flex-flow: row wrap
+    align-items: center
+    padding: .3em 0
+    white-space: nowrap
+
+    .row-item:first-of-type
+      flex: 0 0 3em
+      padding-left: .7em
+      border-right: 1px solid $cream-dark
+    .row-item:nth-of-type(2)
+      flex: 1 0 15%
+      padding-left: 1em
+    .row-item:nth-of-type(3)
+      flex: 0 0 15%
+    .row-item:nth-of-type(4)
+      flex: 1 0 30%
+    .row-item:nth-of-type(5)
+      flex: 0 0 8%
+    .row-item:last-of-type
+      flex: 0 0 20%

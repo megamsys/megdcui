@@ -1,0 +1,239 @@
+.profile
+  font-size: $font-size-sm
+  font-weight: 400
+
+.profile-main
+  padding: 0 $column-gutter/2
+
+  @media #{$medium-up}
+    width: grid-calc(8, 12)
+    float: right
+    padding: 0 0 0 $column-gutter/2
+
+  header
+    h1
+      margin: 0 1.7rem 0 0
+      color: $asphalt-grey
+      font-size: 36px
+      font-weight: 400
+
+    @media #{$medium-up}
+      .profile-header
+        display: inline-block
+        vertical-align: middle
+      .sync-button
+        float: right
+        margin-top: .4em
+    @media #{$large-up}
+      .profile-header
+        position: relative
+        white-space: nowrap;
+        max-width: 77%;
+        overflow: hidden;
+        &:after
+          @include fadeOut(right, -90deg, white)
+
+  .cta-btn
+    text-align: right
+
+.profile-getstarted
+  position: relative
+  margin-bottom: 3rem
+  background-color: $cream-light
+  border-radius: 4px
+  ol
+    @include resetul
+    padding: 1em 0
+  figure
+    margin: 0
+  figcaption
+    width: 90%
+    margin: auto
+    padding: 0 1em 0 2.8em
+    text-align: center
+    @media #{$medium-up}
+      text-align: left
+  img
+    display: block
+    margin: 0 auto 1em
+
+  .dismiss
+    position: absolute
+    top: 0
+    right: 0
+    padding: .5em
+    z-index: 99
+  @media #{$medium-up}
+    li:not(:last-child)
+      img
+        padding: 0 3.2em
+        border-right: solid 2px #f3f2f2
+
+.profile-orgs,
+.profile-user
+
+  .media-elem
+    width: 14%
+  .media-body
+    width: 86%
+  p
+    margin: .1em 0
+  ul
+    @include resetul
+  li
+    margin: 1.5rem 0 2.5rem
+  a
+    width: 100%
+    position: relative
+    &:hover
+      h1, h2
+        text-decoration: underline
+
+.profile-user h1,
+.profile-orgs h2
+  font-size: $font-size-sm
+  margin: 0
+  font-weight: 600
+  line-height: 1
+
+.profile-orgs
+  h1
+    font-size: $font-size-sm
+    border-bottom: solid 2px $pebble-grey
+
+.profile-user
+  margin: 1rem 0 2rem
+
+p.profile-user-last
+  margin-top: .5em
+
+
+.profile-orglist
+  @media #{$large-up}
+    padding: 0 3em 0 0
+
+.profile-hooklist
+  @include resetul
+  font-size: $font-size-m
+  li
+    clear: both
+    margin-bottom: .8em
+  .profile-hooks
+    width: grid-calc(10, 24)
+    display: inline-block
+    vertical-align: middle
+    @media #{$medium-up}
+      width: grid-calc(5, 24) - 1%
+    @media #{$large-up}
+      width: grid-calc(5, 24) - 1%
+  .switch
+    display: inline-block
+    vertical-align: middle
+  .profile-settings
+    display: inline-block
+    padding: .2em .2em .2em .5em
+    height: 28px
+
+.profile-hooklist .sync-spinner
+  display: inline !important
+
+.profile-settings span
+  display: inline-block !important
+
+.profile-repo
+  border-radius: 2px
+  position: relative
+  display: inline-block
+  width: grid-calc(13, 24)
+  padding: .25em .5em .3em
+  white-space: nowrap
+  overflow: hidden
+  vertical-align: middle
+  span:not(.loading-indicator)
+    display: none
+    margin-left: 1rem
+    font-size: $font-size-sm
+    color: $cement-grey
+    line-height: 1
+  .sync-spinner
+    vertical-align: top
+  &:hover
+    background-color: $pebble-grey
+    &:after
+      content: ""
+      @include fadeOut(right, -90deg, $pebble-grey)
+  .active &:hover
+    background-color: $seed-green
+    &:after
+      content: ""
+      @include fadeOut(right, -90deg, $seed-green)
+  @media #{$medium-up}
+    width: grid-calc(18, 24)
+    height: 30px
+    &:hover
+      span
+        display: inline-block
+        color: $cement-grey
+  @media #{$large-up}
+    width: grid-calc(19, 24)
+
+
+.profile-additional
+  border-top: solid 2px $pebble-grey
+.profile-text,
+.profile-additional
+  +linkStyle
+
+.hooks-error
+  width: 100%;
+  padding: 0 $column-gutter/2;
+  margin-top: 3.3rem;
+  p
+    position: relative
+    padding: $column-gutter/2 $column-gutter*2 $column-gutter/2 $column-gutter/2;
+    color: #de4248
+    background-color: #f1b6ad
+    a
+      color: #de4248
+      text-decoration: underline
+    &:after
+      content: ""
+      position: absolute
+      top: -0.5em
+      left: 1.5em
+      width: 1.2em
+      height: 1.2em
+      background: #f1b6ad
+      transform: rotate(45deg)
+  .close
+    @extend .icon
+    position: absolute
+    top: 1em
+    right: 1em
+    @extend .icon--dismiss-red
+
+.profile-token-toggle
+  .icon-eye
+    vertical-align: middle
+    path
+      fill: $cement-grey
+    circle
+      stroke: $cement-grey
+      fill: #fff
+    &:hover
+      path
+        fill: $asphalt-grey
+      circle
+        stroke: $asphalt-grey
+        fill: #fff
+  &.is-visible
+    .icon-eye
+      circle
+        fill: $cement-grey
+      &:hover
+        circle
+          fill: $asphalt-grey
+
+#unadministerable-hooks
+  p
+    margin-top: 2em

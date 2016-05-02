@@ -1,0 +1,35 @@
+{{#meg-layout layoutName="layouts/simple"}}
+{{#if redirected}}
+{{/if}}
+    <div class="container signup">
+            <section>
+                <div id="container_demo" >
+                    <div id="wrapper">
+                        <div id="register" class="form">
+                            {{#em-form model=model form_layout='horizontal' submit_button=false}}
+                                {{em-input property="name" label="Full Name" placeholder="Enter a name..." type="text"}}
+                                {{em-input property="email" label="email" placeholder="Enter a email..." type="text"}}
+                                {{em-input label="Password" property="password" placeholder="And password..." type="password" disabled=nameHasValue}}
+                                {{em-input label="Password" property="passwordConfirmation" placeholder="And password..." type="password" disabled=nameHasValue}}
+                                <p>
+                                  {{#if auth.signedOut}}
+                                      <button {{action "createAccount" }} class="button"><img src="../images/landing-page/sign-in-mascot.svg" class="sign-in-mascot">{{t "signup.create"}}</button>
+                					        {{/if}}
+                					        {{#if auth.signingIn}}
+										                  <button class="button"><span class="loading-indicator--white"><i></i><i></i><i></i></span>{{t "signup.onboarding"}}</button>
+									                {{/if}}
+								                </p>
+                                <p class="change_link">
+									                    Already a member ?
+									                    <button class="signed-out button--signin" {{ action "signinPage"}}>{{t "signup.signin"}}</button>
+								                </p>
+                          {{/em-form}}
+
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+
+{{/meg-layout}}
