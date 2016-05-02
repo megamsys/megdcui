@@ -72,12 +72,9 @@ func parseAssembly(orgid string,vm *solusvm.VirtualServer) (*atmn.Ambly) {
     Name: *vm.Ctid_xid,
     JsonClaz:  "Megam::Assembly",
     Tosca: "tosca.torpedo." + tosca_type ,
-  //  Inputs:  []string{{"key":"domain","value":"megambox.com"}, {"key":"sshkey","value":"vs"}, {"key":"provider","value":"one"}, {"key":"cpu","value":"1 Core"}, {"key":"ram","value":"1 GB"}, {"key":"hdd","value":"24 GB SSD"}, {"key":"version","value":"14.04"}, {"key":"lastsuccessstatusupdate","value":"01 Apr 16 04:41 UTC"}, {"key":"status","value":"migrated"}},
-  //  Outputs:    []string,
-  //  Policies:   []string,
+    Inputs:  []string{"{\"key\":\"domain\",\"value\":\"megambox.com\"}", "{\"key\":\"sshkey\",\"value\":\"\"}", "{\"key\":\"provider\",\"value\":\"one\"}", "{\"key\":\"cpu\",\"value\":\"1 Core\"}", "{\"key\":\"ram\",\"value\":\"1 GB\"}", "{\"key\":\"hdd\",\"value\":\"24 GB SSD\"}", "{\"key\":\"version\",\"value\":\"14.04\"}", "{\"key\":\"lastsuccessstatusupdate\",\"value\":\"01 Apr 16 04:41 UTC\"}", "{\"key\":\"status\",\"value\":\"migrated\"}"},
     Status: "migrated",
     CreatedAt: time.Now().String(),
-  //  Components []string,
   }
   return asm
 }
