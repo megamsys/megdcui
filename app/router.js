@@ -12,9 +12,6 @@ Router.map(function() {
 	this.route('signup');
 	this.route('signin');
 
-  this.resource('messages', function() {
-  this.route('tab', { path: '/:id' });
-});
 
 });
 
