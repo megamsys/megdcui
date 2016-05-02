@@ -79,6 +79,7 @@ export default Ember.ArrayProxy.extend({
             if (this.indexOf(notification) >= 0) {
                 this.removeNotification(notification);
             }
+            
         }, notification.get('remaining'));
 
         notification.set('timer', timer);
