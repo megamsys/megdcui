@@ -1716,6 +1716,27 @@ define('meg/controllers/home', ['exports', 'ember'], function (exports, _ember) 
 define('meg/controllers/main', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Controller.extend({});
 });
+define('meg/controllers/master', ['exports', 'ember'], function (exports, _ember) {
+	//import PostValidations from 'meg/mixins/validations';
+
+	exports['default'] = _ember['default'].Controller.extend({
+		//auth: Ember.inject.service(),
+		ajax: _ember['default'].inject.service(),
+
+		actions: {
+			createAccount: function createAccount() {
+				//this.get('auth').signIn();
+				return this.get('model').createAccount().then(function (result) {
+					console.log("==============result=====================");
+					console.log(result);
+					//this.transitionToRoute('master');
+				});
+			}
+
+		}
+
+	});
+});
 define('meg/controllers/signin', ['exports', 'ember'], function (exports, _ember) {
   //import PostValidations from 'meg/mixins/validations';
 
@@ -1734,7 +1755,7 @@ define('meg/controllers/signup', ['exports', 'ember'], function (exports, _ember
 				return this.get('model').createAccount().then(function (result) {
 					console.log("==============result=====================");
 					console.log(result);
-					this.transitionToRoute('main');
+					this.transitionToRoute('master');
 				});
 			}
 
@@ -3236,6 +3257,80 @@ define('meg/mixins/transition-mixin', ['exports', 'ember-css-transitions/mixins/
 define('meg/models/model', ['exports', 'ember-data/model'], function (exports, _emberDataModel) {
   exports['default'] = _emberDataModel['default'].extend();
 });
+define('meg/models/muser', ['exports', 'ember', 'ember-data', 'ember-validations'], function (exports, _ember, _emberData, _emberValidations) {
+
+  var User = _emberData['default'].Model.extend(_emberValidations['default'], {
+    first_name: _emberData['default'].attr('string'),
+    ipaddress: _emberData['default'].attr('string'),
+    password: _emberData['default'].attr('string'),
+    passwordConfirmation: _emberData['default'].attr('string'),
+    isntValid: _ember['default'].computed.not('isValid'),
+    comment: _emberData['default'].attr('string'),
+    active: _emberData['default'].attr('boolean'),
+    gender: _emberData['default'].attr('string'),
+    nameHasValue: _ember['default'].computed('name', function () {
+      var _ref;
+      return !((_ref = this.get('name')) != null ? _ref.length : void 0);
+    }),
+    asjson: _ember['default'].computed('name', 'password', 'comment', 'active', 'gender', function () {
+      return "name: " + this.get('name') + ", password: " + this.get('password') + ", comment: " + this.get('comment') + ", active: " + this.get('active') + ", gender: " + this.get('gender');
+    })
+
+  });
+
+  User.reopen({
+    ajax: _ember['default'].inject.service(),
+    validations: {
+      name: {
+        presence: true,
+        length: {
+          minimum: 5
+        }
+      },
+      ipaddress: {
+        presence: true,
+        length: {
+          minimum: 15
+        }
+      },
+      password: {
+        confirmation: true,
+        presence: true,
+        length: {
+          minimum: 6
+        }
+      },
+      passwordConfirmation: {
+        presence: {
+          message: ' please confirm password'
+        },
+        length: {
+          minimum: 6
+        }
+      },
+      comment: {
+        presence: true
+      },
+      gender: {
+        presence: true
+      }
+    },
+
+    createAccount: function createAccount() {
+      return this.get('ajax').request('/accounts/content', {
+        method: 'POST',
+        data: {
+          username: this.get('name'),
+          ipsddress: this.get('ipaddress'),
+          password: this.get('password')
+        }
+      });
+    }
+
+  });
+
+  exports['default'] = User;
+});
 define('meg/models/user', ['exports', 'ember', 'ember-data', 'ember-validations'], function (exports, _ember, _emberData, _emberValidations) {
 
   var User = _emberData['default'].Model.extend(_emberValidations['default'], {
@@ -3313,23 +3408,20 @@ define('meg/resolver', ['exports', 'ember-resolver'], function (exports, _emberR
 });
 define('meg/router', ['exports', 'ember', 'meg/config/environment'], function (exports, _ember, _megConfigEnvironment) {
 
-		var Router = _ember['default'].Router.extend({
-				location: _megConfigEnvironment['default'].locationType
-		});
+	var Router = _ember['default'].Router.extend({
+		location: _megConfigEnvironment['default'].locationType
+	});
 
-		Router.map(function () {
+	Router.map(function () {
 
-				this.route('home', { path: '/' });
-				this.route('main');
-				this.route('signup');
-				this.route('signin');
+		this.route('home', { path: '/' });
+		this.route('main');
+		this.route('master');
+		this.route('signup');
+		this.route('signin');
+	});
 
-				this.resource('messages', function () {
-						this.route('tab', { path: '/:id' });
-				});
-		});
-
-		exports['default'] = Router;
+	exports['default'] = Router;
 });
 define('meg/routes/application', ['exports', 'meg/routes/basic'], function (exports, _megRoutesBasic) {
   //import config from 'meg/config/environment';
@@ -3340,7 +3432,8 @@ define('meg/routes/application', ['exports', 'meg/routes/basic'], function (expo
 
       signupPage: function signupPage() {
         //this.transitionTo('signup');
-        this.transitionTo('main');
+        //this.transitionTo('main');
+        this.transitionTo('master');
         return true;
       },
 
@@ -3371,6 +3464,17 @@ define('meg/routes/main', ['exports', 'meg/routes/basic'], function (exports, _m
   //import config from 'meg/config/environment';
 
   exports['default'] = _megRoutesBasic['default'].extend({});
+});
+define('meg/routes/master', ['exports', 'meg/routes/basic'], function (exports, _megRoutesBasic) {
+   //import config from 'meg/config/environment';
+
+   exports['default'] = _megRoutesBasic['default'].extend({
+      model: function model() {
+         var model;
+         model = this.get('store').createRecord('muser');
+         return model;
+      }
+   });
 });
 define('meg/routes/signin', ['exports', 'meg/routes/basic'], function (exports, _megRoutesBasic) {
    //import Ember from 'ember';
@@ -12656,6 +12760,221 @@ define("meg/templates/main", ["exports"], function (exports) {
     };
   })());
 });
+define("meg/templates/master", ["exports"], function (exports) {
+  exports["default"] = Ember.HTMLBars.template((function () {
+    var child0 = (function () {
+      var child0 = (function () {
+        return {
+          meta: {
+            "fragmentReason": false,
+            "revision": "Ember@2.4.5",
+            "loc": {
+              "source": null,
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 3,
+                "column": 0
+              }
+            },
+            "moduleName": "meg/templates/master.hbs"
+          },
+          isEmpty: true,
+          arity: 0,
+          cachedFragment: null,
+          hasRendered: false,
+          buildFragment: function buildFragment(dom) {
+            var el0 = dom.createDocumentFragment();
+            return el0;
+          },
+          buildRenderNodes: function buildRenderNodes() {
+            return [];
+          },
+          statements: [],
+          locals: [],
+          templates: []
+        };
+      })();
+      var child1 = (function () {
+        return {
+          meta: {
+            "fragmentReason": false,
+            "revision": "Ember@2.4.5",
+            "loc": {
+              "source": null,
+              "start": {
+                "line": 12,
+                "column": 0
+              },
+              "end": {
+                "line": 12,
+                "column": 47
+              }
+            },
+            "moduleName": "meg/templates/master.hbs"
+          },
+          isEmpty: false,
+          arity: 0,
+          cachedFragment: null,
+          hasRendered: false,
+          buildFragment: function buildFragment(dom) {
+            var el0 = dom.createDocumentFragment();
+            var el1 = dom.createTextNode("submit");
+            dom.appendChild(el0, el1);
+            return el0;
+          },
+          buildRenderNodes: function buildRenderNodes() {
+            return [];
+          },
+          statements: [],
+          locals: [],
+          templates: []
+        };
+      })();
+      return {
+        meta: {
+          "fragmentReason": {
+            "name": "missing-wrapper",
+            "problems": ["wrong-type", "multiple-nodes"]
+          },
+          "revision": "Ember@2.4.5",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 1,
+              "column": 0
+            },
+            "end": {
+              "line": 17,
+              "column": 0
+            }
+          },
+          "moduleName": "meg/templates/master.hbs"
+        },
+        isEmpty: false,
+        arity: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createComment("");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createElement("div");
+          dom.setAttribute(el1, "id", "landing");
+          dom.setAttribute(el1, "class", "landing");
+          var el2 = dom.createTextNode("\n");
+          dom.appendChild(el1, el2);
+          var el2 = dom.createElement("div");
+          dom.setAttribute(el2, "class", "row hero z-1");
+          var el3 = dom.createTextNode("\n    ");
+          dom.appendChild(el2, el3);
+          var el3 = dom.createElement("div");
+          dom.setAttribute(el3, "class", "landing-centered-wrapper");
+          var el4 = dom.createTextNode("\n      ");
+          dom.appendChild(el3, el4);
+          var el4 = dom.createElement("div");
+          dom.setAttribute(el4, "class", "large-12 columns");
+          dom.setAttribute(el4, "id", "hero-copy");
+          var el5 = dom.createTextNode("\n");
+          dom.appendChild(el4, el5);
+          var el5 = dom.createElement("h2");
+          var el6 = dom.createComment("");
+          dom.appendChild(el5, el6);
+          dom.appendChild(el4, el5);
+          var el5 = dom.createTextNode("\n");
+          dom.appendChild(el4, el5);
+          var el5 = dom.createComment("");
+          dom.appendChild(el4, el5);
+          var el5 = dom.createTextNode("\n");
+          dom.appendChild(el4, el5);
+          var el5 = dom.createComment("");
+          dom.appendChild(el4, el5);
+          var el5 = dom.createTextNode("\n");
+          dom.appendChild(el4, el5);
+          var el5 = dom.createComment("");
+          dom.appendChild(el4, el5);
+          var el5 = dom.createTextNode("\n");
+          dom.appendChild(el4, el5);
+          var el5 = dom.createComment("");
+          dom.appendChild(el4, el5);
+          var el5 = dom.createTextNode("\n");
+          dom.appendChild(el4, el5);
+          dom.appendChild(el3, el4);
+          var el4 = dom.createTextNode("\n");
+          dom.appendChild(el3, el4);
+          dom.appendChild(el2, el3);
+          var el3 = dom.createTextNode("\n");
+          dom.appendChild(el2, el3);
+          dom.appendChild(el1, el2);
+          var el2 = dom.createTextNode("\n");
+          dom.appendChild(el1, el2);
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode("\n");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var element0 = dom.childAt(fragment, [1, 1, 1, 1]);
+          var morphs = new Array(6);
+          morphs[0] = dom.createMorphAt(fragment, 0, 0, contextualElement);
+          morphs[1] = dom.createMorphAt(dom.childAt(element0, [1]), 0, 0);
+          morphs[2] = dom.createMorphAt(element0, 3, 3);
+          morphs[3] = dom.createMorphAt(element0, 5, 5);
+          morphs[4] = dom.createMorphAt(element0, 7, 7);
+          morphs[5] = dom.createMorphAt(element0, 9, 9);
+          dom.insertBoundary(fragment, 0);
+          return morphs;
+        },
+        statements: [["block", "if", [["get", "redirected", ["loc", [null, [2, 6], [2, 16]]]]], [], 0, null, ["loc", [null, [2, 0], [3, 7]]]], ["inline", "t", ["main.title"], [], ["loc", [null, [8, 4], [8, 22]]]], ["inline", "paper-input", [], ["label", "User Name", "value", ["subexpr", "@mut", [["get", "name", ["loc", [null, [9, 38], [9, 42]]]]], [], []]], ["loc", [null, [9, 0], [9, 44]]]], ["inline", "paper-input", [], ["label", "IP Address", "type", "text", "value", ["subexpr", "@mut", [["get", "email", ["loc", [null, [10, 51], [10, 56]]]]], [], []]], ["loc", [null, [10, 0], [10, 58]]]], ["inline", "paper-input", [], ["label", "Password", "type", "password"], ["loc", [null, [11, 0], [11, 48]]]], ["block", "paper-button", [], ["noink", true, "primary", true], 1, null, ["loc", [null, [12, 0], [12, 64]]]]],
+        locals: [],
+        templates: [child0, child1]
+      };
+    })();
+    return {
+      meta: {
+        "fragmentReason": {
+          "name": "missing-wrapper",
+          "problems": ["wrong-type"]
+        },
+        "revision": "Ember@2.4.5",
+        "loc": {
+          "source": null,
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 18,
+            "column": 0
+          }
+        },
+        "moduleName": "meg/templates/master.hbs"
+      },
+      isEmpty: false,
+      arity: 0,
+      cachedFragment: null,
+      hasRendered: false,
+      buildFragment: function buildFragment(dom) {
+        var el0 = dom.createDocumentFragment();
+        var el1 = dom.createComment("");
+        dom.appendChild(el0, el1);
+        return el0;
+      },
+      buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+        var morphs = new Array(1);
+        morphs[0] = dom.createMorphAt(fragment, 0, 0, contextualElement);
+        dom.insertBoundary(fragment, 0);
+        dom.insertBoundary(fragment, null);
+        return morphs;
+      },
+      statements: [["block", "meg-layout", [], ["layoutName", "layouts/simple"], 0, null, ["loc", [null, [1, 0], [17, 15]]]]],
+      locals: [],
+      templates: [child0]
+    };
+  })());
+});
 define("meg/templates/signin", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template((function () {
     var child0 = (function () {
@@ -14755,7 +15074,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("meg/app")["default"].create({"name":"meg","version":"0.0.0+0b2492f5"});
+  require("meg/app")["default"].create({"name":"meg","version":"0.0.0+4b14f813"});
 }
 
 /* jshint ignore:end */

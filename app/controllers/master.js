@@ -2,16 +2,16 @@ import Ember from 'ember';
 //import PostValidations from 'meg/mixins/validations';
 
 export default Ember.Controller.extend({
-	auth: Ember.inject.service(),
+	//auth: Ember.inject.service(),
 	ajax: Ember.inject.service(),
 
 	actions: {
 		createAccount: function() {
-			this.get('auth').signIn();
+			//this.get('auth').signIn();
       return this.get('model').createAccount().then(function(result) {
-				console.log("==============result=====================");
-				console.log(result);
-        this.transitionToRoute('master');
+        console.log("==============result=====================");
+        console.log(result);
+        //this.transitionToRoute('master');
 			});
     }
 

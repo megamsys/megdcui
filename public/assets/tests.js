@@ -304,6 +304,15 @@ define('meg/tests/controllers/main.jshint', ['exports'], function (exports) {
     assert.ok(true, 'controllers/main.js should pass jshint.');
   });
 });
+define('meg/tests/controllers/master.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - controllers/master.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'controllers/master.js should pass jshint.');
+  });
+});
 define('meg/tests/controllers/signin.jshint', ['exports'], function (exports) {
   'use strict';
 
@@ -623,6 +632,15 @@ define('meg/tests/models/model.jshint', ['exports'], function (exports) {
     assert.ok(true, 'models/model.js should pass jshint.');
   });
 });
+define('meg/tests/models/muser.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - models/muser.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'models/muser.js should pass jshint.');
+  });
+});
 define('meg/tests/models/user.jshint', ['exports'], function (exports) {
   'use strict';
 
@@ -684,6 +702,15 @@ define('meg/tests/routes/main.jshint', ['exports'], function (exports) {
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
     assert.ok(true, 'routes/main.js should pass jshint.');
+  });
+});
+define('meg/tests/routes/master.jshint', ['exports'], function (exports) {
+  'use strict';
+
+  QUnit.module('JSHint - routes/master.js');
+  QUnit.test('should pass jshint', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'routes/master.js should pass jshint.');
   });
 });
 define('meg/tests/routes/signin.jshint', ['exports'], function (exports) {
