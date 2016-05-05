@@ -9,9 +9,10 @@ Router.map(function() {
 
 	this.route('home', { path: '/' });
 	this.route('main');
+  this.route('step2');
+  this.route('step3');
 	this.route('signup');
 	this.route('signin');
-
 
 });
 

@@ -15,8 +15,6 @@ actions: {
     this.transitionTo('signin');
         return true;
   },
-
 }
-
 
 });

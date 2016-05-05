@@ -11,6 +11,7 @@ cd "$(dirname "$0")/.."
 if [ -f "package.json" ]; then
   echo "==> Installing packages…"
   npm install
+  npm install -g bower
   npm install -g phantomjs-prebuilt
   npm install -g ember-cli
 fi

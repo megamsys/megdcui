@@ -46,7 +46,8 @@ export default {
       }
     },
     step2: {
-      title: 'step2'
+      title: 'Install Host servers',
+      host: 'Host'
     },
     step3: {
       title: 'step3'

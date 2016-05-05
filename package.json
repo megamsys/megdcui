@@ -50,6 +50,7 @@
     "ember-one-way-controls": "0.6.3",
     "ember-paper": "0.2.14",
     "ember-resolver": "^2.0.3",
+    "ember-stagger-swagger": "1.0.9",
     "ember-truth-helpers": "1.2.0",
     "ember-validations": "2.0.0-alpha.4",
     "loader.js": "^4.0.1"
