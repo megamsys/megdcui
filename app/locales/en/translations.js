@@ -25,33 +25,37 @@ export default {
       sign_in:  'Sign in'
     }
   },
-  main: {
+  step1: {
     title: 'WELCOME TO OUR AUTOMATED INSTALLER',
-    step1: {
+    sub: {
       title: 'Install DET.io Dash',
-      type1: {
-        title: 'Hosted',
-        price: '+$10.00/mo',
-        dash: 'dash',
-        minified_edition_name: 'Minified',
-        complete_edition_name: 'Complete',
-        edition: 'Edition'
-      },
-      type2: {
-        title: 'On-Premise',
-        description: 'Product: Complete',
-        ipaddress: 'IP Address',
-        user: "Username",
-        password: 'Password'
-      }
     },
-    step2: {
-      title: 'Install Host servers',
-      host: 'Host'
+    type1: {
+      title: 'Hosted',
+      price: '+$10.00/mo',
+      dash: 'dash',
+      minified_edition_name: 'Minified',
+      complete_edition_name: 'Complete',
+      edition: 'Edition'
     },
-    step3: {
-      title: 'step3'
+    type2: {
+      title: 'On-Premise',
+      description: 'Product: Complete',
+      ipaddress: 'IP Address',
+      user: "Username",
+      password: 'Password'
     }
+  },
+  step2: {
+    sub: {
+      title: 'Install Host servers',
+    },
+    host: 'Host'
+  },
+  step3: {
+    sub: {
+      title: 'Verify your host servers',
+    },
   },
   errors: {
    inclusion: "is not included in the list",

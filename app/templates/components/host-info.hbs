@@ -1,21 +1,18 @@
- {{#em-form model=model form_layout='horizontal' submit_button=false}}
-   <div class="large-12 columns">
+<div class="large-12 columns">
      <div class="large-3 columns">
-       <h3>{{t "main.step2.host"}}{{number}}</h3>
+       <h3>{{t "step2.host"}}{{number}}</h3>
      </div>
         <div class="large-3 columns">
-            {{em-input property="ipaddress" label="Ip Address" placeholder="Enter a Ip Address..." type="text"}}
+            {{input value=model.ipaddress placeholder="Enter a Ip Address..." type="text"}}
         </div>
         <div class="large-3 columns">
-            {{em-input property="username" label="Full Name" placeholder="Enter a name..." type="text"}}
+            {{input value=model.username placeholder="Enter a name..." type="text"}}
         </div>
         <div class="large-3 columns">
-            {{em-input label="Password" property="password" placeholder="And password..." type="password"}}
+            {{input value=model.password placeholder="And password..." type="password"}}
         </div>
-      </div>
-      <div class="large-12 columns">
-         {{#if isButtonVisible}}
-            <button {{action "register" }} class="button" >Add Host</button>
-        {{/if}}
-     </div>
-{{/em-form}}
+  </div>
+      {{#if isButtonVisible}}
+        <button class="button" {{action 'validateAndAuthenticate'}}>Add Host</button>
+        <button class="button" {{action 'done'}}>Done</button>
+      {{/if}}

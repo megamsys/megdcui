@@ -1,0 +1,21 @@
+{{#meg-layout layoutName="layouts/simple"}}
+{{#if redirected}}
+{{/if}}
+<div id="landing" class="landing">
+  <div class="row hero z-1">
+    <div class="landing-centered-wrapper">
+      <div class="large-12 columns" id="hero-copy">
+		    <h2>{{t "step1.title"}}</h2>
+        <section>
+          <div class="landing-centered-wrapper">
+            <div class="large-12 columns" id="hero-copy">
+              <h2>{{t "step3.sub.title"}}</h2>
+            </div>
+            <button class="button" {{action 'sample'}}>Select</button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+{{/meg-layout}}

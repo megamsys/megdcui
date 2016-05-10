@@ -1,23 +1,39 @@
 import Em from 'ember';
 
 export default Em.Component.extend({
+ flag: true,
+ isButtonVisible: true,
 
-  isButtonVisible: true,  
+ validate() {
+   this.set("flag", true);
+   if (Em.isBlank(this.get('model').get('ipaddress'))) {
+      this.notifications.error('Please enter an email');
+      this.set("flag", false);
+   }
+   if (Em.isBlank(this.get('model').get('username'))) {
+     this.notifications.error('Please enter an username');
+     this.set("flag", false);
+   }
+   if (Em.isBlank(this.get('model').get('password'))) {
+    this.notifications.error('Please enter a password');
+    this.set("flag", false);
+   }
+ },
 
-  actions: {
-
-    register() {
-        //call onConfirm with the value of the input field as an argument
-        console.log(this.get('model').asjson());
-        if (!this.get('model').checking()) {
-          // Error
-          this.notifications.error('Please fill the all host informations...');
-        } else {
-            this.set('isButtonVisible', false);
-            this.get('onConfirm')(this.get('model').asjson());
-        }
-     },
-
-  }
+ actions: {
+   validateAndAuthenticate() {
+     this.validate();
+     if (this.get('flag')) {
+        this.set('isButtonVisible', false);
+        this.get('onConfirm')();
+      }
+    },
+    done() {
+      this.validate();
+      if (this.get('flag')) {
+        this.get('onDone')();
+      }
+    }
+ }
 
 });

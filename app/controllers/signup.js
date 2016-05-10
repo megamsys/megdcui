@@ -8,9 +8,7 @@ export default Ember.Controller.extend({
 	actions: {
 		createAccount: function() {
 			this.get('auth').signIn();
-      return this.get('model').createAccount().then(function(result) {
-				console.log("==============result=====================");
-				console.log(result);
+      return this.get('model').createAccount().then(function(result) {				
         this.transitionToRoute('main');
 			});
     }
