@@ -7,7 +7,8 @@ actions: {
 
   signupPage() {
     //this.transitionTo('signup');
-    this.transitionTo('main');
+    //this.transitionTo('main');
+    this.transitionTo('master');
         return true;
   },
 
