@@ -89,7 +89,6 @@ _megui:
 
 test: _go_test _megdcui _megui
 
-<<<<<<< HEAD
 _megdboot:
 	./script/bootstrap
 
@@ -98,10 +97,8 @@ _megdbuild:
 
 bootstrap: _megdboot
 
-compile: _megdbuild 
+compile: _megdbuild
 
-=======
->>>>>>> 6f2cd03e9598a959102fb9950b8c851049a49b91
 _install_deadcode: git
 	go get $(GO_EXTRAFLAGS) github.com/remyoudompheng/go-misc/deadcode
 
