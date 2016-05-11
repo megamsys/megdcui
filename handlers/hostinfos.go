@@ -1,21 +1,32 @@
-package api
+package handlers
 
 import (
 	"net/http"
-		log "github.com/Sirupsen/logrus"
-		"github.com/megamsys/megdcui/install"
-		_ "github.com/megamsys/megdcui/install/machine"
+	"io/ioutil"
+	log "github.com/Sirupsen/logrus"
+	"github.com/megamsys/megdcui/install"
+	_ "github.com/megamsys/megdcui/install/machine"
+	"fmt"
 )
 const(
 	defaultHost = "host"
 )
-func hostinfos(w http.ResponseWriter, r *http.Request) error {
+
+func HostInfosContent(w http.ResponseWriter, r *http.Request) error {
+
+	body, err1 := ioutil.ReadAll(r.Body)
+    if err1 != nil {
+      http.Error(w, err1.Error(), 400)
+      return err1
+    }
+		fmt.Println("--------------new infos-----------")
+		fmt.Println(string(body))
 
 	var register install.Host
-host := "localhost"
-username := ""
-password := ""
-a, err := install.Get(defaultHost)
+	host := "localhost"
+	username := ""
+	password := ""
+	a, err := install.Get(defaultHost)
 
 if err != nil {
 	log.Errorf("fatal error, couldn't locate the Server %s", defaultHost)
@@ -35,4 +46,8 @@ if installHost, ok := register.(install.InstallHost); ok {
 	}
 }
 return nil
+}
+
+func HostInfosInstall(w http.ResponseWriter, r *http.Request) error {
+		return nil
 }

@@ -31,9 +31,12 @@ export default Controller.extend({
    },
 
     done() {
-        let data = this.get('hostinfos').create(this.get('hostInfos'));
-        this.storeData(data, this.get('sessionStorage'));
-        this.transitionToRoute('step3');
+        //let data = this.get('hostinfos').create(this.get('hostInfos'));
+
+        return this.get('hostinfos').create(this.get('hostInfos')).then(function(result) {
+          this.storeData(result, this.get('sessionStorage'));
+          this.transitionToRoute('step3');
+  			});
     },
 
   }
