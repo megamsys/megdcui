@@ -1,4 +1,4 @@
-package api
+package handlers
 
 import (
 	"net/http"
@@ -17,7 +17,7 @@ const(
 
 var register migration.DataCenter
 
-func migrate(w http.ResponseWriter, r *http.Request) error {
+func Migrate(w http.ResponseWriter, r *http.Request) error {
 	hostinfo := &automation.HostInfo{
 		SolusMaster:  "103.56.92.58",
 		Id: "iy9rRvifGKajunciPcu5V13ANyAmVnvklN2HV8cv",

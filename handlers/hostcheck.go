@@ -1,4 +1,4 @@
-package api
+package handlers
 
 import (
 	"net/http"
@@ -7,7 +7,7 @@ import (
 		_ "github.com/megamsys/megdcui/install/machine"
 )
 
-func hostcheck(w http.ResponseWriter, r *http.Request) error {
+func HostCheck(w http.ResponseWriter, r *http.Request) error {
 	var register install.Host
 host := "localhost"
 username := ""

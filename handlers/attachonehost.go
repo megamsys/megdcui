@@ -1,4 +1,4 @@
-package api
+package handlers
 
 import (
 	"net/http"
@@ -7,18 +7,15 @@ import (
 		_ "github.com/megamsys/megdcui/install"
 )
 
-func bridge(w http.ResponseWriter, r *http.Request) error {
+func AttachOneHost(w http.ResponseWriter, r *http.Request) error {
 	var register install.Host
 host := "localhost"
 username := ""
 password := ""
-bridgename := "one"
-  phydev := "eth0"
-	network := "103.56.92.0"
-	netmask := "255.255.252.0"
-	gateway := "103.56.92.1"
-	dnsname1 := "8.8.8.8"
-	dnsname2 := "8.8.4.4"
+infodriver := "one"
+vm := "IP4"
+hostname := ""
+network := ""
 a, err := install.Get(defaultHost)
 
 if err != nil {
@@ -29,7 +26,7 @@ register = a
 
 if installHost, ok := register.(install.InstallHost); ok {
 
-	err = installHost.CreateBridge(bridgename, phydev, network, netmask, gateway, dnsname1, dnsname2,host,username,password)
+	err = installHost.AttachOneHost(infodriver, vm, hostname, network, host,username,password)
 	if err != nil {
 		log.Errorf("fatal error, couldn't connect with  %s host", host)
 		return err

@@ -5,6 +5,7 @@
     "-Promise",
     "$",
     "jQuery",
+    "validator",
     "Meg"
   ],
   "browser": true,

@@ -1,3 +1,3 @@
-package api
+package handlers
 
 import ()

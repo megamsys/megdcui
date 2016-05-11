@@ -12,7 +12,7 @@
  *            Portions Copyright 2008-2011 Apple Inc. All rights reserved.
  * @license   Licensed under MIT license
  *            See https://raw.github.com/emberjs/ember.js/master/LICENSE
- * @version   2.4.5
+ * @version   2.5.1
  */
 
 var enifed, requireModule, require, requirejs, Ember;
@@ -267,7 +267,7 @@ enifed('ember-debug/handlers', ['exports', 'ember-debug/is-plain-function', 'emb
   exports.HANDLERS = HANDLERS;
 
   function generateTestAsFunctionDeprecation(source) {
-    return 'Calling `' + source + '` with a function argument is deprecated. Please ' + 'use `!!Constructor` for constructors, or an `IIFE` to compute the test for deprecation. ' + 'In a future version functions will be treated as truthy values instead of being executed.';
+    return 'Calling `' + source + '` with a function argument is deprecated. Please ' + 'use `!!Constructor` for constructors, or an `IIFE` to compute the test for deprecation. ' + 'In a future version, functions will be treated as truthy values instead of being executed.';
   }
 
   function normalizeTest(test, source) {
@@ -403,7 +403,7 @@ enifed('ember-debug/index', ['exports', 'ember-metal/core', 'ember-metal/debug',
     @param {String} message A description of the deprecation.
     @param {Object} [options] The options object for Ember.deprecate.
     @param {Function} func The new function called to replace its deprecated counterpart.
-    @return {Function} a new function that wrapped the original function with a deprecation warning
+    @return {Function} A new function that wraps the original function with a deprecation warning
     @private
   */
   _emberMetalDebug.setDebugFunction('deprecateFunc', function deprecateFunc() {
@@ -554,18 +554,18 @@ enifed('ember-debug/index', ['exports', 'ember-metal/core', 'ember-metal/debug',
     ```
      The handler function takes the following arguments:
      <ul>
-      <li> <code>message</code> - The message received from the deprecation call. </li>
+      <li> <code>message</code> - The message received from the deprecation call.</li>
       <li> <code>options</code> - An object passed in with the deprecation call containing additional information including:</li>
         <ul>
-          <li> <code>id</code> - an id of the deprecation in the form of <code>package-name.specific-deprecation</code>.</li>
-          <li> <code>until</code> - is the version number Ember the feature and deprecation will be removed in.</li>
+          <li> <code>id</code> - An id of the deprecation in the form of <code>package-name.specific-deprecation</code>.</li>
+          <li> <code>until</code> - The Ember version number the feature and deprecation will be removed in.</li>
         </ul>
-      <li> <code>next</code> - a function that calls into the previously registered handler.</li>
+      <li> <code>next</code> - A function that calls into the previously registered handler.</li>
     </ul>
      @public
     @static
     @method registerDeprecationHandler
-    @param handler {Function} a function to handle deprecation calls
+    @param handler {Function} A function to handle deprecation calls.
     @since 2.1.0
   */
   _emberMetalCore.default.Debug.registerDeprecationHandler = _emberDebugDeprecate.registerHandler;
@@ -583,14 +583,14 @@ enifed('ember-debug/index', ['exports', 'ember-metal/core', 'ember-metal/debug',
       <li> <code>message</code> - The message received from the warn call. </li>
       <li> <code>options</code> - An object passed in with the warn call containing additional information including:</li>
         <ul>
-          <li> <code>id</code> - an id of the warning in the form of <code>package-name.specific-warning</code>.</li>
+          <li> <code>id</code> - An id of the warning in the form of <code>package-name.specific-warning</code>.</li>
         </ul>
-      <li> <code>next</code> - a function that calls into the previously registered handler.</li>
+      <li> <code>next</code> - A function that calls into the previously registered handler.</li>
     </ul>
      @public
     @static
     @method registerWarnHandler
-    @param handler {Function} a function to handle warnings
+    @param handler {Function} A function to handle warnings.
     @since 2.1.0
   */
   _emberMetalCore.default.Debug.registerWarnHandler = _emberDebugWarn.registerHandler;
@@ -656,7 +656,7 @@ enifed('ember-debug/warn', ['exports', 'ember-metal/logger', 'ember-metal/debug'
     @param {String} message A warning to display.
     @param {Boolean} test An optional boolean. If falsy, the warning
       will be displayed.
-    @param {Object} options An ojbect that can be used to pass a unique
+    @param {Object} options An object that can be used to pass a unique
       `id` for this warning.  The `id` can be used by Ember debugging tools
       to change the behavior (raise, log, or silence) for that specific warning.
       The `id` should be namespaced by dots, e.g. "ember-debug.feature-flag-with-features-stripped"
@@ -766,7 +766,7 @@ enifed('ember-testing/adapters/qunit', ['exports', 'ember-testing/adapters/adapt
     }
   });
 });
-enifed('ember-testing/helpers', ['exports', 'ember-metal/property_get', 'ember-metal/error', 'ember-metal/run_loop', 'ember-views/system/jquery', 'ember-testing/test', 'ember-runtime/ext/rsvp'], function (exports, _emberMetalProperty_get, _emberMetalError, _emberMetalRun_loop, _emberViewsSystemJquery, _emberTestingTest, _emberRuntimeExtRsvp) {
+enifed('ember-testing/helpers', ['exports', 'ember-metal/property_get', 'ember-metal/error', 'ember-metal/run_loop', 'ember-views/system/jquery', 'ember-testing/test', 'ember-runtime/ext/rsvp', 'ember-metal/features'], function (exports, _emberMetalProperty_get, _emberMetalError, _emberMetalRun_loop, _emberViewsSystemJquery, _emberTestingTest, _emberRuntimeExtRsvp, _emberMetalFeatures) {
   'use strict';
 
   /**
@@ -777,16 +777,108 @@ enifed('ember-testing/helpers', ['exports', 'ember-metal/property_get', 'ember-m
   var helper = _emberTestingTest.default.registerHelper;
   var asyncHelper = _emberTestingTest.default.registerAsyncHelper;
 
-  function currentRouteName(app) {
-    var appController = app.__container__.lookup('controller:application');
+  var keyboardEventTypes, mouseEventTypes, buildKeyboardEvent, buildMouseEvent, buildBasicEvent, fireEvent, focus;
 
-    return _emberMetalProperty_get.get(appController, 'currentRouteName');
+  var defaultEventOptions = { canBubble: true, cancelable: true };
+  keyboardEventTypes = ['keydown', 'keypress', 'keyup'];
+  mouseEventTypes = ['click', 'mousedown', 'mouseup', 'dblclick', 'mouseenter', 'mouseleave', 'mousemove', 'mouseout', 'mouseover'];
+
+  buildKeyboardEvent = function buildKeyboardEvent(type) {
+    var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+
+    var event = undefined;
+    try {
+      event = document.createEvent('KeyEvents');
+      var eventOpts = _emberViewsSystemJquery.default.extend({}, defaultEventOptions, options);
+      event.initKeyEvent(type, eventOpts.canBubble, eventOpts.cancelable, window, eventOpts.ctrlKey, eventOpts.altKey, eventOpts.shiftKey, eventOpts.metaKey, eventOpts.keyCode, eventOpts.charCode);
+    } catch (e) {
+      event = buildBasicEvent(type, options);
+    }
+    return event;
+  };
+
+  buildMouseEvent = function buildMouseEvent(type) {
+    var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+
+    var event = undefined;
+    try {
+      event = document.createEvent('MouseEvents');
+      var eventOpts = _emberViewsSystemJquery.default.extend({}, defaultEventOptions, options);
+      event.initMouseEvent(type, eventOpts.canBubble, eventOpts.cancelable, window, eventOpts.detail, eventOpts.screenX, eventOpts.screenY, eventOpts.clientX, eventOpts.clientY, eventOpts.ctrlKey, eventOpts.altKey, eventOpts.shiftKey, eventOpts.metaKey, eventOpts.button, eventOpts.relatedTarget);
+    } catch (e) {
+      event = buildBasicEvent(type, options);
+    }
+    return event;
+  };
+
+  buildBasicEvent = function buildBasicEvent(type) {
+    var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+
+    var event = document.createEvent('Events');
+    event.initEvent(type, true, true);
+    _emberViewsSystemJquery.default.extend(event, options);
+    return event;
+  };
+
+  fireEvent = function fireEvent(element, type) {
+    var options = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
+
+    if (!element) {
+      return;
+    }
+    var event = undefined;
+    if (keyboardEventTypes.indexOf(type) > -1) {
+      event = buildKeyboardEvent(type, options);
+    } else if (mouseEventTypes.indexOf(type) > -1) {
+      var rect = element.getBoundingClientRect();
+      var x = rect.left + 1;
+      var y = rect.top + 1;
+      var simulatedCoordinates = {
+        screenX: x + 5,
+        screenY: y + 95,
+        clientX: x,
+        clientY: y
+      };
+      event = buildMouseEvent(type, _emberViewsSystemJquery.default.extend(simulatedCoordinates, options));
+    } else {
+      event = buildBasicEvent(type, options);
+    }
+    element.dispatchEvent(event);
+  };
+
+  focus = function focus(el) {
+    if (!el) {
+      return;
+    }
+    var $el = _emberViewsSystemJquery.default(el);
+    if ($el.is(':input, [contenteditable=true]')) {
+      var type = $el.prop('type');
+      if (type !== 'checkbox' && type !== 'radio' && type !== 'hidden') {
+        _emberMetalRun_loop.default(null, function () {
+          // Firefox does not trigger the `focusin` event if the window
+          // does not have focus. If the document doesn't have focus just
+          // use trigger('focusin') instead.
+
+          if (!document.hasFocus || document.hasFocus()) {
+            el.focus();
+          } else {
+            $el.trigger('focusin');
+          }
+        });
+      }
+    }
+  };
+
+  function currentRouteName(app) {
+    var routingService = app.__container__.lookup('service:-routing');
+
+    return _emberMetalProperty_get.get(routingService, 'currentRouteName');
   }
 
   function currentPath(app) {
-    var appController = app.__container__.lookup('controller:application');
+    var routingService = app.__container__.lookup('service:-routing');
 
-    return _emberMetalProperty_get.get(appController, 'currentPath');
+    return _emberMetalProperty_get.get(routingService, 'currentPath');
   }
 
   function currentURL(app) {
@@ -798,24 +890,6 @@ enifed('ember-testing/helpers', ['exports', 'ember-metal/property_get', 'ember-m
   function pauseTest() {
     _emberTestingTest.default.adapter.asyncStart();
     return new _emberRuntimeExtRsvp.default.Promise(function () {}, 'TestAdapter paused promise');
-  }
-
-  function focus(el) {
-    if (el && el.is(':input, [contenteditable=true]')) {
-      var type = el.prop('type');
-      if (type !== 'checkbox' && type !== 'radio' && type !== 'hidden') {
-        _emberMetalRun_loop.default(el, function () {
-          // Firefox does not trigger the `focusin` event if the window
-          // does not have focus. If the document doesn't have focus just
-          // use trigger('focusin') instead.
-          if (!document.hasFocus || document.hasFocus()) {
-            this.focus();
-          } else {
-            this.trigger('focusin');
-          }
-        });
-      }
-    }
   }
 
   function visit(app, url) {
@@ -843,12 +917,14 @@ enifed('ember-testing/helpers', ['exports', 'ember-metal/property_get', 'ember-m
 
   function click(app, selector, context) {
     var $el = app.testHelpers.findWithAssert(selector, context);
-    _emberMetalRun_loop.default($el, 'mousedown');
+    var el = $el[0];
 
-    focus($el);
+    _emberMetalRun_loop.default(null, fireEvent, el, 'mousedown');
 
-    _emberMetalRun_loop.default($el, 'mouseup');
-    _emberMetalRun_loop.default($el, 'click');
+    focus(el);
+
+    _emberMetalRun_loop.default(null, fireEvent, el, 'mouseup');
+    _emberMetalRun_loop.default(null, fireEvent, el, 'click');
 
     return app.testHelpers.wait();
   }
@@ -885,10 +961,9 @@ enifed('ember-testing/helpers', ['exports', 'ember-metal/property_get', 'ember-m
     }
 
     var $el = app.testHelpers.findWithAssert(selector, context);
+    var el = $el[0];
 
-    var event = _emberViewsSystemJquery.default.Event(type, options);
-
-    _emberMetalRun_loop.default($el, 'trigger', event);
+    _emberMetalRun_loop.default(null, fireEvent, el, type, options);
 
     return app.testHelpers.wait();
   }
@@ -909,18 +984,19 @@ enifed('ember-testing/helpers', ['exports', 'ember-metal/property_get', 'ember-m
   }
 
   function fillIn(app, selector, contextOrText, text) {
-    var $el, context;
+    var $el, el, context;
     if (typeof text === 'undefined') {
       text = contextOrText;
     } else {
       context = contextOrText;
     }
     $el = app.testHelpers.findWithAssert(selector, context);
-    focus($el);
+    el = $el[0];
+    focus(el);
     _emberMetalRun_loop.default(function () {
       $el.val(text);
-      $el.trigger('input');
-      $el.change();
+      fireEvent(el, 'input');
+      fireEvent(el, 'change');
     });
     return app.testHelpers.wait();
   }
@@ -947,10 +1023,10 @@ enifed('ember-testing/helpers', ['exports', 'ember-metal/property_get', 'ember-m
 
   function wait(app, value) {
     return new _emberRuntimeExtRsvp.default.Promise(function (resolve) {
+      var router = app.__container__.lookup('router:main');
+
       // Every 10ms, poll for the async thing to have finished
       var watcher = setInterval(function () {
-        var router = app.__container__.lookup('router:main');
-
         // 1. If the router is loading, keep polling
         var routerIsLoading = router.router && !!router.router.activeTransition;
         if (routerIsLoading) {
@@ -1231,6 +1307,10 @@ enifed('ember-testing/helpers', ['exports', 'ember-metal/property_get', 'ember-m
   */
   asyncHelper('triggerEvent', triggerEvent);
 });
+
+// Firefox does not trigger the `focusin` event if the window
+// does not have focus. If the document doesn't have focus just
+// use trigger('focusin') instead.
 enifed('ember-testing/index', ['exports', 'ember-metal/core', 'ember-testing/initializers', 'ember-testing/support', 'ember-testing/setup_for_testing', 'ember-testing/test', 'ember-testing/adapters/adapter', 'ember-testing/adapters/qunit', 'ember-testing/helpers'], function (exports, _emberMetalCore, _emberTestingInitializers, _emberTestingSupport, _emberTestingSetup_for_testing, _emberTestingTest, _emberTestingAdaptersAdapter, _emberTestingAdaptersQunit, _emberTestingHelpers) {
   'use strict';
 
@@ -6447,8 +6527,10 @@ define('ember-qunit/qunit-module', ['exports', 'qunit'], function (exports, _qun
 
   exports.createModule = createModule;
 
+  function _typeof(obj) { return obj && obj.constructor === Symbol ? 'symbol' : typeof obj; }
+
   function beforeEachCallback(callbacks) {
-    if (typeof callbacks !== 'object') {
+    if ((typeof callbacks === 'undefined' ? 'undefined' : _typeof(callbacks)) !== 'object') {
       return;
     }
     if (!callbacks) {
@@ -6471,7 +6553,7 @@ define('ember-qunit/qunit-module', ['exports', 'qunit'], function (exports, _qun
   }
 
   function afterEachCallback(callbacks) {
-    if (typeof callbacks !== 'object') {
+    if ((typeof callbacks === 'undefined' ? 'undefined' : _typeof(callbacks)) !== 'object') {
       return;
     }
     if (!callbacks) {
@@ -6524,6 +6606,8 @@ define('ember-qunit/test-wrapper', ['exports', 'ember', 'ember-test-helpers'], f
 
   exports['default'] = testWrapper;
 
+  function _instanceof(left, right) { if (right != null && right[Symbol.hasInstance]) { return right[Symbol.hasInstance](left); } else { return left instanceof right; } }
+
   function testWrapper(qunit /*, testName, expected, callback, async */) {
     var callback;
     for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; ++_key) {
@@ -6537,7 +6621,7 @@ define('ember-qunit/test-wrapper', ['exports', 'ember', 'ember-test-helpers'], f
 
       function failTestOnPromiseRejection(reason) {
         var message;
-        if (reason instanceof Error) {
+        if (_instanceof(reason, Error)) {
           message = reason.stack;
           if (reason.message && message.indexOf(reason.message) < 0) {
             // PhantomJS has a `stack` that does not contain the actual
@@ -6590,6 +6674,8 @@ define('ember-qunit', ['exports', 'ember-qunit/module-for', 'ember-qunit/module-
 });
 define('ember-test-helpers/abstract-test-module', ['exports', 'klassy', 'ember-test-helpers/wait', 'ember-test-helpers/test-context', 'ember'], function (exports, _klassy, _emberTestHelpersWait, _emberTestHelpersTestContext, _ember) {
   'use strict';
+
+  var assign = _ember['default'].assign || _ember['default'].merge;
 
   exports['default'] = _klassy.Klass.extend({
     init: function init(name, options) {
@@ -6684,7 +6770,7 @@ define('ember-test-helpers/abstract-test-module', ['exports', 'klassy', 'ember-t
     },
 
     setupContext: function setupContext(options) {
-      var config = _ember['default'].merge({
+      var config = assign({
         dispatcher: null,
         inject: {}
       }, options);
@@ -6727,6 +6813,8 @@ define('ember-test-helpers/build-registry', ['exports', 'ember'], function (expo
   /* globals global, self, requirejs, require */
 
   'use strict';
+
+  function _typeof(obj) { return obj && obj.constructor === Symbol ? 'symbol' : typeof obj; }
 
   function exposeRegistryMethodsWithoutDeprecations(container) {
     var methods = ['register', 'unregister', 'resolve', 'normalize', 'typeInjection', 'injection', 'factoryInjection', 'factoryTypeInjection', 'has', 'options', 'optionsForType'];
@@ -6813,7 +6901,7 @@ define('ember-test-helpers/build-registry', ['exports', 'ember'], function (expo
       register('view:default', _ember['default']._MetamorphView);
     }
 
-    var globalContext = typeof global === 'object' && global || self;
+    var globalContext = (typeof global === 'undefined' ? 'undefined' : _typeof(global)) === 'object' && global || self;
     if (requirejs.entries['ember-data/setup-container']) {
       // ember-data is a proper ember-cli addon since 2.3; if no 'import
       // 'ember-data'' is present somewhere in the tests, there is also no `DS`
@@ -6911,12 +6999,14 @@ define('ember-test-helpers/test-module-for-acceptance', ['exports', 'ember-test-
 define('ember-test-helpers/test-module-for-component', ['exports', 'ember-test-helpers/test-module', 'ember', 'ember-test-helpers/test-resolver', 'ember-test-helpers/has-ember-version'], function (exports, _emberTestHelpersTestModule, _ember, _emberTestHelpersTestResolver, _emberTestHelpersHasEmberVersion) {
   'use strict';
 
+  function _typeof(obj) { return obj && obj.constructor === Symbol ? 'symbol' : typeof obj; }
+
   exports['default'] = _emberTestHelpersTestModule['default'].extend({
     isComponentTestModule: true,
 
     init: function init(componentName, description, callbacks) {
       // Allow `description` to be omitted
-      if (!callbacks && typeof description === 'object') {
+      if (!callbacks && (typeof description === 'undefined' ? 'undefined' : _typeof(description)) === 'object') {
         callbacks = description;
         description = null;
       } else if (!callbacks) {
@@ -7449,11 +7539,13 @@ define('ember-test-helpers/test-module-for-model', ['exports', 'ember-test-helpe
 define('ember-test-helpers/test-module', ['exports', 'ember', 'ember-test-helpers/test-context', 'ember-test-helpers/abstract-test-module', 'ember-test-helpers/test-resolver', 'ember-test-helpers/build-registry', 'ember-test-helpers/has-ember-version'], function (exports, _ember, _emberTestHelpersTestContext, _emberTestHelpersAbstractTestModule, _emberTestHelpersTestResolver, _emberTestHelpersBuildRegistry, _emberTestHelpersHasEmberVersion) {
   'use strict';
 
+  function _typeof(obj) { return obj && obj.constructor === Symbol ? 'symbol' : typeof obj; }
+
   exports['default'] = _emberTestHelpersAbstractTestModule['default'].extend({
     init: function init(subjectName, description, callbacks) {
       // Allow `description` to be omitted, in which case it should
       // default to `subjectName`
-      if (!callbacks && typeof description === 'object') {
+      if (!callbacks && (typeof description === 'undefined' ? 'undefined' : _typeof(description)) === 'object') {
         callbacks = description;
         description = subjectName;
       }

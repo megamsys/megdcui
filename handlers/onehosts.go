@@ -1,5 +1,4 @@
-
-package api
+package handlers
 
 import (
 	"net/http"
@@ -8,7 +7,7 @@ import (
 		_ "github.com/megamsys/megdcui/install/machine"
 )
 
-func onehosts(w http.ResponseWriter, r *http.Request) error {
+func OneHosts(w http.ResponseWriter, r *http.Request) error {
 
 	var register install.Host
 	host := "localhost"
