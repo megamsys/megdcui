@@ -11,11 +11,20 @@ module.exports = function(environment) {
         // Here you can enable experimental features on an ember canary build
         // e.g. 'with-controller': true
       }
-    },  
+    },
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
     }
+  };
+
+  ENV.contentSecurityPolicy = {
+    'default-src': "'none'",
+    'script-src': "'self'",
+    'font-src': "'self' http://fonts.gstatic.com",
+    'connect-src': "'self'",
+    'img-src': "'self' data:",
+    'media-src': "'self'"
   };
 
   ENV.i18n = {
