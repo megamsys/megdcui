@@ -21,6 +21,7 @@ Router.map(function() {
   this.route('step1');
   this.route('step2');
   this.route('step3');
+  this.route('master');
 	this.route('signup');
 	this.route('signin');
 

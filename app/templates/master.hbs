@@ -1,0 +1,17 @@
+{{#meg-layout layoutName="layouts/simple"}}
+{{#if redirected}}
+{{/if}}
+<div id="landing" class="landing">
+<div class="row hero z-1">
+    <div class="landing-centered-wrapper">
+      <div class="large-12 columns" id="hero-copy">
+<h2>{{t "main.title"}}</h2>
+{{paper-input label="User Name" value=name}}
+{{paper-input label="IP Address" type="text" value=email}}
+{{paper-input label="Password" type="password"}}
+{{#paper-button noink=true primary=true}}submit{{/paper-button}}
+</div>
+</div>
+</div>
+</div>
+{{/meg-layout}}

@@ -8,12 +8,12 @@ actions: {
   signupPage() {
     //this.transitionTo('signup');
     this.transitionTo('step1');
-        return true;
+    return true;
   },
 
   signinPage() {
     this.transitionTo('signin');
-        return true;
+    return true;
   },
 }
 
