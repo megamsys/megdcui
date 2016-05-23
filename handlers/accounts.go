@@ -49,7 +49,7 @@ func SigninAccounts(w http.ResponseWriter, r *http.Request) error {
 		return accerr
 	}
 
-	err = a.Create()
+	err = a.Login()
 	if err != nil {
 		http.Error(w, err.Error(), 500)
 		return err
