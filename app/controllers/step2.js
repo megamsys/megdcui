@@ -33,10 +33,10 @@ export default Controller.extend({
     done() {
         //let data = this.get('hostinfos').create(this.get('hostInfos'));
 
-        return this.get('hostinfos').create(this.get('hostInfos')).then(function(result) {
-          this.storeData(result, this.get('sessionStorage'));
+        //return this.get('hostinfos').create(this.get('hostInfos')).then(function(result) {
+        //  this.storeData(result, this.get('sessionStorage'));
           this.transitionToRoute('step3');
-  			});
+  		//	});
     },
 
   }
