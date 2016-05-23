@@ -2060,10 +2060,10 @@ define('meg/controllers/step2', ['exports', 'ember'], function (exports, _ember)
       done: function done() {
         //let data = this.get('hostinfos').create(this.get('hostInfos'));
 
-        return this.get('hostinfos').create(this.get('hostInfos')).then(function (result) {
-          this.storeData(result, this.get('sessionStorage'));
-          this.transitionToRoute('step3');
-        });
+        //return this.get('hostinfos').create(this.get('hostInfos')).then(function(result) {
+        //  this.storeData(result, this.get('sessionStorage'));
+        this.transitionToRoute('step3');
+        //	});
       }
 
     }
@@ -14297,6 +14297,78 @@ define("meg/templates/step3", ["exports"], function (exports) {
           templates: []
         };
       })();
+      var child1 = (function () {
+        return {
+          meta: {
+            "fragmentReason": false,
+            "revision": "Ember@2.5.1",
+            "loc": {
+              "source": null,
+              "start": {
+                "line": 46,
+                "column": 20
+              },
+              "end": {
+                "line": 46,
+                "column": 66
+              }
+            },
+            "moduleName": "meg/templates/step3.hbs"
+          },
+          isEmpty: false,
+          arity: 0,
+          cachedFragment: null,
+          hasRendered: false,
+          buildFragment: function buildFragment(dom) {
+            var el0 = dom.createDocumentFragment();
+            var el1 = dom.createTextNode("Install");
+            dom.appendChild(el0, el1);
+            return el0;
+          },
+          buildRenderNodes: function buildRenderNodes() {
+            return [];
+          },
+          statements: [],
+          locals: [],
+          templates: []
+        };
+      })();
+      var child2 = (function () {
+        return {
+          meta: {
+            "fragmentReason": false,
+            "revision": "Ember@2.5.1",
+            "loc": {
+              "source": null,
+              "start": {
+                "line": 47,
+                "column": 20
+              },
+              "end": {
+                "line": 47,
+                "column": 70
+              }
+            },
+            "moduleName": "meg/templates/step3.hbs"
+          },
+          isEmpty: false,
+          arity: 0,
+          cachedFragment: null,
+          hasRendered: false,
+          buildFragment: function buildFragment(dom) {
+            var el0 = dom.createDocumentFragment();
+            var el1 = dom.createTextNode("Migrate");
+            dom.appendChild(el0, el1);
+            return el0;
+          },
+          buildRenderNodes: function buildRenderNodes() {
+            return [];
+          },
+          statements: [],
+          locals: [],
+          templates: []
+        };
+      })();
       return {
         meta: {
           "fragmentReason": {
@@ -14311,7 +14383,7 @@ define("meg/templates/step3", ["exports"], function (exports) {
               "column": 0
             },
             "end": {
-              "line": 21,
+              "line": 101,
               "column": 0
             }
           },
@@ -14370,9 +14442,405 @@ define("meg/templates/step3", ["exports"], function (exports) {
           dom.appendChild(el6, el7);
           var el7 = dom.createTextNode("\n            ");
           dom.appendChild(el6, el7);
-          var el7 = dom.createElement("button");
-          dom.setAttribute(el7, "class", "button");
-          var el8 = dom.createTextNode("Select");
+          var el7 = dom.createElement("div");
+          dom.setAttribute(el7, "class", "large-12 columns");
+          var el8 = dom.createTextNode("\n              ");
+          dom.appendChild(el7, el8);
+          var el8 = dom.createElement("div");
+          dom.setAttribute(el8, "class", "col-sm-4");
+          dom.setAttribute(el8, "style", "background-color:lavender;");
+          var el9 = dom.createTextNode("\n                ");
+          dom.appendChild(el8, el9);
+          var el9 = dom.createElement("br");
+          dom.appendChild(el8, el9);
+          var el9 = dom.createTextNode("\n                ");
+          dom.appendChild(el8, el9);
+          var el9 = dom.createElement("div");
+          dom.setAttribute(el9, "class", "list-group");
+          var el10 = dom.createTextNode("\n                  ");
+          dom.appendChild(el9, el10);
+          var el10 = dom.createElement("button");
+          dom.setAttribute(el10, "type", "button");
+          dom.setAttribute(el10, "class", "list-group-item");
+          var el11 = dom.createTextNode("Host 1");
+          dom.appendChild(el10, el11);
+          dom.appendChild(el9, el10);
+          var el10 = dom.createTextNode("\n                  ");
+          dom.appendChild(el9, el10);
+          var el10 = dom.createElement("button");
+          dom.setAttribute(el10, "type", "button");
+          dom.setAttribute(el10, "class", "list-group-item");
+          var el11 = dom.createTextNode("Host 2");
+          dom.appendChild(el10, el11);
+          dom.appendChild(el9, el10);
+          var el10 = dom.createTextNode("\n                  ");
+          dom.appendChild(el9, el10);
+          var el10 = dom.createElement("button");
+          dom.setAttribute(el10, "type", "button");
+          dom.setAttribute(el10, "class", "list-group-item");
+          var el11 = dom.createTextNode("Host 3");
+          dom.appendChild(el10, el11);
+          dom.appendChild(el9, el10);
+          var el10 = dom.createTextNode("\n                  ");
+          dom.appendChild(el9, el10);
+          var el10 = dom.createElement("button");
+          dom.setAttribute(el10, "type", "button");
+          dom.setAttribute(el10, "class", "list-group-item");
+          var el11 = dom.createTextNode("Host 4");
+          dom.appendChild(el10, el11);
+          dom.appendChild(el9, el10);
+          var el10 = dom.createTextNode("\n                ");
+          dom.appendChild(el9, el10);
+          dom.appendChild(el8, el9);
+          var el9 = dom.createTextNode("\n              ");
+          dom.appendChild(el8, el9);
+          dom.appendChild(el7, el8);
+          var el8 = dom.createTextNode("\n              ");
+          dom.appendChild(el7, el8);
+          var el8 = dom.createElement("div");
+          dom.setAttribute(el8, "class", "col-sm-8");
+          dom.setAttribute(el8, "style", "background-color:#DCDCDC;");
+          var el9 = dom.createTextNode("\n                ");
+          dom.appendChild(el8, el9);
+          var el9 = dom.createElement("div");
+          dom.setAttribute(el9, "class", "large-12 columns");
+          dom.setAttribute(el9, "id", "hero-copy");
+          var el10 = dom.createTextNode("\n                  ");
+          dom.appendChild(el9, el10);
+          var el10 = dom.createElement("h2");
+          var el11 = dom.createTextNode("Host 2");
+          dom.appendChild(el10, el11);
+          dom.appendChild(el9, el10);
+          var el10 = dom.createTextNode("\n                ");
+          dom.appendChild(el9, el10);
+          dom.appendChild(el8, el9);
+          var el9 = dom.createTextNode("\n                ");
+          dom.appendChild(el8, el9);
+          var el9 = dom.createElement("div");
+          dom.setAttribute(el9, "class", "large-12 columns");
+          dom.setAttribute(el9, "id", "hero-copy");
+          var el10 = dom.createTextNode("\n                  ");
+          dom.appendChild(el9, el10);
+          var el10 = dom.createElement("div");
+          dom.setAttribute(el10, "class", "col-sm-6");
+          var el11 = dom.createTextNode("\n                    ");
+          dom.appendChild(el10, el11);
+          var el11 = dom.createElement("h4");
+          var el12 = dom.createTextNode("IP Address ");
+          dom.appendChild(el11, el12);
+          var el12 = dom.createElement("span");
+          dom.setAttribute(el12, "class", "label label-default");
+          var el13 = dom.createTextNode("103.56.92.24");
+          dom.appendChild(el12, el13);
+          dom.appendChild(el11, el12);
+          dom.appendChild(el10, el11);
+          var el11 = dom.createTextNode("\n                    ");
+          dom.appendChild(el10, el11);
+          var el11 = dom.createElement("h4");
+          var el12 = dom.createTextNode("Username ");
+          dom.appendChild(el11, el12);
+          var el12 = dom.createElement("span");
+          dom.setAttribute(el12, "class", "label label-default");
+          var el13 = dom.createTextNode("megam");
+          dom.appendChild(el12, el13);
+          dom.appendChild(el11, el12);
+          dom.appendChild(el10, el11);
+          var el11 = dom.createTextNode("\n                    ");
+          dom.appendChild(el10, el11);
+          var el11 = dom.createElement("h4");
+          var el12 = dom.createTextNode("Password ");
+          dom.appendChild(el11, el12);
+          var el12 = dom.createElement("span");
+          dom.setAttribute(el12, "class", "label label-default");
+          var el13 = dom.createTextNode("megam");
+          dom.appendChild(el12, el13);
+          dom.appendChild(el11, el12);
+          dom.appendChild(el10, el11);
+          var el11 = dom.createTextNode("\n                    ");
+          dom.appendChild(el10, el11);
+          var el11 = dom.createElement("h4");
+          var el12 = dom.createTextNode("File System ");
+          dom.appendChild(el11, el12);
+          var el12 = dom.createElement("span");
+          dom.setAttribute(el12, "class", "label label-default");
+          var el13 = dom.createTextNode("ext4");
+          dom.appendChild(el12, el13);
+          dom.appendChild(el11, el12);
+          dom.appendChild(el10, el11);
+          var el11 = dom.createTextNode("\n                    ");
+          dom.appendChild(el10, el11);
+          var el11 = dom.createElement("h4");
+          var el12 = dom.createTextNode("Cpu ");
+          dom.appendChild(el11, el12);
+          var el12 = dom.createElement("span");
+          dom.setAttribute(el12, "class", "label label-default");
+          var el13 = dom.createTextNode("12");
+          dom.appendChild(el12, el13);
+          dom.appendChild(el11, el12);
+          dom.appendChild(el10, el11);
+          var el11 = dom.createTextNode("\n                  ");
+          dom.appendChild(el10, el11);
+          dom.appendChild(el9, el10);
+          var el10 = dom.createTextNode("\n                  ");
+          dom.appendChild(el9, el10);
+          var el10 = dom.createElement("div");
+          dom.setAttribute(el10, "class", "col-sm-6");
+          var el11 = dom.createTextNode("\n                    ");
+          dom.appendChild(el10, el11);
+          var el11 = dom.createElement("h4");
+          var el12 = dom.createTextNode("choose :");
+          dom.appendChild(el11, el12);
+          dom.appendChild(el10, el11);
+          var el11 = dom.createTextNode("\n                    ");
+          dom.appendChild(el10, el11);
+          var el11 = dom.createElement("div");
+          dom.setAttribute(el11, "class", "large-12 columns");
+          var el12 = dom.createTextNode("\n                      ");
+          dom.appendChild(el11, el12);
+          var el12 = dom.createElement("div");
+          dom.setAttribute(el12, "class", "col-sm-6");
+          var el13 = dom.createTextNode("\n                      ");
+          dom.appendChild(el12, el13);
+          var el13 = dom.createComment("");
+          dom.appendChild(el12, el13);
+          var el13 = dom.createTextNode("\n                    ");
+          dom.appendChild(el12, el13);
+          dom.appendChild(el11, el12);
+          var el12 = dom.createTextNode("\n                    ");
+          dom.appendChild(el11, el12);
+          var el12 = dom.createElement("div");
+          dom.setAttribute(el12, "class", "col-sm-6");
+          var el13 = dom.createTextNode("\n                      ");
+          dom.appendChild(el12, el13);
+          var el13 = dom.createComment("");
+          dom.appendChild(el12, el13);
+          var el13 = dom.createTextNode("\n                    ");
+          dom.appendChild(el12, el13);
+          dom.appendChild(el11, el12);
+          var el12 = dom.createTextNode("\n                  ");
+          dom.appendChild(el11, el12);
+          dom.appendChild(el10, el11);
+          var el11 = dom.createTextNode("\n                    ");
+          dom.appendChild(el10, el11);
+          var el11 = dom.createComment("");
+          dom.appendChild(el10, el11);
+          var el11 = dom.createTextNode("\n                    ");
+          dom.appendChild(el10, el11);
+          var el11 = dom.createComment("");
+          dom.appendChild(el10, el11);
+          var el11 = dom.createTextNode("\n                  ");
+          dom.appendChild(el10, el11);
+          dom.appendChild(el9, el10);
+          var el10 = dom.createTextNode("\n                  ");
+          dom.appendChild(el9, el10);
+          var el10 = dom.createElement("div");
+          dom.setAttribute(el10, "class", "large-12 columns");
+          var el11 = dom.createTextNode("\n                  ");
+          dom.appendChild(el10, el11);
+          var el11 = dom.createElement("table");
+          dom.setAttribute(el11, "class", "table table-condensed");
+          dom.setAttribute(el11, "align", "left");
+          var el12 = dom.createTextNode("\n                    ");
+          dom.appendChild(el11, el12);
+          var el12 = dom.createElement("thead");
+          var el13 = dom.createTextNode("\n                    ");
+          dom.appendChild(el12, el13);
+          var el13 = dom.createElement("tr");
+          var el14 = dom.createTextNode("\n                      ");
+          dom.appendChild(el13, el14);
+          var el14 = dom.createElement("th");
+          var el15 = dom.createTextNode("#");
+          dom.appendChild(el14, el15);
+          dom.appendChild(el13, el14);
+          var el14 = dom.createTextNode("\n                      ");
+          dom.appendChild(el13, el14);
+          var el14 = dom.createElement("th");
+          var el15 = dom.createTextNode("Disk");
+          dom.appendChild(el14, el15);
+          dom.appendChild(el13, el14);
+          var el14 = dom.createTextNode("\n                      ");
+          dom.appendChild(el13, el14);
+          var el14 = dom.createElement("th");
+          var el15 = dom.createTextNode("Type");
+          dom.appendChild(el14, el15);
+          dom.appendChild(el13, el14);
+          var el14 = dom.createTextNode("\n                      ");
+          dom.appendChild(el13, el14);
+          var el14 = dom.createElement("th");
+          var el15 = dom.createTextNode("Size");
+          dom.appendChild(el14, el15);
+          dom.appendChild(el13, el14);
+          var el14 = dom.createTextNode("\n                      ");
+          dom.appendChild(el13, el14);
+          var el14 = dom.createElement("th");
+          var el15 = dom.createTextNode("Mount Point");
+          dom.appendChild(el14, el15);
+          dom.appendChild(el13, el14);
+          var el14 = dom.createTextNode("\n                    ");
+          dom.appendChild(el13, el14);
+          dom.appendChild(el12, el13);
+          var el13 = dom.createTextNode("\n                  ");
+          dom.appendChild(el12, el13);
+          dom.appendChild(el11, el12);
+          var el12 = dom.createTextNode("\n                  ");
+          dom.appendChild(el11, el12);
+          var el12 = dom.createElement("tbody");
+          var el13 = dom.createTextNode("\n                    ");
+          dom.appendChild(el12, el13);
+          var el13 = dom.createElement("tr");
+          var el14 = dom.createTextNode("\n                      ");
+          dom.appendChild(el13, el14);
+          var el14 = dom.createElement("td");
+          var el15 = dom.createTextNode("1");
+          dom.appendChild(el14, el15);
+          dom.appendChild(el13, el14);
+          var el14 = dom.createTextNode("\n                      ");
+          dom.appendChild(el13, el14);
+          var el14 = dom.createElement("td");
+          var el15 = dom.createTextNode("sda");
+          dom.appendChild(el14, el15);
+          dom.appendChild(el13, el14);
+          var el14 = dom.createTextNode("\n                      ");
+          dom.appendChild(el13, el14);
+          var el14 = dom.createElement("td");
+          var el15 = dom.createTextNode("disk");
+          dom.appendChild(el14, el15);
+          dom.appendChild(el13, el14);
+          var el14 = dom.createTextNode("\n                      ");
+          dom.appendChild(el13, el14);
+          var el14 = dom.createElement("td");
+          var el15 = dom.createTextNode("5.5T");
+          dom.appendChild(el14, el15);
+          dom.appendChild(el13, el14);
+          var el14 = dom.createTextNode("\n                      ");
+          dom.appendChild(el13, el14);
+          var el14 = dom.createElement("td");
+          dom.appendChild(el13, el14);
+          var el14 = dom.createTextNode("\n                    ");
+          dom.appendChild(el13, el14);
+          dom.appendChild(el12, el13);
+          var el13 = dom.createTextNode("\n                    ");
+          dom.appendChild(el12, el13);
+          var el13 = dom.createElement("tr");
+          var el14 = dom.createTextNode("\n                      ");
+          dom.appendChild(el13, el14);
+          var el14 = dom.createElement("td");
+          var el15 = dom.createTextNode("2");
+          dom.appendChild(el14, el15);
+          dom.appendChild(el13, el14);
+          var el14 = dom.createTextNode("\n                      ");
+          dom.appendChild(el13, el14);
+          var el14 = dom.createElement("td");
+          var el15 = dom.createTextNode("sda1");
+          dom.appendChild(el14, el15);
+          dom.appendChild(el13, el14);
+          var el14 = dom.createTextNode("\n                      ");
+          dom.appendChild(el13, el14);
+          var el14 = dom.createElement("td");
+          var el15 = dom.createTextNode("part");
+          dom.appendChild(el14, el15);
+          dom.appendChild(el13, el14);
+          var el14 = dom.createTextNode("\n                      ");
+          dom.appendChild(el13, el14);
+          var el14 = dom.createElement("td");
+          var el15 = dom.createTextNode("5.5T");
+          dom.appendChild(el14, el15);
+          dom.appendChild(el13, el14);
+          var el14 = dom.createTextNode("\n                      ");
+          dom.appendChild(el13, el14);
+          var el14 = dom.createElement("td");
+          var el15 = dom.createTextNode("/storage1");
+          dom.appendChild(el14, el15);
+          dom.appendChild(el13, el14);
+          var el14 = dom.createTextNode("\n                    ");
+          dom.appendChild(el13, el14);
+          dom.appendChild(el12, el13);
+          var el13 = dom.createTextNode("\n                    ");
+          dom.appendChild(el12, el13);
+          var el13 = dom.createElement("tr");
+          var el14 = dom.createTextNode("\n                      ");
+          dom.appendChild(el13, el14);
+          var el14 = dom.createElement("td");
+          var el15 = dom.createTextNode("3");
+          dom.appendChild(el14, el15);
+          dom.appendChild(el13, el14);
+          var el14 = dom.createTextNode("\n                      ");
+          dom.appendChild(el13, el14);
+          var el14 = dom.createElement("td");
+          var el15 = dom.createTextNode("sdb");
+          dom.appendChild(el14, el15);
+          dom.appendChild(el13, el14);
+          var el14 = dom.createTextNode("\n                      ");
+          dom.appendChild(el13, el14);
+          var el14 = dom.createElement("td");
+          var el15 = dom.createTextNode("disk");
+          dom.appendChild(el14, el15);
+          dom.appendChild(el13, el14);
+          var el14 = dom.createTextNode("\n                      ");
+          dom.appendChild(el13, el14);
+          var el14 = dom.createElement("td");
+          var el15 = dom.createTextNode("5.5T");
+          dom.appendChild(el14, el15);
+          dom.appendChild(el13, el14);
+          var el14 = dom.createTextNode("\n                      ");
+          dom.appendChild(el13, el14);
+          var el14 = dom.createElement("td");
+          dom.appendChild(el13, el14);
+          var el14 = dom.createTextNode("\n                    ");
+          dom.appendChild(el13, el14);
+          dom.appendChild(el12, el13);
+          var el13 = dom.createTextNode("\n                    ");
+          dom.appendChild(el12, el13);
+          var el13 = dom.createElement("tr");
+          var el14 = dom.createTextNode("\n                      ");
+          dom.appendChild(el13, el14);
+          var el14 = dom.createElement("td");
+          var el15 = dom.createTextNode("4");
+          dom.appendChild(el14, el15);
+          dom.appendChild(el13, el14);
+          var el14 = dom.createTextNode("\n                      ");
+          dom.appendChild(el13, el14);
+          var el14 = dom.createElement("td");
+          var el15 = dom.createTextNode("sdb1");
+          dom.appendChild(el14, el15);
+          dom.appendChild(el13, el14);
+          var el14 = dom.createTextNode("\n                      ");
+          dom.appendChild(el13, el14);
+          var el14 = dom.createElement("td");
+          var el15 = dom.createTextNode("disk");
+          dom.appendChild(el14, el15);
+          dom.appendChild(el13, el14);
+          var el14 = dom.createTextNode("\n                      ");
+          dom.appendChild(el13, el14);
+          var el14 = dom.createElement("td");
+          var el15 = dom.createTextNode("5.5T");
+          dom.appendChild(el14, el15);
+          dom.appendChild(el13, el14);
+          var el14 = dom.createTextNode("\n                      ");
+          dom.appendChild(el13, el14);
+          var el14 = dom.createElement("td");
+          var el15 = dom.createTextNode("/storage2");
+          dom.appendChild(el14, el15);
+          dom.appendChild(el13, el14);
+          var el14 = dom.createTextNode("\n                    ");
+          dom.appendChild(el13, el14);
+          dom.appendChild(el12, el13);
+          var el13 = dom.createTextNode("\n                  ");
+          dom.appendChild(el12, el13);
+          dom.appendChild(el11, el12);
+          var el12 = dom.createTextNode("\n                  ");
+          dom.appendChild(el11, el12);
+          dom.appendChild(el10, el11);
+          var el11 = dom.createTextNode("\n                  ");
+          dom.appendChild(el10, el11);
+          dom.appendChild(el9, el10);
+          var el10 = dom.createTextNode("\n                ");
+          dom.appendChild(el9, el10);
+          dom.appendChild(el8, el9);
+          var el9 = dom.createTextNode("\n              ");
+          dom.appendChild(el8, el9);
+          dom.appendChild(el7, el8);
+          var el8 = dom.createTextNode("\n            ");
           dom.appendChild(el7, el8);
           dom.appendChild(el6, el7);
           var el7 = dom.createTextNode("\n          ");
@@ -14400,18 +14868,22 @@ define("meg/templates/step3", ["exports"], function (exports) {
         buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
           var element0 = dom.childAt(fragment, [1, 1, 1, 1]);
           var element1 = dom.childAt(element0, [3, 1]);
-          var element2 = dom.childAt(element1, [3]);
-          var morphs = new Array(4);
+          var element2 = dom.childAt(element1, [3, 3, 3, 3]);
+          var element3 = dom.childAt(element2, [3]);
+          var morphs = new Array(7);
           morphs[0] = dom.createMorphAt(fragment, 0, 0, contextualElement);
           morphs[1] = dom.createMorphAt(dom.childAt(element0, [1]), 0, 0);
           morphs[2] = dom.createMorphAt(dom.childAt(element1, [1, 1]), 0, 0);
-          morphs[3] = dom.createElementMorph(element2);
+          morphs[3] = dom.createMorphAt(dom.childAt(element3, [1]), 1, 1);
+          morphs[4] = dom.createMorphAt(dom.childAt(element3, [3]), 1, 1);
+          morphs[5] = dom.createMorphAt(element2, 5, 5);
+          morphs[6] = dom.createMorphAt(element2, 7, 7);
           dom.insertBoundary(fragment, 0);
           return morphs;
         },
-        statements: [["block", "if", [["get", "redirected", ["loc", [null, [2, 6], [2, 16]]]]], [], 0, null, ["loc", [null, [2, 0], [3, 7]]]], ["inline", "t", ["step1.title"], [], ["loc", [null, [8, 10], [8, 29]]]], ["inline", "t", ["step3.sub.title"], [], ["loc", [null, [12, 18], [12, 41]]]], ["element", "action", ["sample"], [], ["loc", [null, [14, 35], [14, 54]]]]],
+        statements: [["block", "if", [["get", "redirected", ["loc", [null, [2, 6], [2, 16]]]]], [], 0, null, ["loc", [null, [2, 0], [3, 7]]]], ["inline", "t", ["step1.title"], [], ["loc", [null, [8, 10], [8, 29]]]], ["inline", "t", ["step3.sub.title"], [], ["loc", [null, [12, 18], [12, 41]]]], ["inline", "paper-radio", [], ["toggle", true, "label", "CEPH"], ["loc", [null, [40, 22], [40, 63]]]], ["inline", "paper-radio", [], ["toggle", true, "label", "LVM"], ["loc", [null, [43, 22], [43, 62]]]], ["block", "paper-button", [], ["raised", true, "warn", true], 1, null, ["loc", [null, [46, 20], [46, 83]]]], ["block", "paper-button", [], ["raised", true, "disabled", true], 2, null, ["loc", [null, [47, 20], [47, 87]]]]],
         locals: [],
-        templates: [child0]
+        templates: [child0, child1, child2]
       };
     })();
     return {
@@ -14428,7 +14900,7 @@ define("meg/templates/step3", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 22,
+            "line": 102,
             "column": 0
           }
         },
@@ -14451,7 +14923,7 @@ define("meg/templates/step3", ["exports"], function (exports) {
         dom.insertBoundary(fragment, null);
         return morphs;
       },
-      statements: [["block", "meg-layout", [], ["layoutName", "layouts/simple"], 0, null, ["loc", [null, [1, 0], [21, 15]]]]],
+      statements: [["block", "meg-layout", [], ["layoutName", "layouts/simple"], 0, null, ["loc", [null, [1, 0], [101, 15]]]]],
       locals: [],
       templates: [child0]
     };
@@ -16351,7 +16823,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("meg/app")["default"].create({"LOG_ACTIVE_GENERATION":true,"LOG_TRANSITIONS":true,"LOG_TRANSITIONS_INTERNAL":true,"LOG_VIEW_LOOKUPS":true,"name":"meg","version":"0.0.0+15472c42"});
+  require("meg/app")["default"].create({"LOG_ACTIVE_GENERATION":true,"LOG_TRANSITIONS":true,"LOG_TRANSITIONS_INTERNAL":true,"LOG_VIEW_LOOKUPS":true,"name":"meg","version":"0.0.0+f587da23"});
 }
 
 /* jshint ignore:end */
