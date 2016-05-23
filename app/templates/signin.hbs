@@ -1,15 +1,31 @@
-{{#meg-layout layoutName="layouts/simple"}}
-{{#if redirected}}
-{{/if}}
+{{#meg-layout layoutName="layouts/simple" }}
+  {{#if redirected}}
+  {{/if}}
 
-<div class="container">
-  {{#em-form model=model form_layout='horizontal' submit_button=false}}
-        {{em-input property="name" label="Full Name" placeholder="Enter a name..." type="text"}}
-        {{em-input label="Password" property="password" placeholder="And password..." type="password" disabled=nameHasValue}}
-        <div class="form-actions">
-            <input disabled={{isntValid}} type="submit" class="btn btn-success" value="Login">
+  <div class="container signin">
+    <section>
+      <div id="container_demo">
+        <div id="wrapper">
+          <div id="login" class="form">
+            {{#em-form model=model form_layout='horizontal' submit_button=false}}
+
+              {{em-input property="email" label="email" placeholder="Enter a email..." type="text"}} {{em-input label="Password" property="password" placeholder="And password..." type="password" disabled=nameHasValue}}
+              <div class="form-actions">
+                <!--<input  disabled={{isntValid}} type="submit" class="btn btn-success" value="Login">-->
+
+                <button {{ action "LoginAccount" }} class="button"><img src="../images/landing-page/sign-in-mascot.svg" class="sign-in-mascot">{{t "login.messages.sign_in"}}</button>
+
+                {{#if errorMessage}}
+                  <div class="alert alert-danger form-signin-alert" role="alert">{{t 'login.messages.error'}} </div>
+                {{/if}}
+              </div>
+            {{/em-form}}
+          </div>
+
         </div>
-    {{/em-form}}
-</div> <!-- /container -->
+      </div>
+    </section>
+  </div>
+  <!-- /container -->
 
 {{/meg-layout}}
