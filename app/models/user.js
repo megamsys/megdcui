@@ -58,27 +58,27 @@ User.reopen({
   },
 
   createAccount() {
-    alert("hai");
-    return this.get('ajax').request('/accounts/content', {
-        method: 'POST',
-        data: {
-          username: this.get('name'),
-          email: this.get('email'),
-          password: this.get('password')
 
-        }
-      });
-   },
-   LoginAccount() {
-     
-     return this.get('ajax').request('/login', {
-         method: 'POST',
-         data: {
-           email: this.get('email'),
-           password: this.get('password')
-         }
-       });
-    }
+    return this.get('ajax').request('/accounts/content', {
+      method: 'POST',
+      data: {
+        username: this.get('name'),
+        email: this.get('email'),
+        password: this.get('password')
+
+      }
+    });
+  },
+  LoginAccount() {
+
+    return this.get('ajax').request('/login', {
+      method: 'POST',
+      data: {
+        email: this.get('email'),
+        password: this.get('password')
+      }
+    });
+  }
 
 
 });

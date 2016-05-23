@@ -3,9 +3,9 @@ import BasicRoute from 'meg/routes/basic';
 
 export default BasicRoute.extend({
   model: function() {
-    alert("!!!!!!!!!!!!!!!!!!!!!!!!!!")
-     var model;
-     model = this.get('store').createRecord('user');
-     return model;
-   }
+
+    var model;
+    model = this.get('store').createRecord('user');
+    return model;
+  }
 });
