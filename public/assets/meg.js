@@ -1993,7 +1993,6 @@ define('meg/controllers/signin', ['exports', 'ember'], function (exports, _ember
       LoginAccount: function LoginAccount() {
         var _this = this;
 
-        alert("$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
         this.get('auth').signIn();
         return this.get('model').LoginAccount().then(function (result) {
           this.transitionToRoute('main');
@@ -3315,7 +3314,7 @@ define('meg/models/user', ['exports', 'ember', 'ember-data', 'ember-validations'
     },
 
     createAccount: function createAccount() {
-      alert("hai");
+
       return this.get('ajax').request('/accounts/content', {
         method: 'POST',
         data: {
@@ -3327,7 +3326,7 @@ define('meg/models/user', ['exports', 'ember', 'ember-data', 'ember-validations'
       });
     },
     LoginAccount: function LoginAccount() {
-      alert("hai");
+
       return this.get('ajax').request('/login', {
         method: 'POST',
         data: {
@@ -3377,8 +3376,8 @@ define('meg/routes/application', ['exports', 'meg/routes/basic'], function (expo
     actions: {
 
       signupPage: function signupPage() {
-        this.transitionTo('signup');
-        //this.transitionTo('step1');
+        //this.transitionTo('signup');
+        this.transitionTo('step1');
         return true;
       },
 
@@ -3432,7 +3431,7 @@ define('meg/routes/signin', ['exports', 'meg/routes/basic'], function (exports, 
   exports['default'] = _megRoutesBasic['default'].extend({
 
     model: function model() {
-      alert("!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
       var model;
       //model = this.get('store').queryRecord('user', { filter: { email: User.email} });
       model = this.get('store').createRecord('user');
@@ -3446,7 +3445,7 @@ define('meg/routes/signup', ['exports', 'meg/routes/basic'], function (exports, 
 
   exports['default'] = _megRoutesBasic['default'].extend({
     model: function model() {
-      alert("!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
       var model;
       model = this.get('store').createRecord('user');
       return model;
@@ -11159,7 +11158,7 @@ define("meg/templates/home", ["exports"], function (exports) {
             morphs[1] = dom.createMorphAt(element0, 1, 1);
             return morphs;
           },
-          statements: [["element", "action", ["signinPage"], [], ["loc", [null, [9, 20], [9, 45]]]], ["inline", "t", ["landingpage.signup"], [], ["loc", [null, [9, 137], [9, 163]]]]],
+          statements: [["element", "action", ["signupPage"], [], ["loc", [null, [9, 20], [9, 45]]]], ["inline", "t", ["landingpage.signup"], [], ["loc", [null, [9, 137], [9, 163]]]]],
           locals: [],
           templates: []
         };
@@ -16409,7 +16408,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("meg/app")["default"].create({"LOG_ACTIVE_GENERATION":true,"LOG_TRANSITIONS":true,"LOG_TRANSITIONS_INTERNAL":true,"LOG_VIEW_LOOKUPS":true,"name":"meg","version":"0.0.0+f587da23"});
+  require("meg/app")["default"].create({"LOG_ACTIVE_GENERATION":true,"LOG_TRANSITIONS":true,"LOG_TRANSITIONS_INTERNAL":true,"LOG_VIEW_LOOKUPS":true,"name":"meg","version":"0.0.0+64fe94ac"});
 }
 
 /* jshint ignore:end */
