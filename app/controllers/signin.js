@@ -8,7 +8,6 @@ export default Ember.Controller.extend({
 
   actions: {
     LoginAccount: function() {
-      alert("$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
       this.get('auth').signIn();
      return this.get('model').LoginAccount().then(function(result) {
         this.transitionToRoute('main');

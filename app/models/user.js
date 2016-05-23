@@ -70,7 +70,7 @@ User.reopen({
       });
    },
    LoginAccount() {
-     alert("hai");
+     
      return this.get('ajax').request('/login', {
          method: 'POST',
          data: {
