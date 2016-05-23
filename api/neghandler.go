@@ -1,10 +1,10 @@
 package api
 
 import (
-	"net/http"
 	"github.com/codegangsta/negroni"
 	"github.com/megamsys/megdcui/handlers"
 	"github.com/rs/cors"
+	"net/http"
 )
 
 type MegdHandler struct {
@@ -41,13 +41,14 @@ func NewNegHandler() *negroni.Negroni {
 	m.Add("GET", "/hostcheck", Handler(handlers.HostCheck))
 	m.Add("GET", "/bridge", Handler(handlers.Bridge))
 	m.Add("GET", "/network", Handler(handlers.Network))
-  m.Add("GET", "/migrate", Handler(handlers.Migrate))
+	m.Add("GET", "/migrate", Handler(handlers.Migrate))
 	m.Add("GET", "/attachonehost", Handler(handlers.AttachOneHost))
 	m.Add("GET", "/datastore", Handler(handlers.DataStore))
 	m.Add("GET", "/onehosts", Handler(handlers.OneHosts))
 	m.Add("Post", "/onestorages", Handler(handlers.OneStorages))
 	m.Add("Post", "/configurations", Handler(handlers.Configurations))
-  m.Add("Post", "/accounts/content", Handler(handlers.Accounts))
+	m.Add("Post", "/accounts/content", Handler(handlers.CreateAccounts))
+	m.Add("Post", "/login", Handler(handlers.SigninAccounts))
 	//m.Add("Get", "/", home.HomeHandler)
 	//m.Add("Get", "/logs", Handler(logs))
 	m.Add("POST", "/ping", Handler(ping))

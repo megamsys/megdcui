@@ -1,15 +1,15 @@
-{{#meg-layout layoutName="layouts/landing-page"}}
-<div id="landing" class="landing">
-  <div class="row hero z-1">
-    <div class="landing-centered-wrapper">
-      <div class="large-12 columns" id="hero-copy">
-		<h1>{{t "landingpage.title"}}</h1>
-		<p>{{t "landingpage.description"}}</p>
-		{{#if auth.signedOut}}
-			<button {{ action "signupPage" }} class="button"><img src="../images/landing-page/sign-in-mascot.svg" class="sign-in-mascot">{{t "landingpage.signup"}}</button>
-		{{/if}}		
-     </div> 
-    </div>     
-  </div> 
-</div>
+{{#meg-layout layoutName="layouts/landing-page" }}
+  <div id="landing" class="landing">
+    <div class="row hero z-1">
+      <div class="landing-centered-wrapper">
+        <div class="large-12 columns" id="hero-copy">
+          <h1>{{t "landingpage.title"}}</h1>
+          <p>{{t "landingpage.description"}}</p>
+          {{#if auth.signedOut}}
+            <button {{ action "signupPage" }} class="button"><img src="../images/landing-page/sign-in-mascot.svg" class="sign-in-mascot">{{t "landingpage.signup"}}</button>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  </div>
 {{/meg-layout}}

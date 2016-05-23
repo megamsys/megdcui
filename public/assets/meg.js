@@ -1984,26 +1984,44 @@ define('meg/controllers/master', ['exports', 'ember'], function (exports, _ember
 define('meg/controllers/signin', ['exports', 'ember'], function (exports, _ember) {
   //import PostValidations from 'meg/mixins/validations';
 
-  exports['default'] = _ember['default'].Controller.extend({});
+  exports['default'] = _ember['default'].Controller.extend({
+    auth: _ember['default'].inject.service(),
+    ajax: _ember['default'].inject.service(),
+    errorMessage: null,
+
+    actions: {
+      LoginAccount: function LoginAccount() {
+        var _this = this;
+
+        this.get('auth').signIn();
+        return this.get('model').LoginAccount().then(function (result) {
+          this.transitionToRoute('main');
+        })['catch'](function (error) {
+          return _this.set('errorMessage', error.reason);
+        });
+      }
+
+    }
+  });
 });
 define('meg/controllers/signup', ['exports', 'ember'], function (exports, _ember) {
-	//import PostValidations from 'meg/mixins/validations';
+  //import PostValidations from 'meg/mixins/validations';
 
-	exports['default'] = _ember['default'].Controller.extend({
-		auth: _ember['default'].inject.service(),
-		ajax: _ember['default'].inject.service(),
+  exports['default'] = _ember['default'].Controller.extend({
+    auth: _ember['default'].inject.service(),
+    ajax: _ember['default'].inject.service(),
 
-		actions: {
-			createAccount: function createAccount() {
-				this.get('auth').signIn();
-				return this.get('model').createAccount().then(function (result) {
-					this.transitionToRoute('main');
-				});
-			}
+    actions: {
+      createAccount: function createAccount() {
+        this.get('auth').signIn();
+        return this.get('model').createAccount().then(function (result) {
+          this.transitionToRoute('main');
+        });
+      }
 
-		}
+    }
 
-	});
+  });
 });
 define('meg/controllers/step1', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Controller.extend({
@@ -3237,80 +3255,7 @@ define('meg/mixins/validation-state', ['exports', 'ember'], function (exports, _
 define('meg/models/model', ['exports', 'ember-data/model'], function (exports, _emberDataModel) {
   exports['default'] = _emberDataModel['default'].extend();
 });
-define('meg/models/muser', ['exports', 'ember', 'ember-data', 'ember-validations'], function (exports, _ember, _emberData, _emberValidations) {
-
-  var User = _emberData['default'].Model.extend(_emberValidations['default'], {
-    first_name: _emberData['default'].attr('string'),
-    ipaddress: _emberData['default'].attr('string'),
-    password: _emberData['default'].attr('string'),
-    passwordConfirmation: _emberData['default'].attr('string'),
-    isntValid: _ember['default'].computed.not('isValid'),
-    comment: _emberData['default'].attr('string'),
-    active: _emberData['default'].attr('boolean'),
-    gender: _emberData['default'].attr('string'),
-    nameHasValue: _ember['default'].computed('name', function () {
-      var _ref;
-      return !((_ref = this.get('name')) != null ? _ref.length : void 0);
-    }),
-    asjson: _ember['default'].computed('name', 'password', 'comment', 'active', 'gender', function () {
-      return "name: " + this.get('name') + ", password: " + this.get('password') + ", comment: " + this.get('comment') + ", active: " + this.get('active') + ", gender: " + this.get('gender');
-    })
-
-  });
-
-  User.reopen({
-    ajax: _ember['default'].inject.service(),
-    validations: {
-      name: {
-        presence: true,
-        length: {
-          minimum: 5
-        }
-      },
-      ipaddress: {
-        presence: true,
-        length: {
-          minimum: 15
-        }
-      },
-      password: {
-        confirmation: true,
-        presence: true,
-        length: {
-          minimum: 6
-        }
-      },
-      passwordConfirmation: {
-        presence: {
-          message: ' please confirm password'
-        },
-        length: {
-          minimum: 6
-        }
-      },
-      comment: {
-        presence: true
-      },
-      gender: {
-        presence: true
-      }
-    },
-
-    createAccount: function createAccount() {
-      return this.get('ajax').request('/accounts/content', {
-        method: 'POST',
-        data: {
-          username: this.get('name'),
-          ipsddress: this.get('ipaddress'),
-          password: this.get('password')
-        }
-      });
-    }
-
-  });
-
-  exports['default'] = User;
-});
+define("meg/models/muser", ["exports"], function (exports) {});
 define('meg/models/user', ['exports', 'ember', 'ember-data', 'ember-validations'], function (exports, _ember, _emberData, _emberValidations) {
 
   var User = _emberData['default'].Model.extend(_emberValidations['default'], {
@@ -3369,10 +3314,22 @@ define('meg/models/user', ['exports', 'ember', 'ember-data', 'ember-validations'
     },
 
     createAccount: function createAccount() {
+
       return this.get('ajax').request('/accounts/content', {
         method: 'POST',
         data: {
           username: this.get('name'),
+          email: this.get('email'),
+          password: this.get('password')
+
+        }
+      });
+    },
+    LoginAccount: function LoginAccount() {
+
+      return this.get('ajax').request('/login', {
+        method: 'POST',
+        data: {
           email: this.get('email'),
           password: this.get('password')
         }
@@ -3469,26 +3426,31 @@ define('meg/routes/master', ['exports', 'meg/routes/basic'], function (exports, 
    });
 });
 define('meg/routes/signin', ['exports', 'meg/routes/basic'], function (exports, _megRoutesBasic) {
-   //import Ember from 'ember';
+  //import Ember from 'ember';
 
-   exports['default'] = _megRoutesBasic['default'].extend({
-      model: function model() {
-         var model;
-         model = this.get('store').createRecord('user');
-         return model;
-      }
-   });
+  exports['default'] = _megRoutesBasic['default'].extend({
+
+    model: function model() {
+
+      var model;
+      //model = this.get('store').queryRecord('user', { filter: { email: User.email} });
+      model = this.get('store').createRecord('user');
+      return model;
+    }
+
+  });
 });
 define('meg/routes/signup', ['exports', 'meg/routes/basic'], function (exports, _megRoutesBasic) {
-   //import Ember from 'ember';
+  //import Ember from 'ember';
 
-   exports['default'] = _megRoutesBasic['default'].extend({
-      model: function model() {
-         var model;
-         model = this.get('store').createRecord('user');
-         return model;
-      }
-   });
+  exports['default'] = _megRoutesBasic['default'].extend({
+    model: function model() {
+
+      var model;
+      model = this.get('store').createRecord('user');
+      return model;
+    }
+  });
 });
 define('meg/routes/step1', ['exports', 'meg/routes/basic'], function (exports, _megRoutesBasic) {
   //import config from 'meg/config/environment';
@@ -11159,11 +11121,11 @@ define("meg/templates/home", ["exports"], function (exports) {
               "source": null,
               "start": {
                 "line": 8,
-                "column": 2
+                "column": 10
               },
               "end": {
                 "line": 10,
-                "column": 2
+                "column": 10
               }
             },
             "moduleName": "meg/templates/home.hbs"
@@ -11174,7 +11136,7 @@ define("meg/templates/home", ["exports"], function (exports) {
           hasRendered: false,
           buildFragment: function buildFragment(dom) {
             var el0 = dom.createDocumentFragment();
-            var el1 = dom.createTextNode("			");
+            var el1 = dom.createTextNode("            ");
             dom.appendChild(el0, el1);
             var el1 = dom.createElement("button");
             dom.setAttribute(el1, "class", "button");
@@ -11196,7 +11158,7 @@ define("meg/templates/home", ["exports"], function (exports) {
             morphs[1] = dom.createMorphAt(element0, 1, 1);
             return morphs;
           },
-          statements: [["element", "action", ["signupPage"], [], ["loc", [null, [9, 11], [9, 36]]]], ["inline", "t", ["landingpage.signup"], [], ["loc", [null, [9, 128], [9, 154]]]]],
+          statements: [["element", "action", ["signupPage"], [], ["loc", [null, [9, 20], [9, 45]]]], ["inline", "t", ["landingpage.signup"], [], ["loc", [null, [9, 137], [9, 163]]]]],
           locals: [],
           templates: []
         };
@@ -11226,29 +11188,31 @@ define("meg/templates/home", ["exports"], function (exports) {
         hasRendered: false,
         buildFragment: function buildFragment(dom) {
           var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("  ");
+          dom.appendChild(el0, el1);
           var el1 = dom.createElement("div");
           dom.setAttribute(el1, "id", "landing");
           dom.setAttribute(el1, "class", "landing");
-          var el2 = dom.createTextNode("\n  ");
+          var el2 = dom.createTextNode("\n    ");
           dom.appendChild(el1, el2);
           var el2 = dom.createElement("div");
           dom.setAttribute(el2, "class", "row hero z-1");
-          var el3 = dom.createTextNode("\n    ");
+          var el3 = dom.createTextNode("\n      ");
           dom.appendChild(el2, el3);
           var el3 = dom.createElement("div");
           dom.setAttribute(el3, "class", "landing-centered-wrapper");
-          var el4 = dom.createTextNode("\n      ");
+          var el4 = dom.createTextNode("\n        ");
           dom.appendChild(el3, el4);
           var el4 = dom.createElement("div");
           dom.setAttribute(el4, "class", "large-12 columns");
           dom.setAttribute(el4, "id", "hero-copy");
-          var el5 = dom.createTextNode("\n		");
+          var el5 = dom.createTextNode("\n          ");
           dom.appendChild(el4, el5);
           var el5 = dom.createElement("h1");
           var el6 = dom.createComment("");
           dom.appendChild(el5, el6);
           dom.appendChild(el4, el5);
-          var el5 = dom.createTextNode("\n		");
+          var el5 = dom.createTextNode("\n          ");
           dom.appendChild(el4, el5);
           var el5 = dom.createElement("p");
           var el6 = dom.createComment("");
@@ -11258,16 +11222,16 @@ define("meg/templates/home", ["exports"], function (exports) {
           dom.appendChild(el4, el5);
           var el5 = dom.createComment("");
           dom.appendChild(el4, el5);
-          var el5 = dom.createTextNode("     ");
+          var el5 = dom.createTextNode("        ");
           dom.appendChild(el4, el5);
           dom.appendChild(el3, el4);
-          var el4 = dom.createTextNode(" \n    ");
+          var el4 = dom.createTextNode("\n      ");
           dom.appendChild(el3, el4);
           dom.appendChild(el2, el3);
-          var el3 = dom.createTextNode("     \n  ");
+          var el3 = dom.createTextNode("\n    ");
           dom.appendChild(el2, el3);
           dom.appendChild(el1, el2);
-          var el2 = dom.createTextNode(" \n");
+          var el2 = dom.createTextNode("\n  ");
           dom.appendChild(el1, el2);
           dom.appendChild(el0, el1);
           var el1 = dom.createTextNode("\n");
@@ -11275,14 +11239,14 @@ define("meg/templates/home", ["exports"], function (exports) {
           return el0;
         },
         buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
-          var element1 = dom.childAt(fragment, [0, 1, 1, 1]);
+          var element1 = dom.childAt(fragment, [1, 1, 1, 1]);
           var morphs = new Array(3);
           morphs[0] = dom.createMorphAt(dom.childAt(element1, [1]), 0, 0);
           morphs[1] = dom.createMorphAt(dom.childAt(element1, [3]), 0, 0);
           morphs[2] = dom.createMorphAt(element1, 5, 5);
           return morphs;
         },
-        statements: [["inline", "t", ["landingpage.title"], [], ["loc", [null, [6, 6], [6, 31]]]], ["inline", "t", ["landingpage.description"], [], ["loc", [null, [7, 5], [7, 36]]]], ["block", "if", [["get", "auth.signedOut", ["loc", [null, [8, 8], [8, 22]]]]], [], 0, null, ["loc", [null, [8, 2], [10, 9]]]]],
+        statements: [["inline", "t", ["landingpage.title"], [], ["loc", [null, [6, 14], [6, 39]]]], ["inline", "t", ["landingpage.description"], [], ["loc", [null, [7, 13], [7, 44]]]], ["block", "if", [["get", "auth.signedOut", ["loc", [null, [8, 16], [8, 30]]]]], [], 0, null, ["loc", [null, [8, 10], [10, 17]]]]],
         locals: [],
         templates: [child0]
       };
@@ -12781,11 +12745,11 @@ define("meg/templates/signin", ["exports"], function (exports) {
               "source": null,
               "start": {
                 "line": 2,
-                "column": 0
+                "column": 2
               },
               "end": {
                 "line": 3,
-                "column": 0
+                "column": 2
               }
             },
             "moduleName": "meg/templates/signin.hbs"
@@ -12807,6 +12771,54 @@ define("meg/templates/signin", ["exports"], function (exports) {
         };
       })();
       var child1 = (function () {
+        var child0 = (function () {
+          return {
+            meta: {
+              "fragmentReason": false,
+              "revision": "Ember@2.5.1",
+              "loc": {
+                "source": null,
+                "start": {
+                  "line": 18,
+                  "column": 16
+                },
+                "end": {
+                  "line": 20,
+                  "column": 16
+                }
+              },
+              "moduleName": "meg/templates/signin.hbs"
+            },
+            isEmpty: false,
+            arity: 0,
+            cachedFragment: null,
+            hasRendered: false,
+            buildFragment: function buildFragment(dom) {
+              var el0 = dom.createDocumentFragment();
+              var el1 = dom.createTextNode("                  ");
+              dom.appendChild(el0, el1);
+              var el1 = dom.createElement("div");
+              dom.setAttribute(el1, "class", "alert alert-danger form-signin-alert");
+              dom.setAttribute(el1, "role", "alert");
+              var el2 = dom.createComment("");
+              dom.appendChild(el1, el2);
+              var el2 = dom.createTextNode(" ");
+              dom.appendChild(el1, el2);
+              dom.appendChild(el0, el1);
+              var el1 = dom.createTextNode("\n");
+              dom.appendChild(el0, el1);
+              return el0;
+            },
+            buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+              var morphs = new Array(1);
+              morphs[0] = dom.createMorphAt(dom.childAt(fragment, [1]), 0, 0);
+              return morphs;
+            },
+            statements: [["inline", "t", ["login.messages.error"], [], ["loc", [null, [19, 81], [19, 109]]]]],
+            locals: [],
+            templates: []
+          };
+        })();
         return {
           meta: {
             "fragmentReason": false,
@@ -12814,12 +12826,12 @@ define("meg/templates/signin", ["exports"], function (exports) {
             "loc": {
               "source": null,
               "start": {
-                "line": 6,
-                "column": 2
+                "line": 10,
+                "column": 12
               },
               "end": {
-                "line": 12,
-                "column": 4
+                "line": 22,
+                "column": 12
               }
             },
             "moduleName": "meg/templates/signin.hbs"
@@ -12830,26 +12842,38 @@ define("meg/templates/signin", ["exports"], function (exports) {
           hasRendered: false,
           buildFragment: function buildFragment(dom) {
             var el0 = dom.createDocumentFragment();
-            var el1 = dom.createTextNode("        ");
+            var el1 = dom.createTextNode("\n              ");
             dom.appendChild(el0, el1);
             var el1 = dom.createComment("");
             dom.appendChild(el0, el1);
-            var el1 = dom.createTextNode("\n        ");
+            var el1 = dom.createTextNode(" ");
             dom.appendChild(el0, el1);
             var el1 = dom.createComment("");
             dom.appendChild(el0, el1);
-            var el1 = dom.createTextNode("\n        ");
+            var el1 = dom.createTextNode("\n              ");
             dom.appendChild(el0, el1);
             var el1 = dom.createElement("div");
             dom.setAttribute(el1, "class", "form-actions");
-            var el2 = dom.createTextNode("\n            ");
+            var el2 = dom.createTextNode("\n                ");
             dom.appendChild(el1, el2);
-            var el2 = dom.createElement("input");
-            dom.setAttribute(el2, "type", "submit");
-            dom.setAttribute(el2, "class", "btn btn-success");
-            dom.setAttribute(el2, "value", "Login");
+            var el2 = dom.createComment("<input  disabled={{isntValid}} type=\"submit\" class=\"btn btn-success\" value=\"Login\">");
             dom.appendChild(el1, el2);
-            var el2 = dom.createTextNode("\n        ");
+            var el2 = dom.createTextNode("\n\n                ");
+            dom.appendChild(el1, el2);
+            var el2 = dom.createElement("button");
+            dom.setAttribute(el2, "class", "button");
+            var el3 = dom.createElement("img");
+            dom.setAttribute(el3, "src", "../images/landing-page/sign-in-mascot.svg");
+            dom.setAttribute(el3, "class", "sign-in-mascot");
+            dom.appendChild(el2, el3);
+            var el3 = dom.createComment("");
+            dom.appendChild(el2, el3);
+            dom.appendChild(el1, el2);
+            var el2 = dom.createTextNode("\n\n");
+            dom.appendChild(el1, el2);
+            var el2 = dom.createComment("");
+            dom.appendChild(el1, el2);
+            var el2 = dom.createTextNode("              ");
             dom.appendChild(el1, el2);
             dom.appendChild(el0, el1);
             var el1 = dom.createTextNode("\n");
@@ -12857,16 +12881,19 @@ define("meg/templates/signin", ["exports"], function (exports) {
             return el0;
           },
           buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
-            var element0 = dom.childAt(fragment, [5, 1]);
-            var morphs = new Array(3);
+            var element0 = dom.childAt(fragment, [5]);
+            var element1 = dom.childAt(element0, [3]);
+            var morphs = new Array(5);
             morphs[0] = dom.createMorphAt(fragment, 1, 1, contextualElement);
             morphs[1] = dom.createMorphAt(fragment, 3, 3, contextualElement);
-            morphs[2] = dom.createAttrMorph(element0, 'disabled');
+            morphs[2] = dom.createElementMorph(element1);
+            morphs[3] = dom.createMorphAt(element1, 1, 1);
+            morphs[4] = dom.createMorphAt(element0, 5, 5);
             return morphs;
           },
-          statements: [["inline", "em-input", [], ["property", "name", "label", "Full Name", "placeholder", "Enter a name...", "type", "text"], ["loc", [null, [7, 8], [7, 96]]]], ["inline", "em-input", [], ["label", "Password", "property", "password", "placeholder", "And password...", "type", "password", "disabled", ["subexpr", "@mut", [["get", "nameHasValue", ["loc", [null, [8, 111], [8, 123]]]]], [], []]], ["loc", [null, [8, 8], [8, 125]]]], ["attribute", "disabled", ["get", "isntValid", ["loc", [null, [10, 30], [10, 39]]]]]],
+          statements: [["inline", "em-input", [], ["property", "email", "label", "email", "placeholder", "Enter a email...", "type", "text"], ["loc", [null, [12, 14], [12, 100]]]], ["inline", "em-input", [], ["label", "Password", "property", "password", "placeholder", "And password...", "type", "password", "disabled", ["subexpr", "@mut", [["get", "nameHasValue", ["loc", [null, [12, 204], [12, 216]]]]], [], []]], ["loc", [null, [12, 101], [12, 218]]]], ["element", "action", ["LoginAccount"], [], ["loc", [null, [16, 24], [16, 51]]]], ["inline", "t", ["login.messages.sign_in"], [], ["loc", [null, [16, 143], [16, 173]]]], ["block", "if", [["get", "errorMessage", ["loc", [null, [18, 22], [18, 34]]]]], [], 0, null, ["loc", [null, [18, 16], [20, 23]]]]],
           locals: [],
-          templates: []
+          templates: [child0]
         };
       })();
       return {
@@ -12883,7 +12910,7 @@ define("meg/templates/signin", ["exports"], function (exports) {
               "column": 0
             },
             "end": {
-              "line": 15,
+              "line": 31,
               "column": 0
             }
           },
@@ -12897,16 +12924,46 @@ define("meg/templates/signin", ["exports"], function (exports) {
           var el0 = dom.createDocumentFragment();
           var el1 = dom.createComment("");
           dom.appendChild(el0, el1);
-          var el1 = dom.createTextNode("\n");
+          var el1 = dom.createTextNode("\n  ");
           dom.appendChild(el0, el1);
           var el1 = dom.createElement("div");
-          dom.setAttribute(el1, "class", "container");
-          var el2 = dom.createTextNode("\n");
+          dom.setAttribute(el1, "class", "container signin");
+          var el2 = dom.createTextNode("\n    ");
           dom.appendChild(el1, el2);
-          var el2 = dom.createComment("");
+          var el2 = dom.createElement("section");
+          var el3 = dom.createTextNode("\n      ");
+          dom.appendChild(el2, el3);
+          var el3 = dom.createElement("div");
+          dom.setAttribute(el3, "id", "container_demo");
+          var el4 = dom.createTextNode("\n        ");
+          dom.appendChild(el3, el4);
+          var el4 = dom.createElement("div");
+          dom.setAttribute(el4, "id", "wrapper");
+          var el5 = dom.createTextNode("\n          ");
+          dom.appendChild(el4, el5);
+          var el5 = dom.createElement("div");
+          dom.setAttribute(el5, "id", "login");
+          dom.setAttribute(el5, "class", "form");
+          var el6 = dom.createTextNode("\n");
+          dom.appendChild(el5, el6);
+          var el6 = dom.createComment("");
+          dom.appendChild(el5, el6);
+          var el6 = dom.createTextNode("          ");
+          dom.appendChild(el5, el6);
+          dom.appendChild(el4, el5);
+          var el5 = dom.createTextNode("\n\n        ");
+          dom.appendChild(el4, el5);
+          dom.appendChild(el3, el4);
+          var el4 = dom.createTextNode("\n      ");
+          dom.appendChild(el3, el4);
+          dom.appendChild(el2, el3);
+          var el3 = dom.createTextNode("\n    ");
+          dom.appendChild(el2, el3);
+          dom.appendChild(el1, el2);
+          var el2 = dom.createTextNode("\n  ");
           dom.appendChild(el1, el2);
           dom.appendChild(el0, el1);
-          var el1 = dom.createTextNode(" ");
+          var el1 = dom.createTextNode("\n  ");
           dom.appendChild(el0, el1);
           var el1 = dom.createComment(" /container ");
           dom.appendChild(el0, el1);
@@ -12917,11 +12974,11 @@ define("meg/templates/signin", ["exports"], function (exports) {
         buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
           var morphs = new Array(2);
           morphs[0] = dom.createMorphAt(fragment, 0, 0, contextualElement);
-          morphs[1] = dom.createMorphAt(dom.childAt(fragment, [2]), 1, 1);
+          morphs[1] = dom.createMorphAt(dom.childAt(fragment, [2, 1, 1, 1, 1]), 1, 1);
           dom.insertBoundary(fragment, 0);
           return morphs;
         },
-        statements: [["block", "if", [["get", "redirected", ["loc", [null, [2, 6], [2, 16]]]]], [], 0, null, ["loc", [null, [2, 0], [3, 7]]]], ["block", "em-form", [], ["model", ["subexpr", "@mut", [["get", "model", ["loc", [null, [6, 19], [6, 24]]]]], [], []], "form_layout", "horizontal", "submit_button", false], 1, null, ["loc", [null, [6, 2], [12, 16]]]]],
+        statements: [["block", "if", [["get", "redirected", ["loc", [null, [2, 8], [2, 18]]]]], [], 0, null, ["loc", [null, [2, 2], [3, 9]]]], ["block", "em-form", [], ["model", ["subexpr", "@mut", [["get", "model", ["loc", [null, [10, 29], [10, 34]]]]], [], []], "form_layout", "horizontal", "submit_button", false], 1, null, ["loc", [null, [10, 12], [22, 24]]]]],
         locals: [],
         templates: [child0, child1]
       };
@@ -12940,7 +12997,7 @@ define("meg/templates/signin", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 16,
+            "line": 32,
             "column": 0
           }
         },
@@ -12963,7 +13020,7 @@ define("meg/templates/signin", ["exports"], function (exports) {
         dom.insertBoundary(fragment, null);
         return morphs;
       },
-      statements: [["block", "meg-layout", [], ["layoutName", "layouts/simple"], 0, null, ["loc", [null, [1, 0], [15, 15]]]]],
+      statements: [["block", "meg-layout", [], ["layoutName", "layouts/simple"], 0, null, ["loc", [null, [1, 0], [31, 15]]]]],
       locals: [],
       templates: [child0]
     };
@@ -12981,11 +13038,11 @@ define("meg/templates/signup", ["exports"], function (exports) {
               "source": null,
               "start": {
                 "line": 2,
-                "column": 0
+                "column": 2
               },
               "end": {
                 "line": 3,
-                "column": 0
+                "column": 2
               }
             },
             "moduleName": "meg/templates/signup.hbs"
@@ -13015,12 +13072,12 @@ define("meg/templates/signup", ["exports"], function (exports) {
               "loc": {
                 "source": null,
                 "start": {
-                  "line": 15,
-                  "column": 34
+                  "line": 13,
+                  "column": 16
                 },
                 "end": {
-                  "line": 17,
-                  "column": 29
+                  "line": 15,
+                  "column": 16
                 }
               },
               "moduleName": "meg/templates/signup.hbs"
@@ -13031,7 +13088,7 @@ define("meg/templates/signup", ["exports"], function (exports) {
             hasRendered: false,
             buildFragment: function buildFragment(dom) {
               var el0 = dom.createDocumentFragment();
-              var el1 = dom.createTextNode("                                      ");
+              var el1 = dom.createTextNode("                  ");
               dom.appendChild(el0, el1);
               var el1 = dom.createElement("button");
               dom.setAttribute(el1, "class", "button");
@@ -13053,7 +13110,7 @@ define("meg/templates/signup", ["exports"], function (exports) {
               morphs[1] = dom.createMorphAt(element0, 1, 1);
               return morphs;
             },
-            statements: [["element", "action", ["createAccount"], [], ["loc", [null, [16, 46], [16, 73]]]], ["inline", "t", ["signup.create"], [], ["loc", [null, [16, 165], [16, 186]]]]],
+            statements: [["element", "action", ["createAccount"], [], ["loc", [null, [14, 26], [14, 53]]]], ["inline", "t", ["signup.create"], [], ["loc", [null, [14, 145], [14, 166]]]]],
             locals: [],
             templates: []
           };
@@ -13066,12 +13123,12 @@ define("meg/templates/signup", ["exports"], function (exports) {
               "loc": {
                 "source": null,
                 "start": {
-                  "line": 18,
-                  "column": 29
+                  "line": 16,
+                  "column": 16
                 },
                 "end": {
-                  "line": 20,
-                  "column": 25
+                  "line": 18,
+                  "column": 16
                 }
               },
               "moduleName": "meg/templates/signup.hbs"
@@ -13082,7 +13139,7 @@ define("meg/templates/signup", ["exports"], function (exports) {
             hasRendered: false,
             buildFragment: function buildFragment(dom) {
               var el0 = dom.createDocumentFragment();
-              var el1 = dom.createTextNode("										                  ");
+              var el1 = dom.createTextNode("                  ");
               dom.appendChild(el0, el1);
               var el1 = dom.createElement("button");
               dom.setAttribute(el1, "class", "button");
@@ -13107,7 +13164,7 @@ define("meg/templates/signup", ["exports"], function (exports) {
               morphs[0] = dom.createMorphAt(dom.childAt(fragment, [1]), 1, 1);
               return morphs;
             },
-            statements: [["inline", "t", ["signup.onboarding"], [], ["loc", [null, [19, 118], [19, 143]]]]],
+            statements: [["inline", "t", ["signup.onboarding"], [], ["loc", [null, [17, 108], [17, 133]]]]],
             locals: [],
             templates: []
           };
@@ -13120,11 +13177,11 @@ define("meg/templates/signup", ["exports"], function (exports) {
               "source": null,
               "start": {
                 "line": 9,
-                "column": 28
+                "column": 12
               },
               "end": {
-                "line": 26,
-                "column": 26
+                "line": 24,
+                "column": 12
               }
             },
             "moduleName": "meg/templates/signup.hbs"
@@ -13135,23 +13192,23 @@ define("meg/templates/signup", ["exports"], function (exports) {
           hasRendered: false,
           buildFragment: function buildFragment(dom) {
             var el0 = dom.createDocumentFragment();
-            var el1 = dom.createTextNode("                                ");
+            var el1 = dom.createTextNode("              ");
             dom.appendChild(el0, el1);
             var el1 = dom.createComment("");
             dom.appendChild(el0, el1);
-            var el1 = dom.createTextNode("\n                                ");
+            var el1 = dom.createTextNode(" ");
             dom.appendChild(el0, el1);
             var el1 = dom.createComment("");
             dom.appendChild(el0, el1);
-            var el1 = dom.createTextNode("\n                                ");
+            var el1 = dom.createTextNode(" ");
             dom.appendChild(el0, el1);
             var el1 = dom.createComment("");
             dom.appendChild(el0, el1);
-            var el1 = dom.createTextNode("\n                                ");
+            var el1 = dom.createTextNode(" ");
             dom.appendChild(el0, el1);
             var el1 = dom.createComment("");
             dom.appendChild(el0, el1);
-            var el1 = dom.createTextNode("\n                                ");
+            var el1 = dom.createTextNode("\n              ");
             dom.appendChild(el0, el1);
             var el1 = dom.createElement("p");
             var el2 = dom.createTextNode("\n");
@@ -13160,21 +13217,21 @@ define("meg/templates/signup", ["exports"], function (exports) {
             dom.appendChild(el1, el2);
             var el2 = dom.createComment("");
             dom.appendChild(el1, el2);
-            var el2 = dom.createTextNode("								                ");
+            var el2 = dom.createTextNode("              ");
             dom.appendChild(el1, el2);
             dom.appendChild(el0, el1);
-            var el1 = dom.createTextNode("\n                                ");
+            var el1 = dom.createTextNode("\n              ");
             dom.appendChild(el0, el1);
             var el1 = dom.createElement("p");
             dom.setAttribute(el1, "class", "change_link");
-            var el2 = dom.createTextNode("\n									                    Already a member ?\n									                    ");
+            var el2 = dom.createTextNode("\n                Already a member ?\n                ");
             dom.appendChild(el1, el2);
             var el2 = dom.createElement("button");
             dom.setAttribute(el2, "class", "signed-out button--signin");
             var el3 = dom.createComment("");
             dom.appendChild(el2, el3);
             dom.appendChild(el1, el2);
-            var el2 = dom.createTextNode("\n								                ");
+            var el2 = dom.createTextNode("\n              ");
             dom.appendChild(el1, el2);
             dom.appendChild(el0, el1);
             var el1 = dom.createTextNode("\n");
@@ -13195,7 +13252,7 @@ define("meg/templates/signup", ["exports"], function (exports) {
             morphs[7] = dom.createMorphAt(element2, 0, 0);
             return morphs;
           },
-          statements: [["inline", "em-input", [], ["property", "name", "label", "Full Name", "placeholder", "Enter a name...", "type", "text"], ["loc", [null, [10, 32], [10, 120]]]], ["inline", "em-input", [], ["property", "email", "label", "email", "placeholder", "Enter a email...", "type", "text"], ["loc", [null, [11, 32], [11, 118]]]], ["inline", "em-input", [], ["label", "Password", "property", "password", "placeholder", "And password...", "type", "password", "disabled", ["subexpr", "@mut", [["get", "nameHasValue", ["loc", [null, [12, 135], [12, 147]]]]], [], []]], ["loc", [null, [12, 32], [12, 149]]]], ["inline", "em-input", [], ["label", "Password", "property", "passwordConfirmation", "placeholder", "And password...", "type", "password", "disabled", ["subexpr", "@mut", [["get", "nameHasValue", ["loc", [null, [13, 147], [13, 159]]]]], [], []]], ["loc", [null, [13, 32], [13, 161]]]], ["block", "if", [["get", "auth.signedOut", ["loc", [null, [15, 40], [15, 54]]]]], [], 0, null, ["loc", [null, [15, 34], [17, 36]]]], ["block", "if", [["get", "auth.signingIn", ["loc", [null, [18, 35], [18, 49]]]]], [], 1, null, ["loc", [null, [18, 29], [20, 32]]]], ["element", "action", ["signinPage"], [], ["loc", [null, [24, 71], [24, 95]]]], ["inline", "t", ["signup.signin"], [], ["loc", [null, [24, 96], [24, 117]]]]],
+          statements: [["inline", "em-input", [], ["property", "name", "label", "Full Name", "placeholder", "Enter a name...", "type", "text"], ["loc", [null, [10, 14], [10, 102]]]], ["inline", "em-input", [], ["property", "email", "label", "email", "placeholder", "Enter a email...", "type", "text"], ["loc", [null, [10, 103], [10, 189]]]], ["inline", "em-input", [], ["label", "Password", "property", "password", "placeholder", "And password...", "type", "password", "disabled", ["subexpr", "@mut", [["get", "nameHasValue", ["loc", [null, [11, 39], [11, 51]]]]], [], []]], ["loc", [null, [10, 190], [11, 53]]]], ["inline", "em-input", [], ["label", "Password", "property", "passwordConfirmation", "placeholder", "And password...", "type", "password", "disabled", ["subexpr", "@mut", [["get", "nameHasValue", ["loc", [null, [11, 169], [11, 181]]]]], [], []]], ["loc", [null, [11, 54], [11, 183]]]], ["block", "if", [["get", "auth.signedOut", ["loc", [null, [13, 22], [13, 36]]]]], [], 0, null, ["loc", [null, [13, 16], [15, 23]]]], ["block", "if", [["get", "auth.signingIn", ["loc", [null, [16, 22], [16, 36]]]]], [], 1, null, ["loc", [null, [16, 16], [18, 23]]]], ["element", "action", ["signinPage"], [], ["loc", [null, [22, 58], [22, 82]]]], ["inline", "t", ["signup.signin"], [], ["loc", [null, [22, 83], [22, 104]]]]],
           locals: [],
           templates: [child0, child1]
         };
@@ -13214,7 +13271,7 @@ define("meg/templates/signup", ["exports"], function (exports) {
               "column": 0
             },
             "end": {
-              "line": 35,
+              "line": 33,
               "column": 0
             }
           },
@@ -13228,22 +13285,22 @@ define("meg/templates/signup", ["exports"], function (exports) {
           var el0 = dom.createDocumentFragment();
           var el1 = dom.createComment("");
           dom.appendChild(el0, el1);
-          var el1 = dom.createTextNode("    ");
+          var el1 = dom.createTextNode("  ");
           dom.appendChild(el0, el1);
           var el1 = dom.createElement("div");
           dom.setAttribute(el1, "class", "container signup");
-          var el2 = dom.createTextNode("\n            ");
+          var el2 = dom.createTextNode("\n    ");
           dom.appendChild(el1, el2);
           var el2 = dom.createElement("section");
-          var el3 = dom.createTextNode("\n                ");
+          var el3 = dom.createTextNode("\n      ");
           dom.appendChild(el2, el3);
           var el3 = dom.createElement("div");
           dom.setAttribute(el3, "id", "container_demo");
-          var el4 = dom.createTextNode("\n                    ");
+          var el4 = dom.createTextNode("\n        ");
           dom.appendChild(el3, el4);
           var el4 = dom.createElement("div");
           dom.setAttribute(el4, "id", "wrapper");
-          var el5 = dom.createTextNode("\n                        ");
+          var el5 = dom.createTextNode("\n          ");
           dom.appendChild(el4, el5);
           var el5 = dom.createElement("div");
           dom.setAttribute(el5, "id", "register");
@@ -13252,19 +13309,19 @@ define("meg/templates/signup", ["exports"], function (exports) {
           dom.appendChild(el5, el6);
           var el6 = dom.createComment("");
           dom.appendChild(el5, el6);
-          var el6 = dom.createTextNode("\n                        ");
+          var el6 = dom.createTextNode("\n          ");
           dom.appendChild(el5, el6);
           dom.appendChild(el4, el5);
-          var el5 = dom.createTextNode("\n\n                    ");
+          var el5 = dom.createTextNode("\n\n        ");
           dom.appendChild(el4, el5);
           dom.appendChild(el3, el4);
-          var el4 = dom.createTextNode("\n                ");
+          var el4 = dom.createTextNode("\n      ");
           dom.appendChild(el3, el4);
           dom.appendChild(el2, el3);
-          var el3 = dom.createTextNode("\n            ");
+          var el3 = dom.createTextNode("\n    ");
           dom.appendChild(el2, el3);
           dom.appendChild(el1, el2);
-          var el2 = dom.createTextNode("\n        ");
+          var el2 = dom.createTextNode("\n  ");
           dom.appendChild(el1, el2);
           dom.appendChild(el0, el1);
           var el1 = dom.createTextNode("\n\n");
@@ -13278,7 +13335,7 @@ define("meg/templates/signup", ["exports"], function (exports) {
           dom.insertBoundary(fragment, 0);
           return morphs;
         },
-        statements: [["block", "if", [["get", "redirected", ["loc", [null, [2, 6], [2, 16]]]]], [], 0, null, ["loc", [null, [2, 0], [3, 7]]]], ["block", "em-form", [], ["model", ["subexpr", "@mut", [["get", "model", ["loc", [null, [9, 45], [9, 50]]]]], [], []], "form_layout", "horizontal", "submit_button", false], 1, null, ["loc", [null, [9, 28], [26, 38]]]]],
+        statements: [["block", "if", [["get", "redirected", ["loc", [null, [2, 8], [2, 18]]]]], [], 0, null, ["loc", [null, [2, 2], [3, 9]]]], ["block", "em-form", [], ["model", ["subexpr", "@mut", [["get", "model", ["loc", [null, [9, 29], [9, 34]]]]], [], []], "form_layout", "horizontal", "submit_button", false], 1, null, ["loc", [null, [9, 12], [24, 24]]]]],
         locals: [],
         templates: [child0, child1]
       };
@@ -13297,7 +13354,7 @@ define("meg/templates/signup", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 36,
+            "line": 34,
             "column": 0
           }
         },
@@ -13320,7 +13377,7 @@ define("meg/templates/signup", ["exports"], function (exports) {
         dom.insertBoundary(fragment, null);
         return morphs;
       },
-      statements: [["block", "meg-layout", [], ["layoutName", "layouts/simple"], 0, null, ["loc", [null, [1, 0], [35, 15]]]]],
+      statements: [["block", "meg-layout", [], ["layoutName", "layouts/simple"], 0, null, ["loc", [null, [1, 0], [33, 15]]]]],
       locals: [],
       templates: [child0]
     };
@@ -16351,7 +16408,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("meg/app")["default"].create({"LOG_ACTIVE_GENERATION":true,"LOG_TRANSITIONS":true,"LOG_TRANSITIONS_INTERNAL":true,"LOG_VIEW_LOOKUPS":true,"name":"meg","version":"0.0.0+15472c42"});
+  require("meg/app")["default"].create({"LOG_ACTIVE_GENERATION":true,"LOG_TRANSITIONS":true,"LOG_TRANSITIONS_INTERNAL":true,"LOG_VIEW_LOOKUPS":true,"name":"meg","version":"0.0.0+64fe94ac"});
 }
 
 /* jshint ignore:end */

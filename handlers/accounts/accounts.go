@@ -33,8 +33,12 @@ func NewAccount(data []byte) (*Accounts, error) {
 }
 
 func (a *Accounts) Create() error {
-  fmt.Println("------------------------------")
-  fmt.Println(a)
+
+
+  return nil
+}
+
+func (a *Accounts) Login() error {
 
   return nil
 }
