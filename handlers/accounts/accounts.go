@@ -2,7 +2,7 @@ package accounts
 
 import (
 	"encoding/json"
-  "fmt"
+//  "fmt"
 //  ldb "github.com/megamsys/libgo/db"
 //	constants "github.com/megamsys/libgo/utils"
 )
@@ -33,8 +33,12 @@ func NewAccount(data []byte) (*Accounts, error) {
 }
 
 func (a *Accounts) Create() error {
-  fmt.Println("------------------------------")
-  fmt.Println(a)
+
+
+  return nil
+}
+
+func (a *Accounts) Login() error {
 
   return nil
 }

@@ -1,10 +1,8 @@
 package host
 
 import (
-  "io"
-   "os"
-   "bytes"
-   "fmt"
+  "github.com/megamsys/megdcui/install"
+  
   "github.com/megamsys/megdc/handler"
   )
 
@@ -20,23 +18,11 @@ type HostCheck struct {
 }
 
 func (i *HostCheck) GetHostCheck(host, username, password string) error {
-  var outBuffer bytes.Buffer
-  writer := io.MultiWriter(&outBuffer, os.Stdout)
-  fmt.Printf("Before sent %#v:",outBuffer)
-
 	z :=HostCheck{ All: false, HostCheck: false, Host: host, Username: username, Password: password}
-
   f := handler.NewWrap(&z)
-  f.IfNoneAddPackages(INSTALL_PACKAGE)
-	if h, err := handler.NewHandler(f); err != nil {
-		return err
-	} else if err := h.Run(writer); err != nil {
-		return err
-	}
-  w, _ := os.Create("/home/dat2")
-  n2, _ := w.Write(outBuffer.Bytes())
-  //fmt.Print(writer.String())
-  fmt.Printf("%#v",writer)
-  fmt.Println(n2)
-	return nil
+  err := install.Runner(INSTALL_PACKAGE, f)
+  if err !=nil {
+    return err
+  }
+return nil
 }

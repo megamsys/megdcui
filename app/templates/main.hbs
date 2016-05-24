@@ -1,0 +1,37 @@
+{{#meg-layout layoutName="layouts/simple"}}
+{{#if redirected}}
+{{/if}}
+<div id="landing" class="landing">
+  <div class="row hero z-1">
+    <div class="landing-centered-wrapper">
+      <div class="large-12 columns" id="hero-copy">
+		    <h2>{{t "main.title"}}</h2>
+        <section>
+          {{#ivy-tabs on-select=(action (mut selectedIndex)) selected-index=selectedIndex as |tabs|}}
+            {{#tabs.tablist as |tablist|}}
+              {{#tablist.tab}}<h3>Step1</h3>{{/tablist.tab}}
+              {{#tablist.tab}}<h3>Step2</h3>{{/tablist.tab}}
+              {{#tablist.tab}}<h3>Step3</h3>{{/tablist.tab}}
+            {{/tabs.tablist}}
+
+            {{#tabs.tabpanel}}
+              {{partial 'components/steps/step1'}}
+            {{/tabs.tabpanel}}
+
+            {{#tabs.tabpanel}}
+              {{partial 'components/steps/step2'}}
+            {{/tabs.tabpanel}}
+
+            {{#tabs.tabpanel}}
+              {{partial 'components/steps/step3'}}
+            {{/tabs.tabpanel}}
+        {{/ivy-tabs}}
+
+        </section>
+     </div>
+    </div>
+  </div>
+</div>
+
+
+{{/meg-layout}}

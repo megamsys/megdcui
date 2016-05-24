@@ -11,15 +11,18 @@ cd "$(dirname "$0")/.."
 if [ -f "package.json" ]; then
   echo "==> Installing packages…"
   npm install
+  npm install -g bower
   npm install -g phantomjs-prebuilt
+  npm install -g ember-cli
 fi
 
-if [ -f "bower.json"]; then
+if [ -f "bower.json" ]; then
   echo "==> Installing bower components…"
   bower install
 fi
 
 if [ -f "Gemfile" ]; then
+  gem install bundler
   echo "==> Installing gem dependencies…"
   bundle install
 fi

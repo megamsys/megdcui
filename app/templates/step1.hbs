@@ -1,0 +1,78 @@
+{{#meg-layout layoutName="layouts/simple"}}
+{{#if redirected}}
+{{/if}}
+<div id="landing" class="landing">
+  <div class="row hero z-1">
+    <div class="landing-centered-wrapper">
+      <div class="large-12 columns" id="hero-copy">
+		    <h2>{{t "step1.title"}}</h2>
+        <section>
+            <div class="landing-centered-wrapper">
+                <div class="large-12 columns" id="hero-copy">
+                  <h2>{{t "step1.sub.title"}}</h2>
+                </div>
+                <div class="large-12 columns">
+                  <div class="large-6 columns">
+                    <h3>{{t "step1.type1.title"}}</h3>
+                    <h3>{{t "step1.type1.price"}}</h3>
+                    <div class="large-12 columns">
+                      <div class="large-6 columns">
+                        <div class="well well-lg">
+                          <div class="large-12">
+                            <div class="row">
+                              <span class="label label-warning">{{t "step1.type1.dash"}}</span>
+                            </div>
+                            <h3>{{t "step1.type1.minified_edition_name"}}</h3>
+                            <h3>{{t "step1.type1.edition"}}</h3>
+                            <div class="row">
+                              {{#if typeBeforeMiniSelect}}
+                                  <button class="button" {{action 'miniSelected'}}>Select</button>
+                              {{/if}}
+                              {{#if typeAfterMiniSelect}}
+                                  <button class="btn-activated" >Selected</button>
+                              {{/if}}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="large-6 columns">
+                        <div class="well well-lg">
+                          <div class="large-12">
+                            <div class="row">
+                              <span class="label label-warning">{{t "step1.type1.dash"}}</span>
+                            </div>
+                            <h3>{{t "step1.type1.complete_edition_name"}}</h3>
+                            <h3>{{t "step1.type1.edition"}}</h3>
+                            <div class="row">
+                              {{#if typeBeforeCompleteSelect}}
+                                  <button class="button" {{action 'completeSelected'}}>Select</button>
+                              {{/if}}
+                              {{#if typeAfterCompleteSelect}}
+                                  <button class="btn-activated" >Selected</button>
+                              {{/if}}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {{#paper-button raised=true warn=true}}compare editions{{/paper-button}}
+                  </div>
+                  <div class="large-6  columns">
+                    <h3>{{t "step1.type2.title"}}</h3>
+                    <h3>{{t "step1.type2.description"}}</h3>
+                    {{paper-input label="IP Address"}}
+                    {{paper-input label="Username"}}
+                    {{paper-input label="Password"}}
+                    {{#paper-button raised=true primary=true}}Start{{/paper-button}}
+                  </div>
+                </div>
+              </div>
+              <button class="button" {{action 'goto'}}>Next</button>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+{{/meg-layout}}

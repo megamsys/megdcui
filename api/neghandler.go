@@ -1,10 +1,10 @@
 package api
 
 import (
-	"net/http"
 	"github.com/codegangsta/negroni"
 	"github.com/megamsys/megdcui/handlers"
 	"github.com/rs/cors"
+	"net/http"
 )
 
 type MegdHandler struct {
@@ -35,17 +35,20 @@ func NewNegHandler() *negroni.Negroni {
 	for _, handler := range megdHandlerList {
 		m.Add(handler.method, handler.path, handler.h)
 	}
-	m.Add("GET", "/hostinfos", Handler(hostinfos))
-	m.Add("GET", "/hostcheck", Handler(hostcheck))
-	m.Add("GET", "/bridge", Handler(bridge))
-	m.Add("GET", "/network", Handler(network))
-  m.Add("GET", "/migrate", Handler(migrate))
-	m.Add("GET", "/attachonehost", Handler(attachonehost))
-	m.Add("GET", "/datastore", Handler(datastore))
-	m.Add("Post", "/onehosts", Handler(onehosts))
-	m.Add("Post", "/onestorages", Handler(onestorages))
-	m.Add("Post", "/configurations", Handler(configurations))
-  m.Add("Post", "/accounts/content", Handler(handlers.Accounts))
+	m.Add("POST", "/hostinfos/content", Handler(handlers.HostInfosContent))
+	m.Add("POST", "/hostinfos/install", Handler(handlers.HostInfosInstall))
+
+	m.Add("GET", "/hostcheck", Handler(handlers.HostCheck))
+	m.Add("GET", "/bridge", Handler(handlers.Bridge))
+	m.Add("GET", "/network", Handler(handlers.Network))
+	m.Add("GET", "/migrate", Handler(handlers.Migrate))
+	m.Add("GET", "/attachonehost", Handler(handlers.AttachOneHost))
+	m.Add("GET", "/datastore", Handler(handlers.DataStore))
+	m.Add("GET", "/onehosts", Handler(handlers.OneHosts))
+	m.Add("Post", "/onestorages", Handler(handlers.OneStorages))
+	m.Add("Post", "/configurations", Handler(handlers.Configurations))
+	m.Add("Post", "/accounts/content", Handler(handlers.CreateAccounts))
+	m.Add("Post", "/login", Handler(handlers.SigninAccounts))
 	//m.Add("Get", "/", home.HomeHandler)
 	//m.Add("Get", "/logs", Handler(logs))
 	m.Add("POST", "/ping", Handler(ping))

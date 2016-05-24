@@ -1,0 +1,101 @@
+{{#meg-layout layoutName="layouts/simple"}}
+{{#if redirected}}
+{{/if}}
+<div id="landing" class="landing">
+  <div class="row hero z-1">
+    <div class="landing-centered-wrapper">
+      <div class="large-12 columns" id="hero-copy">
+		    <h2>{{t "step1.title"}}</h2>
+        <section>
+          <div class="landing-centered-wrapper">
+            <div class="large-12 columns" id="hero-copy">
+              <h2>{{t "step3.sub.title"}}</h2>
+            </div>
+            <div class="large-12 columns">
+              <div class="col-sm-4" style="background-color:lavender;">
+                <br/>
+                <div class="list-group">
+                  <button type="button" class="list-group-item">Host 1</button>
+                  <button type="button" class="list-group-item">Host 2</button>
+                  <button type="button" class="list-group-item">Host 3</button>
+                  <button type="button" class="list-group-item">Host 4</button>
+                </div>
+              </div>
+              <div class="col-sm-8" style="background-color:#DCDCDC;">
+                <div class="large-12 columns" id="hero-copy">
+                  <h2>Host 2</h2>
+                </div>
+                <div class="large-12 columns" id="hero-copy">
+                  <div class="col-sm-6">
+                    <h4>IP Address <span class="label label-default">103.56.92.24</span></h4>
+                    <h4>Username <span class="label label-default">megam</span></h4>
+                    <h4>Password <span class="label label-default">megam</span></h4>
+                    <h4>File System <span class="label label-default">ext4</span></h4>
+                    <h4>Cpu <span class="label label-default">12</span></h4>
+                  </div>
+                  <div class="col-sm-6">
+                    <h4>choose :</h4>
+                    <div class="large-12 columns">
+                      <div class="col-sm-6">
+                      {{paper-radio toggle=true label="CEPH" }}
+                    </div>
+                    <div class="col-sm-6">
+                      {{paper-radio toggle=true label="LVM" }}
+                    </div>
+                  </div>
+                    {{#paper-button raised=true warn=true}}Install{{/paper-button}}
+                    {{#paper-button raised=true disabled=true}}Migrate{{/paper-button}}
+                  </div>
+                  <div class="large-12 columns">
+                  <table class="table table-condensed" align="left">
+                    <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Disk</th>
+                      <th>Type</th>
+                      <th>Size</th>
+                      <th>Mount Point</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>sda</td>
+                      <td>disk</td>
+                      <td>5.5T</td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>sda1</td>
+                      <td>part</td>
+                      <td>5.5T</td>
+                      <td>/storage1</td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>sdb</td>
+                      <td>disk</td>
+                      <td>5.5T</td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>4</td>
+                      <td>sdb1</td>
+                      <td>disk</td>
+                      <td>5.5T</td>
+                      <td>/storage2</td>
+                    </tr>
+                  </tbody>
+                  </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+{{/meg-layout}}

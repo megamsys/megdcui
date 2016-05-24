@@ -17,3 +17,7 @@
 npm-debug.log
 testem.log
 
+megdcui
+memprof
+cpuprof
+

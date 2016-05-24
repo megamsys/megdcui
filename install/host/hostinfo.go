@@ -1,11 +1,8 @@
 package host
 
 import (
-  "io"
-   "os"
-   "bytes"
-   "fmt"
   "github.com/megamsys/megdc/handler"
+  "github.com/megamsys/megdcui/install"
   )
 
 
@@ -21,21 +18,11 @@ type HostInfo struct {
 }
 
 func (i *HostInfo) GetHostInfo(host, username, password string) error {
-  var outBuffer bytes.Buffer
- writer := io.MultiWriter(&outBuffer, os.Stdout)
- fmt.Printf("Before sent %#v:",outBuffer)
-
 	z :=HostInfo{ All: false, HostInfo: false, Host: host, Username: username, Password: password}
-
   f := handler.NewWrap(&z)
-  f.IfNoneAddPackages(INSTALL_PACKAGES)
-	if h, err := handler.NewHandler(f); err != nil {
-		return err
-	} else if err := h.Run(writer); err != nil {
-		return err
-	}
-
-  s := outBuffer.String()
-  fmt.Println(s)
-	return nil
+  err := install.Runner(INSTALL_PACKAGES, f)
+  if err !=nil {
+    return err
+  }
+return nil
 }
