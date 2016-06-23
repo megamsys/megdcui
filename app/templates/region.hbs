@@ -1,0 +1,40 @@
+{{#meg-layout layoutName="layouts/simple"}}
+{{#if redirected}}
+{{/if}}
+<div id="landing" class="landing">
+  <div class="row hero z-1">
+    <div class="landing-centered-wrapper">
+      <div class="large-12 columns" id="hero-copy">
+         <h2>Select Region</h2>
+        <section>
+          <div class="landing-centered-wrapper">
+            {{input valueBinding="firstname" label="First Name" placeholder="Enter first name" type="text"}}
+            {{input valueBinding="lastname" label="Last Name" placeholder="Enter last name" type="text"}}
+              <button class="button" {{action 'result'}}>Result with alert</button>
+              <button class="button" {{action 'show'}}>Step 3</button>
+          </div>
+<!--<div class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">{{title}}</h4>
+      </div>
+      <div class="modal-body">
+        {{yield}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" {{action 'result'}}>OK</button>
+      </div>
+    </div>
+  </div>
+</div>-->
+          </section>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+{{/meg-layout}}
