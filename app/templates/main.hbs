@@ -11,6 +11,7 @@
             {{#tabs.tablist as |tablist|}}
               {{#tablist.tab}}<h3>Step1</h3>{{/tablist.tab}}
               {{#tablist.tab}}<h3>Step2</h3>{{/tablist.tab}}
+              {{#tablist.tab}}<h3>region</h3>{{/tablist.tab}}
               {{#tablist.tab}}<h3>Step3</h3>{{/tablist.tab}}
             {{/tabs.tablist}}
 
@@ -20,6 +21,10 @@
 
             {{#tabs.tabpanel}}
               {{partial 'components/steps/step2'}}
+            {{/tabs.tabpanel}}
+
+            {{#tabs.tabpanel}}
+              {{partial 'components/steps/region'}}
             {{/tabs.tabpanel}}
 
             {{#tabs.tabpanel}}
