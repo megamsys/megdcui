@@ -1,31 +1,112 @@
-{{#meg-layout layoutName="layouts/simple" }}
-  {{#if redirected}}
-  {{/if}}
 
-  <div class="container signin">
-    <section>
-      <div id="container_demo">
-        <div id="wrapper">
-          <div id="login" class="form">
-            {{#em-form model=model form_layout='horizontal' submit_button=false}}
 
-              {{em-input property="email" label="email" placeholder="Enter a email..." type="text"}} {{em-input label="Password" property="password" placeholder="And password..." type="password" disabled=nameHasValue}}
-              <div class="form-actions">
-                <!--<input  disabled={{isntValid}} type="submit" class="btn btn-success" value="Login">-->
-
-                <button {{ action "LoginAccount" }} class="button"><img src="../images/landing-page/sign-in-mascot.svg" class="sign-in-mascot">{{t "login.messages.sign_in"}}</button>
-
-                {{#if errorMessage}}
-                  <div class="alert alert-danger form-signin-alert" role="alert">{{t 'login.messages.error'}} </div>
-                {{/if}}
-              </div>
-            {{/em-form}}
-          </div>
-
-        </div>
+<style>
+   .card {
+   box-shadow: 10px 10px 5px 0px rgb(108, 152, 118); }
+   .card {
+   margin-top: 10px;
+   box-sizing: border-box;
+   border-radius: 2px;
+   background-clip: padding-box;
+   background-color: #eae7e3;
+   text-align: center;
+   }
+   .card span.card-title {
+   color: #fff;
+   font-size: 24px;
+   font-weight: 300;
+   text-transform: uppercase;
+   }
+   .card .card-image {
+   position: relative;
+   overflow: hidden;
+   }
+   .card .card-image img {
+   border-radius: 2px 2px 0 0;
+   background-clip: padding-box;
+   position: relative;
+   z-index: -1;
+   }
+   .card .card-image span.card-title {
+   position: absolute;
+   bottom: 0;
+   left: 0;
+   padding: 16px;
+   }
+   .card .card-content {
+   padding: 16px;
+   border-radius: 0 0 2px 2px;
+   background-clip: padding-box;
+   box-sizing: border-box;
+   }
+   .card .card-content p {
+   margin: 0;
+   color: inherit;
+   }
+   .card .card-content span.card-title {
+   line-height: 48px;
+   }
+   .card .card-action {
+   border-top: 1px solid rgba(160, 160, 160, 0.2);
+   padding: 16px;
+   }
+   .card .card-action a {
+   color: #ffab40;
+   margin-right: 16px;
+   transition: color 0.3s ease;
+   text-transform: uppercase;
+   }
+   .card .card-action a:hover {
+   color: #ffd8a6;
+   text-decoration: none;
+   }
+   .card-block{
+   padding: 44px;
+   text-align: left;
+   }
+   .help-block{display: block;
+   margin-top: 6%;
+   margin-bottom: -4%;
+   margin-left: 5%;
+   }
+   .form-horizontal .has-feedback .form-control-feedback{
+   right: 3%;
+   }
+   .card-block .col-sm-10{width: 100%}
+   .form-actions{
+   text-align: center;
+   }
+   .button{background-color: rgb(79, 179, 79);}
+</style>
+<div align="center">
+   <div class="card large-4">
+      <div class="card-header">
+         <h2>Log in</h2>
       </div>
-    </section>
-  </div>
-  <!-- /container -->
-
-{{/meg-layout}}
+      <div class="card-block">
+         <div id="login" class="form">
+            {{#em-form model=model form_layout='horizontal' submit_button=false}}
+            <div class="form-group">
+               <div class="col-sm-12">
+                  <label class="control-label" for="email">Email</label>
+                  {{em-input property="email" id="email" placeholder="Enter a email..." type="text"}}
+               </div>
+            </div>
+            <div class="form-group">
+               <div class="col-sm-12">
+                  <label class="control-label" for="password">Password</label>
+                  {{em-input property="password" id="password" placeholder="And password..." type="password" disabled=nameHasValue}}
+               </div>
+            </div>
+            <div class="form-actions">
+               <!--<input  disabled={{isntValid}} type="submit" class="btn btn-success" value="Login">-->
+               <button {{ action "LoginAccount" }} class="button"><img src="../images/landing-page/sign-in-mascot.svg" class="sign-in-mascot">{{t "login.messages.sign_in"}}</button>
+               {{#if errorMessage}}
+               <div class="alert alert-danger form-signin-alert" role="alert">{{t 'login.messages.error'}} </div>
+               {{/if}}
+            </div>
+            {{/em-form}}
+         </div>
+      </div>
+   </div>
+</div>

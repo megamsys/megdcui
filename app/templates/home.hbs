@@ -6,8 +6,11 @@
           <h1>{{t "landingpage.title"}}</h1>
           <p>{{t "landingpage.description"}}</p>
           {{#if auth.signedOut}}
-            <button {{ action "signupPage" }} class="button"><img src="../images/landing-page/sign-in-mascot.svg" class="sign-in-mascot">{{t "landingpage.signup"}}</button>
+            <button {{ action "signup" }} class="button"><img src="../images/landing-page/sign-in-mascot.svg" class="sign-in-mascot">{{t "landingpage.signup"}}</button>
           {{/if}}
+          <div class="row">
+            <button {{ action "signin" }} class="button">Sign in</button>
+          </div>
         </div>
       </div>
     </div>
