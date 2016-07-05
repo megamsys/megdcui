@@ -1,11 +1,18 @@
 =======
-megdcUI
+Megdc => Automate your datacenter (Hosting industry) via DET.io
 =================
 
-Automatted base install
+An easy to use user interface using a SaaS based subcription model that helps you setup PaaS/SaaS for your Hosting clients. 
+### **This project is not active**
+
+Contact @megamsys partner [DET.io](https://det.io) for access to subscription paid service.  
+
+For opensource version [megamsys/megdc](https://github.com/megamsys/megdc)
+
+We have moved this development work to a private repo [https://github.com/megamsys/onboardcloud](https://github.com/megamsys/onboardcloud) will opensource it when we think so.
 
 
-### Requirements
+### Requirements 
 
 >
 [Golang 1.5 > +](http://www.golang.org/dl)
